@@ -1,6 +1,8 @@
 package Datei;
 
 import Datum.Datum;
+import Tag.Tag;
+import Tag.TagsContainer;
 
 public class Datei {
 	

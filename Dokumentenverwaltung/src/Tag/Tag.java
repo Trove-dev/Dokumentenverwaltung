@@ -1,5 +1,7 @@
 package Tag;
 
+import Datei.Datei;
+
 public class Tag {
 	
 	private Tag SubTags[];

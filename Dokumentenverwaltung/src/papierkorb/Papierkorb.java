@@ -1,5 +1,7 @@
 package papierkorb;
 
+import Datei.Datei;
+
 public class Papierkorb {
 	
 	private String name;

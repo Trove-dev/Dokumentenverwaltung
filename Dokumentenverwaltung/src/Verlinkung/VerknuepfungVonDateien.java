@@ -1,5 +1,7 @@
 package Verlinkung;
 
+import Datei.Datei;
+
 public class VerknuepfungVonDateien {
 	
 	private Datei listeDateien[];
