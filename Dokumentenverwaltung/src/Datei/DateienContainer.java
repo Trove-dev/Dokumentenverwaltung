@@ -19,20 +19,42 @@ public class DateienContainer implements DateienContainerIF{
 		return uniqueInstance;
 	}
 	
-	public static Datei hochladeDatei(Path file, String name) {
+	public Datei hochladeDatei(Path file, String name) {
 		try {
 			BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 			
-			Datei dokument = new Datei(name, attr.creationTime(), attr.lastAccessTime(), attr.lastModifiedTime(), attr.isDirectory(), attr.isRegularFile(), attr.isSymbolicLink(), attr.isOther(), attr.size(), file);
-			System.out.println(dokument + " wurde gespeichert!");
+			Datei tmp = new Datei(name, attr.creationTime(), attr.lastAccessTime(), attr.lastModifiedTime(), attr.isDirectory(), attr.isRegularFile(), attr.isSymbolicLink(), attr.isOther(), attr.size(), file);
+			dateienListe.add(tmp);
+			System.out.println(tmp + " wurde gespeichert!");
 		}
 		catch(IOException e) {
 			System.out.println("Datei konnte nicht geladen werden! (Nicht vorhanden oder korrupt)");
 		}
-		
-		
-		
 		return null;
 	}
+	
+	public void zeigeAlleDateien() {
+		for(Datei a:dateienListe) {
+			System.out.println(a);
+		}
+	}
+	
+	public void zeigeAlleDateienDetails() {
+		for(Datei a:dateienListe) {
+			a.anzeigeDateiDetail();
+		}
+		System.out.println();
+	}
+	
+	public ArrayList<Datei> getAlleDateien(){
+		if (dateienListe.isEmpty() == true) {
+			return null;
+		}
+		else {
+			return dateienListe;
+		}
+	}
+	
+	
 
 }
