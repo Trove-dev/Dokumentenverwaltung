@@ -2,12 +2,9 @@ package Tag;
 
 public class TagsContainer implements TagsContainerInterface{
 	private Tag listeTags[];
-	private TagsContainer uniqueInstanceTags;
+	private static TagsContainer uniqueInstance = null;
 	
-	public TagsContainer(Tag[] listeTags, TagsContainer uniqueInstanceTags) {
-		super();
-		this.listeTags = listeTags;
-		this.uniqueInstanceTags = uniqueInstanceTags;
+	public TagsContainer() {
 	}
 	
 	public void addiereNeuesTag() {
@@ -19,8 +16,8 @@ public class TagsContainer implements TagsContainerInterface{
 		
 	}
 	
-	public TagsContainer getInstanceTags() {
-		return null;
+	public static TagsContainer getInstance() {
+		if(uniqueInstance == null) uniqueInstance = new TagsContainer();
+		return uniqueInstance;
 	}
-	
 }
