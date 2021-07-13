@@ -1,6 +1,7 @@
 package Datei;
 
 import Datum.Datum;
+import Nutzer.Nutzer;
 import Tag.Tag;
 import Tag.TagsContainer;
 
