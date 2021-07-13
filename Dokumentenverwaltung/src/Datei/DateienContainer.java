@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 
-public class DateienContainer implements DateienContainerIF{
+public class DateienContainer implements DateienContainerInterface{
 	private static DateienContainer uniqueInstance = null;
 	private ArrayList<Datei> dateienListe = new ArrayList<>();
 	
