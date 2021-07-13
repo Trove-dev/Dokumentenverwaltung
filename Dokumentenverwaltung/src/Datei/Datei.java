@@ -1,6 +1,10 @@
 package Datei;
 
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
+
 import Datum.Datum;
+import Nutzer.Nutzer;
 import Tag.Tag;
 import Tag.TagsContainer;
 
@@ -8,20 +12,46 @@ public class Datei {
 	
 	private String name;
 	private String ersteller;
-	private Datum erstellungsDatum;
-	private String DateiPfed;
+	private FileTime erstellungsDatum;
+	private Path dateiPfad;
 	private String kommentar;
 	private TagsContainer tags[];
 	private Datei verknuepfung[];
-	private Datum datumVonletzterAenderung;
+	private FileTime datumVonletzterAenderung;
 	private String format;
 	private int haeufigkeitVonOeffnung;
-	private double groesse;
+	private long groesse;
 	
-	public Datei(Nutzer nutzer) {
-		super();
+//	public Datei(String name , String ersteller, Datum erstellungsDatum, String dateiPfad, String kommentar, TagsContainer tags[], Datei verknuepfung[], Datum datumVonletzterAenderung, String format, int haeufigkeitVonOeffnung, double groesse) {
+//		this.name = name;
+//		this.ersteller = ersteller;
+//		this.erstellungsDatum = erstellungsDatum;
+//		this.dateiPfad = dateiPfad;
+//		this.kommentar = kommentar;
+//		this.tags = tags;
+//		this.verknuepfung = verknuepfung;
+//		this.datumVonletzterAenderung = datumVonletzterAenderung;
+//		this.format = format;
+//		this.haeufigkeitVonOeffnung = haeufigkeitVonOeffnung;
+//		this.groesse = groesse;
+//	}
+	
+	public Datei(String name, FileTime creationTime, FileTime lastAccessTime, FileTime lastModifiedTime,
+			boolean directory, boolean regularFile, boolean symbolicLink, boolean other, long size, Path file) {
+		this.name = name;
+		this.ersteller = null;
+		this.erstellungsDatum = creationTime;
+		this.dateiPfad = file;
+		this.kommentar = null;
+		this.tags = null;
+		this.verknuepfung = null;
+		this.datumVonletzterAenderung = lastModifiedTime;
+		this.format = null;
+		this.haeufigkeitVonOeffnung = 0;
+		this.groesse = size;
+		
 	}
-	
+
 	public void addiereTag() {
 		
 	}
@@ -50,20 +80,20 @@ public class Datei {
 		this.ersteller = ersteller;
 	}
 
-	public Datum getErstellungsDatum() {
+	public FileTime getErstellungsDatum() {
 		return erstellungsDatum;
 	}
 
-	public void setErstellungsDatum(Datum erstellungsDatum) {
+	public void setErstellungsDatum(FileTime erstellungsDatum) {
 		this.erstellungsDatum = erstellungsDatum;
 	}
 
-	public String getDateiPfed() {
-		return DateiPfed;
+	public Path getDateiPfed() {
+		return dateiPfad;
 	}
 
-	public void setDateiPfed(String dateiPfed) {
-		DateiPfed = dateiPfed;
+	public void setDateiPfed(Path dateiPath) {
+		dateiPfad = dateiPfad;
 	}
 
 	public String getKommentar() {
@@ -90,11 +120,11 @@ public class Datei {
 		this.verknuepfung = verknuepfung;
 	}
 
-	public Datum getDatumVonletzterAenderung() {
+	public FileTime getDatumVonletzterAenderung() {
 		return datumVonletzterAenderung;
 	}
 
-	public void setDatumVonletzterAenderung(Datum datumVonletzterAenderung) {
+	public void setDatumVonletzterAenderung(FileTime datumVonletzterAenderung) {
 		this.datumVonletzterAenderung = datumVonletzterAenderung;
 	}
 
@@ -118,7 +148,7 @@ public class Datei {
 		return groesse;
 	}
 
-	public void setGroesse(double groesse) {
+	public void setGroesse(long groesse) {
 		this.groesse = groesse;
 	}
 	
