@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import Datei.DateienContainer;
-import Datei.DateienContainerIF;
+import Datei.DateienContainerInterface;
 import Datei.Datei;
 
 public class DateiEinlesenlUI {
