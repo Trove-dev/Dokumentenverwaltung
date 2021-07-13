@@ -5,6 +5,7 @@ import Datei.Datei;
 public class VerknuepfungVonDateien {
 	
 	private Datei listeDateien[];
+	private static VerknuepfungVonDateien uniqueInstance = null;
 
 	public VerknuepfungVonDateien() {
 		
@@ -16,6 +17,11 @@ public class VerknuepfungVonDateien {
 	
 	public void entkoppleDatei(Datei dokument) {
 			
+	}
+
+	public static VerknuepfungVonDateien getInstance() {
+		if(uniqueInstance == null) uniqueInstance = new VerknuepfungVonDateien();
+		return uniqueInstance;
 	}
 		
 }

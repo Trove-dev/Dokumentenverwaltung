@@ -1,5 +1,5 @@
 package Datei;
 
-public interface DateienContainerIF {
+public interface DateienContainerInterface {
 
 }
