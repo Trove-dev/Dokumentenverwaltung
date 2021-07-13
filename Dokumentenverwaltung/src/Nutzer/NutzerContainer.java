@@ -1,14 +1,20 @@
 package Nutzer;
 
 public class NutzerContainer implements NutzerContainerInterface{
+	private static NutzerContainer uniqueInstance = null;
 	private Nutzer listeNutzer[];
 	
-	private static NutzerContainer uniqueInstance;
-	
-	
-	
+	private NutzerContainer() {
+	}
+	public static NutzerContainer getInstance() {
+		if (uniqueInstance == null) {
+			uniqueInstance = new NutzerContainer();
+		}
+		return uniqueInstance;
+	}
 	
 	public void addiereNutzer(String name, String rechte, String nameVollstaendig) {
+		Nutzer tmp = new Nutzer(name, rechte, nameVollstaendig);
 		
 	}
 	
@@ -19,18 +25,5 @@ public class NutzerContainer implements NutzerContainerInterface{
 	public void bearbeiteNutzer(String name, String rechte, String nameVollstaendig) {
 		
 	}
-	
-	public NutzerContainer getInstanceNutzer() {
-		if (uniqueInstance == null) {
-			uniqueInstance = new NutzerContainer(listeNutzer);
-		}
-		return uniqueInstance;
-	}
-	
-	public NutzerContainer(Nutzer[] listeNutzer) {
-		super();
-		this.listeNutzer = listeNutzer;
-	}
-	
 
 }
