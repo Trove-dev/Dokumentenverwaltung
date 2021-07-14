@@ -12,9 +12,10 @@ import java.util.Date;
 import java.util.Scanner;
 
 import Datei.DateienContainer;
+import Datei.DateienContainerInterface;
 import Datei.Datei;
 
-public class DateiAuswahlUI {
+public class DateiEinlesenlUI {
 	
 	public static void DateiAuswahlUIAuswahl() throws IOException {
 		System.out.println("\ndir\t\t- listet alle Dateien und Unterverzeichnisse auf");
@@ -34,26 +35,28 @@ public class DateiAuswahlUI {
 	        input = sc.nextLine();
 	        input = input.trim();
 	        if( input.startsWith("dir") ){                
-	            DateiAuswahlUI.dir(actPath);
+	            DateiEinlesenlUI.dir(actPath);
 	        }
 	        else if( input.startsWith("cd ") ){               
-	            actPath = DateiAuswahlUI.cd(input.substring(3,input.length()), actPath);
+	            actPath = DateiEinlesenlUI.cd(input.substring(3,input.length()), actPath);
 	        }
 	        else if( input.startsWith("back")){
-	            System.out.println("\nWillkommen zurück im Hauptmenü!");
+	        	hilfUI.clearScreen();
+	        	System.out.println("\nWillkommen zurück im Hauptmenü!");
 	            System.out.println("upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen");
+	            System.out.println("view \t\t- wechselt in die Ansicht, um Dokumente anzusehen");
 	    	    System.out.println("end\t\t- beendet das Programm");
 	    	    System.out.println("----------------");
 	            break;
 	        }
 	        else if( input.startsWith("info") ) {
 	        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
-	        	DateiAuswahlUI.info(pathGet, input.substring(5));
+	        	DateiEinlesenlUI.info(pathGet, input.substring(5));
 	        }
 	        else if( input.startsWith("save") ) {
 	        	String name = input.substring(5);
 	        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
-	        	DateiAuswahlUI.save(pathGet, name);
+	        	DateiEinlesenlUI.save(pathGet, name);
 	        }
 	        else{
 	            System.out.println("Unbekannter Befehl");
@@ -61,9 +64,7 @@ public class DateiAuswahlUI {
 	    }
 		
 	}
-	
-	
-	
+
 	
 	public static File cd(String neuVZ, File actPath) throws IOException {
         System.out.println("Aufruf von cd mit dem Parameter "+neuVZ);
@@ -136,7 +137,7 @@ public class DateiAuswahlUI {
 	
 	public static void save(Path file, String name) {
 		System.out.println("Aufruf von save mit dem Parameter " + name);
-		DateienContainer.hochladeDatei(file, name);
+		DateienContainer.getInstance().hochladeDatei(file, name);
 	}
 
 }

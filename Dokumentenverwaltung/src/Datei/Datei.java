@@ -37,8 +37,23 @@ public class Datei {
 		this.datumVonletzterAenderung = lastModifiedTime;
 		this.format = null;
 		this.haeufigkeitVonOeffnung = 0;
-		this.groesse = size;
-		
+		this.groesse = size;	
+	}
+	
+	public void anzeigeDateiDetail() {
+		//System.out.println(this);				//debug
+		System.out.println("Name der Datei:\t\t" + name);
+		System.out.println("Ersteller der Datei:\t" + ersteller);
+		System.out.println("Erstellungsdatum:\t" + erstellungsDatum);
+		System.out.println("Dateifpad:\t\t" + dateiPfad);
+		System.out.println("Kommentar:\t\t" + kommentar);
+		System.out.println("Tags:\t\t\t" + tags);
+		System.out.println("Verknüpfung:\t\t" + verknuepfung);
+		System.out.println("Datum letzter Änderung:\t" + datumVonletzterAenderung);
+		System.out.println("Format:\t\t\t" + format);
+		System.out.println("Häufigkeit von Öffnung:\t" + haeufigkeitVonOeffnung);
+		System.out.println("Größe der Datei:\t" + groesse + " Bytes");
+		System.out.println("----------------------");
 	}
 
 	public void addiereTag(String key) {
@@ -80,7 +95,7 @@ public class Datei {
 	}
 
 	public void setDateiPfed(Path dateiPath) {
-		dateiPfad = dateiPfad;
+		this.dateiPfad = dateiPath;
 	}
 
 	public String getKommentar() {
