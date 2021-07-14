@@ -8,6 +8,7 @@ import Nutzer.NutzerContainerInterface;
 import Tag.TagsContainer;
 import Tag.TagsContainerInterface;
 import Verlinkung.VerknuepfungVonDateien;
+import db.PersistenzIF;
 import papierkorb.Papierkorb;
 
 public class ServiceLocator implements Serializable{
