@@ -1,6 +1,6 @@
 package UI;
 
-public class hilfUI {
+public class HilfUI {
 	
 	public static void clearScreen() {
 		for(int i=1; i<100; i++) {
