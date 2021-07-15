@@ -6,14 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import Datei.DateienContainer;
-import Datei.DateienContainerInterface;
-import Datei.Datei;
+import Verarbeitung.ServiceLocator;
 
 public class DateiEinlesenlUI {
 	
@@ -23,6 +20,7 @@ public class DateiEinlesenlUI {
 	    System.out.println("cd ..\t\t- wechselt in das vorige Verzeichnis");
 	    System.out.println("info <name>\t- listet Informationen einer Datei/Ordner auf");
 	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");
+	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
 	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("----------------");
 	    
@@ -41,30 +39,39 @@ public class DateiEinlesenlUI {
 	            actPath = DateiEinlesenlUI.cd(input.substring(3,input.length()), actPath);
 	        }
 	        else if( input.startsWith("back")){
-	        	hilfUI.clearScreen();
+	        	HilfUI.clearScreen();
 	        	System.out.println("\nWillkommen zurück im Hauptmenü!");
-	            System.out.println("upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen");
-	            System.out.println("view \t\t- wechselt in die Ansicht, um Dokumente anzusehen");
-	    	    System.out.println("end\t\t- beendet das Programm");
+	        	System.out.println("upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen");
+	    		System.out.println("view \t\t- wechselt in die Ansicht, um Dokumente anzusehen");
+	    	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
+	    		System.out.println("end\t\t- beendet das Programm");
 	    	    System.out.println("----------------");
 	            break;
 	        }
-	        else if( input.startsWith("info") ) {
+	        else if (input.startsWith("info") ) {
 	        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
 	        	DateiEinlesenlUI.info(pathGet, input.substring(5));
 	        }
-	        else if( input.startsWith("save") ) {
+	        else if (input.startsWith("save") ) {
 	        	String name = input.substring(5);
 	        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
 	        	DateiEinlesenlUI.save(pathGet, name);
 	        }
+	        else if (input.startsWith("help")) {
+	        	HilfUI.clearScreen();
+	        	System.out.println("\ndir\t\t- listet alle Dateien und Unterverzeichnisse auf");
+	    	    System.out.println("cd <dir>\t- wechselt in das angegebene Verzeichnis <dir>");
+	    	    System.out.println("cd ..\t\t- wechselt in das vorige Verzeichnis");
+	    	    System.out.println("info <name>\t- listet Informationen einer Datei/Ordner auf");
+	    	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");
+	    	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
+	    	    System.out.println("----------------\n");
+	        }
 	        else{
-	            System.out.println("Unbekannter Befehl");
+	            System.out.println("Unbekannter Befehl\n");
 	        } 
 	    }
-		
 	}
-
 	
 	public static File cd(String neuVZ, File actPath) throws IOException {
         System.out.println("Aufruf von cd mit dem Parameter "+neuVZ);
@@ -137,7 +144,7 @@ public class DateiEinlesenlUI {
 	
 	public static void save(Path file, String name) {
 		System.out.println("Aufruf von save mit dem Parameter " + name);
-		DateienContainer.getInstance().hochladeDatei(file, name);
+		ServiceLocator.getInstance().getDc().hochladeDatei(file, name);
 	}
 
 }
