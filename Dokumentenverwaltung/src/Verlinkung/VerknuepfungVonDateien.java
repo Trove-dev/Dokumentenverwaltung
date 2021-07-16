@@ -1,8 +1,10 @@
 package Verlinkung;
 
+import java.io.Serializable;
+
 import Datei.Datei;
 
-public class VerknuepfungVonDateien {
+public class VerknuepfungVonDateien implements Serializable{
 	
 	private Datei listeDateien[];
 	private static VerknuepfungVonDateien uniqueInstance = null;

@@ -2,8 +2,12 @@ package UI;
 
 import java.util.Scanner;
 
+import Verarbeitung.ServiceLocator;
+
 public class DateiAnzeigeUI {
 	public static void DateiAnzeigeUIAnzeige() {
+		
+		HilfUI.clearScreen();
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
 	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
@@ -32,6 +36,8 @@ public class DateiAnzeigeUI {
 	        	System.out.println("\nWillkommen zurück im Hauptmenü!");
 	        	System.out.println("upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen");
 	    		System.out.println("view \t\t- wechselt in die Ansicht, um Dokumente anzusehen");
+	    		System.out.println("saveall \t- speichert alle Dokumente ab (not working!)");
+	    		System.out.println("loadall \t- ruft gespeicherte Dokumente ab (not working!)");
 	    	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
 	    		System.out.println("end\t\t- beendet das Programm");
 	    	    System.out.println("----------------");
