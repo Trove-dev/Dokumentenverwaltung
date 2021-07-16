@@ -1,6 +1,8 @@
 package Tag;
 
-public class TagsContainer implements TagsContainerInterface{
+import java.io.Serializable;
+
+public class TagsContainer implements TagsContainerInterface, Serializable{
 	private Tag listeTags[];
 	private static TagsContainer uniqueInstance = null;
 	

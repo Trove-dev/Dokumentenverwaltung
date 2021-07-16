@@ -1,8 +1,10 @@
 package Tag;
 
+import java.io.Serializable;
+
 import Datei.Datei;
 
-public class Tag {
+public class Tag implements TagsContainerInterface, Serializable{
 	
 	private Tag SubTags[];
 	private String Schluessel;

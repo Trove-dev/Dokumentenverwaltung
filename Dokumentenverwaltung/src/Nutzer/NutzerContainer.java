@@ -1,6 +1,8 @@
 package Nutzer;
 
-public class NutzerContainer implements NutzerContainerInterface{
+import java.io.Serializable;
+
+public class NutzerContainer implements NutzerContainerInterface, Serializable{
 	private static NutzerContainer uniqueInstance = null;
 	private Nutzer listeNutzer[];
 	

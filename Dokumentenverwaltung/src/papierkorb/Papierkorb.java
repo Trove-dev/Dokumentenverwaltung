@@ -1,8 +1,10 @@
 package papierkorb;
 
+import java.io.Serializable;
+
 import Datei.Datei;
 
-public class Papierkorb {
+public class Papierkorb implements Serializable{
 	
 	private String name;
 	private double groesse;

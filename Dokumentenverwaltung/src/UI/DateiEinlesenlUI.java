@@ -15,6 +15,7 @@ import Verarbeitung.ServiceLocator;
 public class DateiEinlesenlUI {
 	
 	public static void DateiAuswahlUIAuswahl() throws IOException {
+		HilfUI.clearScreen();
 		System.out.println("\ndir\t\t- listet alle Dateien und Unterverzeichnisse auf");
 	    System.out.println("cd <dir>\t- wechselt in das angegebene Verzeichnis <dir>");
 	    System.out.println("cd ..\t\t- wechselt in das vorige Verzeichnis");
@@ -43,6 +44,8 @@ public class DateiEinlesenlUI {
 	        	System.out.println("\nWillkommen zurück im Hauptmenü!");
 	        	System.out.println("upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen");
 	    		System.out.println("view \t\t- wechselt in die Ansicht, um Dokumente anzusehen");
+	    		System.out.println("saveall \t- speichert alle Dokumente ab (not working!)");
+	    		System.out.println("loadall \t- ruft gespeicherte Dokumente ab (not working!)");
 	    	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
 	    		System.out.println("end\t\t- beendet das Programm");
 	    	    System.out.println("----------------");
