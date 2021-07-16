@@ -36,23 +36,23 @@ public class ServiceLocator implements Serializable{
 		return uniqueInstance;
 	}
 
-	public DateienContainerInterface getDc() {
+	public DateienContainerInterface getDateienContainer() {
 		return dc;
 	}
 
-	public TagsContainerInterface getTc() {
+	public TagsContainerInterface getTagsContainer() {
 		return tc;
 	}
 
-	public VerknuepfungVonDateien getVd() {
+	public VerknuepfungVonDateien getVerknuepfungVonDateien() {
 		return vd;
 	}
 
-	public Papierkorb getPk() {
+	public Papierkorb getPapierkorb() {
 		return pk;
 	}
 
-	public NutzerContainerInterface getNc() {
+	public NutzerContainerInterface getNutzerContainer() {
 		return nc;
 	}
 	public void speicherAlleContainer(String dateiname, ServiceLocator sl) {

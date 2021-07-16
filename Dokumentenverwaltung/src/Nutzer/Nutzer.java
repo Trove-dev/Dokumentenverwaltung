@@ -2,10 +2,10 @@ package Nutzer;
 
 public class Nutzer {
 	private String name;
-	private String rechte;
+	private Rechte rechte;
 	private String nameVollstaendig;
 	
-	public Nutzer(String name, String rechte, String nameVollstaendig) {
+	public Nutzer(String name, Rechte rechte, String nameVollstaendig) {
 		this.name = name;
 		this.rechte = rechte;
 		this.nameVollstaendig = nameVollstaendig;
@@ -19,11 +19,11 @@ public class Nutzer {
 		this.name = name;
 	}
 
-	public String getRechte() {
+	public Rechte getRechte() {
 		return rechte;
 	}
 
-	public void setRechte(String rechte) {
+	public void setRechte(Rechte rechte) {
 		this.rechte = rechte;
 	}
 
@@ -34,7 +34,5 @@ public class Nutzer {
 	public void setNameVollstaendig(String nameVollstaendig) {
 		this.nameVollstaendig = nameVollstaendig;
 	}
-	
-	
-//Test123
+
 }
