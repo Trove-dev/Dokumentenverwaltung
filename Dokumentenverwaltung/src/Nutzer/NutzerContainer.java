@@ -1,9 +1,11 @@
 package Nutzer;
 
-import java.util.ArrayList;
 
-public class NutzerContainer implements NutzerContainerInterface{
-	
+import java.util.ArrayList;	
+import java.io.Serializable;
+
+public class NutzerContainer implements NutzerContainerInterface, Serializable{
+
 	private static NutzerContainer uniqueInstance = null;
 	private ArrayList <Nutzer> listeNutzer = new ArrayList<Nutzer>();
 	

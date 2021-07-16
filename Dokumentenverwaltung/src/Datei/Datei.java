@@ -1,6 +1,8 @@
 package Datei;
 
+import java.io.Serializable;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
 import java.util.HashSet;
 import Datum.Datum;
@@ -9,32 +11,31 @@ import Tag.Tag;
 import Tag.TagsContainer;
 import Tag.TagsContainerInterface;
 
-public class Datei {
+public class Datei implements Serializable{
 	
 	private String name;
 	private String ersteller;
-	private FileTime erstellungsDatum;
-	private Path dateiPfad;
+	private String erstellungsDatum;
+	private String dateiPfad;
 	private String kommentar;
 	private HashSet <Tag> tags;
 	private Datei verknuepfung[];
-	private FileTime datumVonletzterAenderung;
+	private String datumVonletzterAenderung;
 	private String format;
 	private int haeufigkeitVonOeffnung;
 	private long groesse;
-	
 	private TagsContainerInterface tc;
 
 	public Datei(String name, FileTime creationTime, FileTime lastAccessTime, FileTime lastModifiedTime,
 			boolean directory, boolean regularFile, boolean symbolicLink, boolean other, long size, Path file) {
 		this.name = name;
 		this.ersteller = null;
-		this.erstellungsDatum = creationTime;
-		this.dateiPfad = file;
+		this.erstellungsDatum = creationTime.toString();
+		this.dateiPfad = file.toString();
 		this.kommentar = null;
 		this.tags = null;
 		this.verknuepfung = null;
-		this.datumVonletzterAenderung = lastModifiedTime;
+		this.datumVonletzterAenderung = lastModifiedTime.toString();
 		this.format = null;
 		this.haeufigkeitVonOeffnung = 0;
 		this.groesse = size;	
@@ -82,19 +83,19 @@ public class Datei {
 		this.ersteller = ersteller;
 	}
 
-	public FileTime getErstellungsDatum() {
+	public String getErstellungsDatum() {
 		return erstellungsDatum;
 	}
 
-	public void setErstellungsDatum(FileTime erstellungsDatum) {
+	public void setErstellungsDatum(String erstellungsDatum) {
 		this.erstellungsDatum = erstellungsDatum;
 	}
 
-	public Path getDateiPfed() {
+	public String getDateiPfed() {
 		return dateiPfad;
 	}
 
-	public void setDateiPfed(Path dateiPath) {
+	public void setDateiPfed(String dateiPath) {
 		this.dateiPfad = dateiPath;
 	}
 
@@ -119,11 +120,11 @@ public class Datei {
 		this.verknuepfung = verknuepfung;
 	}
 
-	public FileTime getDatumVonletzterAenderung() {
+	public String getDatumVonletzterAenderung() {
 		return datumVonletzterAenderung;
 	}
 
-	public void setDatumVonletzterAenderung(FileTime datumVonletzterAenderung) {
+	public void setDatumVonletzterAenderung(String datumVonletzterAenderung) {
 		this.datumVonletzterAenderung = datumVonletzterAenderung;
 	}
 
@@ -150,9 +151,5 @@ public class Datei {
 	public void setGroesse(long groesse) {
 		this.groesse = groesse;
 	}
-	
-	
-	
-	
 	
 }

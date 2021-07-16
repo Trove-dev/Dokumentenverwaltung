@@ -1,9 +1,10 @@
 package Tag;
 
 import java.util.ArrayList;
- 
-public class TagsContainer implements TagsContainerInterface{
-	
+import java.io.Serializable;
+
+public class TagsContainer implements TagsContainerInterface, Serializable{
+	private Tag listeTags[];
 	private Tag tag;
 	private static TagsContainer uniqueInstance = null;
 	private ArrayList<Tag> tagsListe = new ArrayList<>();

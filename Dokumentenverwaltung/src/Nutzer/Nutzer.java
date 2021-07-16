@@ -1,6 +1,8 @@
 package Nutzer;
 
-public class Nutzer {
+import java.io.Serializable;
+
+public class Nutzer implements NutzerContainerInterface, Serializable{
 	private String name;
 	private Rechte rechte;
 	private String nameVollstaendig;

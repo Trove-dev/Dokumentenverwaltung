@@ -8,6 +8,7 @@ import Nutzer.NutzerContainerInterface;
 import Tag.TagsContainer;
 import Tag.TagsContainerInterface;
 import Verlinkung.VerknuepfungVonDateien;
+import db.PersistenzDB;
 import db.PersistenzIF;
 import papierkorb.Papierkorb;
 
@@ -29,6 +30,7 @@ public class ServiceLocator implements Serializable{
 		vd = VerknuepfungVonDateien.getInstance();
 		pk = Papierkorb.getInstance();
 		nc = NutzerContainer.getInstance();
+		p = PersistenzDB.getInstance();
 	}
 	
 	public static ServiceLocator getInstance() {

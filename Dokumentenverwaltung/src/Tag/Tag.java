@@ -1,10 +1,10 @@
 package Tag;
 
 import java.util.ArrayList;
-
+import java.io.Serializable;
 import Datei.Datei;
 
-public class Tag {
+public class Tag implements TagsContainerInterface, Serializable{
 	
 	private Tag subTag;
 	private String key;
@@ -26,6 +26,16 @@ public class Tag {
 
 	public ArrayList<Datei> getListeDateien() {
 		return listeDateien;
+	}
+
+	@Override
+	public Tag sucheTag(String key) {   ///
+		
+		return null;
+	}
+
+	@Override
+	public void addiereNeuesTag(String key) {   ///
 	}
 	
 	
