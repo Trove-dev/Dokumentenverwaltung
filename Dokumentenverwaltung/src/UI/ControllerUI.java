@@ -1,10 +1,13 @@
-package UI;
 
+package UI;
+import Verarbeitung.ServiceLocator;
+import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Scanner;
-import Verarbeitung.ServiceLocator;
-
+import Nutzer.Nutzer;
+import Nutzer.NutzerContainerInterface;
 public class ControllerUI {
+	
 	private ServiceLocator serviceLocator;
 
 	public static void main(String[] args) throws IOException {
@@ -17,6 +20,12 @@ public class ControllerUI {
 	}
 		
 	private void start() throws IOException {	
+		NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
+		ArrayList<Nutzer> nutzerListe = nc.getListeNutzer();	
+		NutzerUI nui = new NutzerUI(nc, nutzerListe);
+		// Auswahl Nutzer
+		nui.startAnmelden();
+		
 		System.out.println("Willkommen bei dem Dokumentenmanager!");
 		System.out.println("upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen");
 		System.out.println("view \t\t- wechselt in die Ansicht, um Dokumente anzusehen");
@@ -86,3 +95,4 @@ public class ControllerUI {
 		System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
 	}
 }
+
