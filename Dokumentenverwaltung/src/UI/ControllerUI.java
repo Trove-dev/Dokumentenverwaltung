@@ -4,8 +4,12 @@ import Verarbeitung.ServiceLocator;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.TreeSet;
+
 import Nutzer.Nutzer;
 import Nutzer.NutzerContainerInterface;
+import Tag.Tag;
+import Tag.TagsContainerInterface;
 public class ControllerUI {
 	
 	private ServiceLocator serviceLocator;
@@ -19,12 +23,20 @@ public class ControllerUI {
 		start();
 	}
 		
+	
+	/*	TagsContainerInterface tc = serviceLocator.getTagsContainer();
+		TreeSet <Tag> tst = tc.getTagsListe();
+		TagUI tui = new TagUI(tc);
+		tui.anzeigeTagsCloud();  */
+		
+		
 	private void start() throws IOException {	
 		NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
 		ArrayList<Nutzer> nutzerListe = nc.getListeNutzer();	
 		NutzerUI nui = new NutzerUI(nc, nutzerListe);
 		// Auswahl Nutzer
 		nui.startAnmelden();
+		
 		
 		System.out.println("Willkommen bei dem Dokumentenmanager!");
 		System.out.println("upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen");
@@ -76,7 +88,6 @@ public class ControllerUI {
 	    }
     }
 
-	
 	private void saveall() {
 		String dateiName = "";
 		Scanner s = new Scanner(System.in);
@@ -87,7 +98,7 @@ public class ControllerUI {
 	}
 	
 	private void loadall() {
-		String dateiName = "";
+		String dateiName = "containers.dat";
 		Scanner s = new Scanner(System.in);
 		System.out.print("Bitte Dateinamen eingeben: ");
 		dateiName = s.next();

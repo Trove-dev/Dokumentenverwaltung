@@ -1,6 +1,7 @@
 package hilf;
 
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.Scanner;
 
 import Nutzer.NutzerContainerInterface;
@@ -101,5 +102,22 @@ public class SichereEingabe {
 			erfolg = true;
 		}	
 		return inputnameVollstandig;
+	}
+	
+	public static String liesCharacters(){
+		Scanner input = new Scanner(System.in);
+		String eingabe = input.nextLine();
+		Scanner test = new Scanner(eingabe);
+		test.useLocale(Locale.US);
+		if(test.hasNextInt()) {
+			test.close();
+	//		throw new EingabeException("String", "int");
+		}
+		if(test.hasNextDouble()) {
+			test.close();
+		//	throw new EingabeException("String", "double");
+		}
+		test.close();
+		return eingabe;
 	}
 }
