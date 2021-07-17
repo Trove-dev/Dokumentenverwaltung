@@ -8,8 +8,6 @@ import Nutzer.Rechte;
 
 public class SichereEingabe {
 	
-	public static Scanner sc = new Scanner(System.in);
-	
 	static char [] symboleUserName_NameVoll = {'!', '§', '%', '&', '/', '(', ')', '=', '?', '`', '#', '*', '+', '-', '<', '>', '|', '{', '}', '[', ']', '@'};
 	static char [] symboleUserName = {'(', ')', '´', '-', '|', '\'', ' '};
 	
@@ -93,11 +91,11 @@ public class SichereEingabe {
 		while(erfolg != true) {
 			inputnameVollstandig = input.nextLine();			
 			if(!SichereEingabe.checkUebereinstimmung(inputnameVollstandig, symboleUserName_NameVoll)){
-				System.out.println("Geben Sie bitte Ihren richtigen Name Sym: ");	
+				System.out.println("Geben Sie bitte Ihren richtigen Name: ");	
 				continue;
 			}
 			if(inputnameVollstandig.length() <2) {
-				System.out.println("Geben Sie bitte Ihren richtigen Name len: ");	
+				System.out.println("Geben Sie bitte Ihren richtigen Name: ");	
 				continue;
 			}
 			erfolg = true;
