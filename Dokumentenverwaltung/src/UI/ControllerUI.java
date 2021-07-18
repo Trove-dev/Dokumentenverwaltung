@@ -78,7 +78,7 @@ public class ControllerUI implements Serializable{
     }
 
 	
-	private void saveall() {
+	/*private void saveall() {
 		String dateiName = "";
 		Scanner s = new Scanner(System.in);
 		System.out.print("Bitte Dateinamen eingeben: ");
@@ -94,6 +94,18 @@ public class ControllerUI implements Serializable{
 		dateiName = s.next();
 		serviceLocator.ladeAlleContainer(dateiName);
 		System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
+	}*/
+	
+	private void saveall() {		
+		String dateiName = "containers.dat";
+		serviceLocator.speicherAlleContainer(dateiName, serviceLocator);
+		System.out.println("Die Dokumente wurden in der Datei " + dateiName + " gespeichert!\n");
+	}
+
+	private void loadall() {
+		String dateiName = "containers.dat";
+		if(serviceLocator.ladeAlleContainer(dateiName) != null)		
+			System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
 	}
 }
 
