@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.TreeSet;
-
 import Nutzer.Nutzer;
+import java.io.Serializable;
 import Nutzer.NutzerContainerInterface;
 import Tag.Tag;
 import Tag.TagsContainerInterface;
-public class ControllerUI {
+
+public class ControllerUI implements Serializable{
 	
 	private ServiceLocator serviceLocator;
 
@@ -87,8 +88,8 @@ public class ControllerUI {
 	        } 
 	    }
     }
-
-	private void saveall() {
+	
+	/*private void saveall() {
 		String dateiName = "";
 		Scanner s = new Scanner(System.in);
 		System.out.print("Bitte Dateinamen eingeben: ");
@@ -104,6 +105,18 @@ public class ControllerUI {
 		dateiName = s.next();
 		serviceLocator.ladeAlleContainer(dateiName);
 		System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
+	}*/
+	
+	private void saveall() {		
+		String dateiName = "containers.dat";
+		serviceLocator.speicherAlleContainer(dateiName, serviceLocator);
+		System.out.println("Die Dokumente wurden in der Datei " + dateiName + " gespeichert!\n");
+	}
+
+	private void loadall() {
+		String dateiName = "containers.dat";
+		if(serviceLocator.ladeAlleContainer(dateiName) != null)		
+			System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
 	}
 }
 
