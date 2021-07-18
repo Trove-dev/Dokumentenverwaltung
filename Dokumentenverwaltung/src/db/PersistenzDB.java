@@ -1,5 +1,6 @@
 package db;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,6 +33,14 @@ public class PersistenzDB implements PersistenzIF, Serializable{
 
 	public ServiceLocator lade(String dateiname) {
 		ServiceLocator sl = null;
+		File datei = new File(dateiname);
+		if(!datei.exists()) {
+			System.out.println("File existiert nicht...");
+			return null;
+		}else if(datei.length() == 0) {
+			System.out.println("File ist leer, es ist nichts zu laden...");
+			return null;
+		}		
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream(dateiname));
 			sl = (ServiceLocator) in.readObject();
