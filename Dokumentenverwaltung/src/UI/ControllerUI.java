@@ -3,10 +3,11 @@ package UI;
 import Verarbeitung.ServiceLocator;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 import Nutzer.Nutzer;
 import Nutzer.NutzerContainerInterface;
-public class ControllerUI {
+public class ControllerUI implements Serializable{
 	
 	private ServiceLocator serviceLocator;
 
