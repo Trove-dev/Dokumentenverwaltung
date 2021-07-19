@@ -107,7 +107,7 @@ public class Datei implements Serializable{
 		this.kommentar = kommentar;
 	}
 
-	public TagsContainer[] getTags() {
+	public HashSet<Tag> getTags() {
 		return tags;
 	}
 
