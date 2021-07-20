@@ -36,5 +36,10 @@ public class Nutzer implements NutzerContainerInterface, Serializable{
 	public void setNameVollstaendig(String nameVollstaendig) {
 		this.nameVollstaendig = nameVollstaendig;
 	}
+	
+	public void printNutzer() {
+		
+		System.out.print("Username: " + name + "; das Recht : " + rechte + "; Ihr Name: " + nameVollstaendig);
+	}
 
 }

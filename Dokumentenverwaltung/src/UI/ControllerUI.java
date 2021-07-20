@@ -10,6 +10,7 @@ import Nutzer.NutzerContainerInterface;
 public class ControllerUI implements Serializable{
 	
 	private ServiceLocator serviceLocator;
+	Nutzer user;
 
 	public static void main(String[] args) throws IOException {
 		ControllerUI c = new ControllerUI();
@@ -21,12 +22,18 @@ public class ControllerUI implements Serializable{
 	}
 		
 	private void start() throws IOException {	
+		loadall();
 		NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
 		ArrayList<Nutzer> nutzerListe = nc.getListeNutzer();	
 		NutzerUI nui = new NutzerUI(nc, nutzerListe);
-		// Auswahl Nutzer
-		nui.startAnmelden();
 		
+		user = nui.startAnmelden();
+		user = nui.startAnmelden();
+		user = nui.startAnmelden();
+		if(user != null) {
+			//////
+			
+		}
 		System.out.println("Willkommen bei dem Dokumentenmanager!");
 		System.out.println("upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen");
 		System.out.println("view \t\t- wechselt in die Ansicht, um Dokumente anzusehen");
@@ -104,7 +111,8 @@ public class ControllerUI implements Serializable{
 
 	private void loadall() {
 		String dateiName = "containers.dat";
-		if(serviceLocator.ladeAlleContainer(dateiName) != null)		
+		serviceLocator = serviceLocator.ladeAlleContainer(dateiName);
+		if(serviceLocator != null)		
 			System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
 	}
 }
