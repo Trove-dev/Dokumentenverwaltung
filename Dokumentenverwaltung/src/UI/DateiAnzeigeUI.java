@@ -20,6 +20,11 @@ public class DateiAnzeigeUI {
 				  	this.befehl = "listall";
 				  	break;
 	        }
+	        if (input.startsWith("delete")){
+	        	this.befehl = "delete";
+	        	break;
+	        	
+	        }
 	        else if( input.startsWith("back")){
 	        	HilfUI.printBefehleControllerUIClear();
 	    	    break;

@@ -39,15 +39,38 @@ public class DateiEinlesenlUI {
 	            break;
 	        }
 	        else if (input.startsWith("info") ) {
-	        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
-	        	info(pathGet, input.substring(5));
+	        	if (HilfUI.isWindows() == true) {
+	        		Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
+	        		info(pathGet, input.substring(5));
+	        	}
+	        	else if (HilfUI.isMac() == true){
+	        		Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "/" + input.substring(5));
+	        		info(pathGet, input.substring(5));
+	        	}
+	        	else {
+	        		System.out.println("Betriebssystem wird nicht unterstÃ¼tzt!");
+	        	}
+				
 	        }
 	        else if (input.startsWith("save") ) {
-	        	String name = input.substring(5);
-	        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
-	        	this.file = pathGet;
-	        	this.name = name;
-	        	break;
+	        	if (HilfUI.isWindows() == true) {
+	        		String name = input.substring(5);
+		        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
+		        	this.file = pathGet;
+		        	this.name = name;
+		        	break;
+	        	}
+	        	else if (HilfUI.isMac() == true) {
+	        		String name = input.substring(5);
+		        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "/" + input.substring(5));
+		        	this.file = pathGet;
+		        	this.name = name;
+		        	break;
+	        	}
+	        	else {
+	        		System.out.println("Betriebssystem wird nicht unterstÃ¼tzt!");
+	        	}
+	        	
 	        }
 	        else if (input.startsWith("help")) {
 	        	HilfUI.printBefehleDateiEinlesenUIClear();
@@ -107,13 +130,13 @@ public class DateiEinlesenlUI {
 			System.out.println("Letzter Zugriff: \t\t" + attr.lastAccessTime());
 			System.out.println("Zuletzt bearbeitet: \t\t" + attr.lastModifiedTime());
 			
-			System.out.println("Größe: \t\t\t\t" + attr.size() + " Bytes");
+			System.out.println("Grï¿½ï¿½e: \t\t\t\t" + attr.size() + " Bytes");
 			System.out.println("Pfad der Datei: \t\t" + file + "\n");
 			if (attr.isDirectory() == true) {
 				System.out.println("Es handelt sich um ein Ordner!");
 			}
 			if (attr.isRegularFile() == true) {
-				System.out.println("Es handelt sich um eine regulär lesbare Datei!");
+				System.out.println("Es handelt sich um eine regulï¿½r lesbare Datei!");
 			}
 			if (attr.isSymbolicLink() == true) {
 				System.out.println("Es handelt sich um einen symbolischen Link!");
