@@ -10,73 +10,101 @@ import hilf.SichereEingabe;
 public class TagUI {
 	
 	TagsContainerInterface tci;
+	Scanner sc;
 
-	public TagUI(TagsContainerInterface tci) {
+	public TagUI(TagsContainerInterface tci, Datei dok) {
 		this.tci = tci;
+		ausfuerungBefehl(dok);
+	}
+	
+	public void ausfuerungBefehl(Datei dok) {
+		meldeNutzer();
+		String input = "";
+		sc = new Scanner(input);	
+		input = SichereEingabe.liesCharacters();		
+		if(input == "add") {
+			anzeigeTagsCloud();
+			input = eingabeTag(dok);
+			checkAddTag(input, dok);
+		}else if(input == "del") {
+			anzeigeTagsCloud();
+			input = eingabeTag(dok);
+			checkDelTag(input);
+		}
+		else if(input == "unlink"){
+			anzeigeTagsCloud();
+			input = eingabeTag(dok);
+			
+		}
+		else if(input == "exit") {
+			// zurück im menü
+		}else {
+			System.out.println("Unbekannter Befehl");			
+		}
+		ausfuerungBefehl(dok);
 	}
 	
 	public void anzeigeTagsCloud() {
-		System.out.println("Diese Tags sind verfügbar: ");
-		tci.printTagsCloud();
+		String input = "";
+		sc = new Scanner(input);
+		if(tci.getTagsListe().isEmpty()) {
+			System.out.println("Es gibt noch keine Tags ");
+		}else tci.printTagsListe();		
 	}
-	public boolean eingabeTag(Datei dok, String key) {
-		Tag searchTag = tci.sucheTag(key);
-		if(searchTag != null) return false;
-		else {
-			tci.addiereNeuesTag(dok, key);
-			return true;
+	
+	public String eingabeTag(Datei dok) {
+		String input = "";
+		sc = new Scanner(input);
+		System.out.println("Geben Sie bitte ein Tag ein :");
+		input = SichereEingabe.liesCharacters();
+		return input;
+	}
+	
+	public void checkUnLinkTag(String name, Datei dok) {
+		if(checkGlobal(name) == null) {
+			System.out.println("Dieses Tag gibt es nicht in Tag Kollektion");
+		}else if(checkLocal(dok, name) == null) {
+			System.out.println("Dieses Tag und diese Datei sind nicht angebunden");
+		}else {
+			dok.loescheTag(name);
 		}
 	}
 	
-	public void addNewTag(Datei dok) {
-		System.out.println("Wollen Sie ein neues Tag addieren (ja/nein) ?");
-		String antwort= "";
-		boolean erfolg = false;
-		while (erfolg != true) {
-			 antwort = SichereEingabe.liesCharacters();
-			if(antwort == "ja") {
-				System.out.print("Name des Tags: ");
-				antwort = SichereEingabe.liesCharacters();
-				erfolg = eingabeTag(dok, antwort);
-				
-				if(erfolg != true) {
-					System.out.println("Dieses Tag existiert schon");
-					break;
-				}
-				else {
-					System.out.println("Das Tag ist nun im System");
-				}
-			}
-			if(antwort == "nein") {
-				erfolg = true;
-			}else {
-				System.out.println("Unbekannter Befehl");
-				continue;
-			}
+	public void checkDelTag(String name) {
+		if(checkGlobal(name) != null) {
+			tci.loescheTag(name);
+		} 
+	}
+	
+	public void checkAddTag(String name, Datei dok) {
+		if(checkGlobal(name) == null) {                        // not in global not in local
+			tci.addiereNeuesTag(dok, name);                    //  new tag ; bind
+			System.out.println("Das neue Tag wurde kreiert und an die Datei angebunden.");
+		}else if(checkLocal(dok, name) == null) {              // in global, not in local
+			Tag adddedTag = tci.sucheTag(name);
+			adddedTag.bindDokument(dok);                       // bind
+			System.out.println("Das existierende Tag wurde an die Datei angebunden.");
 		}
 	}
-		
-	public void deleteTag(Datei dok) {
-		System.out.println("discon \t dieses Tag und die Datei trennen ");
-		System.out.println("deltag \t dieses Tag löschen ");
-		boolean erfolg = false;
-		while (erfolg != true) {
-			String antwort = SichereEingabe.liesCharacters();
-		
-			if(antwort == "discon") {
-				
-				erfolg = true;				
-			}
-			if(antwort == "deltag") {
-				
-				erfolg = true;	
-				System.out.println("Das Tag ist nicht mehr im System");
-			}else {
-				System.out.println("Unbekannter Befehl");
-				continue;
-			}
-			
+
+	private Tag checkLocal(Datei dok, String name) {
+		for(Tag t: dok.getTags()){
+			if(t.getKey() == name) return t;
 		}
+		return null;
 	}
+
+	private Tag checkGlobal(String name) {
+		return tci.sucheTag(name);
+	}
+		
+	public void meldeNutzer() {
+		System.out.println("add \t Ein neues Tag nuzufügen");
+		System.out.println("del \t Ein Tag löschen");
+		System.out.println("unlink \t Ein Tag und die Datei trennen");
+		System.out.println("help \t Ein Tag löschen");
+		System.out.println("exit \t zum Menü-Datei");    //Aussage!!
+	}	
+		
 	
 }

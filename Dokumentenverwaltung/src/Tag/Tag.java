@@ -14,13 +14,6 @@ public class Tag implements Serializable{
 		
 		key = schluessel;
 	}
-
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
 	
 	public void bindDokument(Datei dokument) {
 		listeDateien.add(dokument);
@@ -36,6 +29,17 @@ public class Tag implements Serializable{
 	public ArrayList<Datei> getListeDateien() {
 		return listeDateien;
 	}
+	
+	public void setListeDateien(ArrayList<Datei> listeDateien) {
+			this.listeDateien = listeDateien;
+	}
 
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	
 	
 }

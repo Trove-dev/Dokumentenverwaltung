@@ -19,8 +19,9 @@ public class TagsContainer implements TagsContainerInterface, Serializable{
 		tag =  new Tag(key);
 		tagsListe.add(tag);
 		tag.bindDokument(dok);
+		dok.addiereTag(tag, key);
 	}
-	
+		
 	public void loescheTag(String key){
 		if(sucheTag(key) != null) tagsListe.remove(tag);
 	}
@@ -38,9 +39,13 @@ public class TagsContainer implements TagsContainerInterface, Serializable{
 		return uniqueInstance;
 	}
 	
-	public void printTagsCloud() {
-		for(Tag tags:tagsListe)
-			System.out.print(tags.getKey() + "   ");
+	public void printTagsListe() {
+		int i = 0;
+		for(Tag tags:tagsListe) {
+				System.out.print("  "+ tags.getKey() + "  ");	
+				i ++;
+				if(i%5 == 0) System.out.print("\n");
+		}	
 	}
 
 	public TreeSet<Tag> getTagsListe() {
