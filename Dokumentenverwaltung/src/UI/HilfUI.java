@@ -1,6 +1,10 @@
 package UI;
 
+import java.util.Scanner;
+
 public class HilfUI {
+	
+	private static String OS = null;
 	
 	public static void clearScreen() {
 		for(int i=1; i<100; i++) {
@@ -9,12 +13,12 @@ public class HilfUI {
 	}
 	
 	public static void printBefehleControllerUI() {
-		System.out.println("\nWillkommen im Hauptmenü vom Dokumentenmanager!\n"
-				+ "upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen\n"
+		System.out.println("\nWillkommen im Hauptmenï¿½ vom Dokumentenmanager!\n"
+				+ "upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufï¿½gen\n"
 				+ "view \t\t- wechselt in die Ansicht, um Dokumente anzusehen\n"
 				+ "saveall \t- speichert alle Dokumente ab (not working!)\n"
 				+ "loadall \t- ruft gespeicherte Dokumente ab (not working!)\n"
-				+ "help \t\t- zeigt alle verfügbaren Befehle an\n"
+				+ "help \t\t- zeigt alle verfï¿½gbaren Befehle an\n"
 				+ "----------------");
 	}
 	
@@ -26,10 +30,10 @@ public class HilfUI {
 	public static void printBefehleDateiAnzeigeUIClear() {
 		clearScreen();
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
-	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
-	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
+		System.out.println("delete\t\t- entfernt eine Datei");
+	    System.out.println("back\t\t- wechselt zurï¿½ck in die Hauptansicht");
+	    System.out.println("help \t\t- zeigt alle verfï¿½gbaren Befehle an");
 	    System.out.println("----------------");
-		
 	}
 
 	public static void printBefehleDateiEinlesenUIClear() {
@@ -39,10 +43,29 @@ public class HilfUI {
 	    System.out.println("cd ..\t\t- wechselt in das vorige Verzeichnis");
 	    System.out.println("info <name>\t- listet Informationen einer Datei/Ordner auf");
 	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");
-	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
-	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
-	    System.out.println("----------------");
-		
+	    System.out.println("help \t\t- zeigt alle verfï¿½gbaren Befehle an");
+	    System.out.println("back\t\t- wechselt zurï¿½ck in die Hauptansicht");
+	    System.out.println("----------------");	
+	}
+	
+	public static void promtEnterKey() {
+		System.out.println("\"Enter\" um weiterzugehen...");
+		Scanner s = new Scanner(System.in);
+		s.nextLine();
+	}
+	
+	public static String getOsName() {
+		if(OS == null) {
+			OS = System.getProperty("os.name");
+			return OS;
+		}
+		return OS;
+	}
+	public static boolean isWindows() {
+		return getOsName().startsWith("Windows");
+	}
+	public static boolean isMac() {
+		return getOsName().startsWith("Mac");
 	}
 	
 }

@@ -2,6 +2,8 @@
 package UI;
 import Verarbeitung.ServiceLocator;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
@@ -83,7 +85,8 @@ public class ControllerUI implements Serializable{
 
 	private void loadall() {
 		String dateiName = "containers.dat";
-		if(serviceLocator.ladeAlleContainer(dateiName) != null)		
+		if(serviceLocator.ladeAlleContainer(dateiName) != null)
+			serviceLocator = serviceLocator.ladeAlleContainer(dateiName);
 			System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
 	}
 	
@@ -110,9 +113,37 @@ public class ControllerUI implements Serializable{
 			if (serviceLocator.getDateienContainer().getAlleDateien() != null) {
 				System.out.println("Liste aller Dateien im Detail:\n");
 				serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUIClear();
+				
 			}
 			else {
 				System.out.println("Es wurde bisher keine Dateien gespeichert!\n");
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUI();
+			}
+		}
+		else if (anzeigeFenster.getBefehl() == "delete") {
+			boolean erfolg = false;
+			Scanner s = new Scanner(System.in);
+			System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
+			String dateiName = s.next();
+			Iterator<Datei> it = serviceLocator.getDateienContainer().getAlleDateien().iterator();
+			while (it.hasNext()) {
+				Datei datei = it.next();
+				if (datei.getName().equals(dateiName)) {
+					it.remove();
+					erfolg = true;
+					System.out.println("Datei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
+					HilfUI.promtEnterKey();
+					HilfUI.printBefehleControllerUIClear();
+					break;
+				}
+			}
+			if (erfolg == false) {
+				System.out.println("Es konnte keine Datei mit den Namen "+ dateiName + " gefunden werden!");
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUIClear();
 			}
 		}
 	}
