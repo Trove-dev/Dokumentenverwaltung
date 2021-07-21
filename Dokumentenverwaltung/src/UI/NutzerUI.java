@@ -14,7 +14,7 @@ public class NutzerUI {
     Scanner sc;
     Nutzer user;
     boolean angemeldet;
-	
+    
 	public NutzerUI(NutzerContainerInterface nc, ArrayList<Nutzer> nutzerListe) {
 		this.nc = nc;
 		this.nutzerListe = nutzerListe;
@@ -75,10 +75,10 @@ public class NutzerUI {
 			bearbeiteNutzer();
 		}else if(command.compareTo("del") == 0) {
 			loescheNutzer();
-		}else if(command.compareTo("end") == 0) {Runtime.getRuntime().exit(1);
+		}else if(command.compareTo("end") == 0) {
 			System.out.println("Sie verlassen das Programm");
 			/////////////  
-			
+			sca.close();
 		}else {
 			System.out.println("Der falsche Befehl\n");
 			ausfuereBefehle(user);

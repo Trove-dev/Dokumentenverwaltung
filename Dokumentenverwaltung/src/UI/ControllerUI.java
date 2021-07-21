@@ -30,6 +30,7 @@ public class ControllerUI implements Serializable{
 		NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
 		ArrayList<Nutzer> nutzerListe = nc.getListeNutzer();	
 		NutzerUI nui = new NutzerUI(nc, nutzerListe);
+		nui.startAnmelden();
 	
 		HilfUI.printBefehleControllerUI();
 	    String input = "";
