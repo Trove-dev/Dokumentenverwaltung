@@ -44,7 +44,7 @@ public class ControllerUI implements Serializable{
 	            uploadDatei();
 	        }
 	        else if (input.startsWith("view")){                
-				anzeigeAlleDateien();
+				dateiAnzeige();
 	        }
 	        else if (input.startsWith("end")) {
 	        	System.out.println("Programm wird beendet. \n\nAuf Wiedersehen!");
@@ -106,7 +106,7 @@ public class ControllerUI implements Serializable{
 		}
 	}
 	
-	private void anzeigeAlleDateien() {
+	private void dateiAnzeige() {
 		DateiAnzeigeUI anzeigeFenster = new DateiAnzeigeUI();
 		anzeigeFenster.DateiAnzeigeUIAnzeige();
 		if (anzeigeFenster.getBefehl() == "listall") {
@@ -126,6 +126,7 @@ public class ControllerUI implements Serializable{
 		else if (anzeigeFenster.getBefehl() == "delete") {
 			boolean erfolg = false;
 			Scanner s = new Scanner(System.in);
+			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
 			System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
 			String dateiName = s.next();
 			Iterator<Datei> it = serviceLocator.getDateienContainer().getAlleDateien().iterator();
@@ -134,14 +135,14 @@ public class ControllerUI implements Serializable{
 				if (datei.getName().equals(dateiName)) {
 					it.remove();
 					erfolg = true;
-					System.out.println("Datei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
+					System.out.println("\nDatei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
 					HilfUI.promtEnterKey();
 					HilfUI.printBefehleControllerUIClear();
 					break;
 				}
 			}
 			if (erfolg == false) {
-				System.out.println("Es konnte keine Datei mit den Namen "+ dateiName + " gefunden werden!");
+				System.out.println("\nEs konnte keine Datei mit den Namen "+ dateiName + " gefunden werden!");
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
 			}
