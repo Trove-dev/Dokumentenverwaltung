@@ -48,7 +48,7 @@ public class DateiEinlesenlUI {
 	        		info(pathGet, input.substring(5));
 	        	}
 	        	else {
-	        		System.out.println("Betriebssystem wird nicht unterstÃ¼tzt!");
+	        		System.out.println("Betriebssystem wird nicht unterstützt!");
 	        	}
 				
 	        }
@@ -130,13 +130,13 @@ public class DateiEinlesenlUI {
 			System.out.println("Letzter Zugriff: \t\t" + attr.lastAccessTime());
 			System.out.println("Zuletzt bearbeitet: \t\t" + attr.lastModifiedTime());
 			
-			System.out.println("Grï¿½ï¿½e: \t\t\t\t" + attr.size() + " Bytes");
+			System.out.println("Größe: \t\t\t\t" + attr.size() + " Bytes");
 			System.out.println("Pfad der Datei: \t\t" + file + "\n");
 			if (attr.isDirectory() == true) {
 				System.out.println("Es handelt sich um ein Ordner!");
 			}
 			if (attr.isRegularFile() == true) {
-				System.out.println("Es handelt sich um eine regulï¿½r lesbare Datei!");
+				System.out.println("Es handelt sich um eine regulär lesbare Datei!");
 			}
 			if (attr.isSymbolicLink() == true) {
 				System.out.println("Es handelt sich um einen symbolischen Link!");
