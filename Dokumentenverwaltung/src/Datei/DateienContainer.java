@@ -55,7 +55,5 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 			return dateienListe;
 		}
 	}
-	
-	
 
 }

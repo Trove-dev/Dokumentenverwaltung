@@ -10,20 +10,13 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import Verarbeitung.ServiceLocator;
-
 public class DateiEinlesenlUI {
+	private Path file;
+	private String name;
 	
-	public static void DateiAuswahlUIAuswahl() throws IOException {
-		HilfUI.clearScreen();
-		System.out.println("\ndir\t\t- listet alle Dateien und Unterverzeichnisse auf");
-	    System.out.println("cd <dir>\t- wechselt in das angegebene Verzeichnis <dir>");
-	    System.out.println("cd ..\t\t- wechselt in das vorige Verzeichnis");
-	    System.out.println("info <name>\t- listet Informationen einer Datei/Ordner auf");
-	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");
-	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
-	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
-	    System.out.println("----------------");
+	
+	public void DateiEinlesenUI() throws IOException {
+		HilfUI.printBefehleDateiEinlesenUIClear();
 	    
 	    String input = "";
 	    File actPath = new File(".");
@@ -34,41 +27,53 @@ public class DateiEinlesenlUI {
 	        input = sc.nextLine();
 	        input = input.trim();
 	        if( input.startsWith("dir") ){                
-	            DateiEinlesenlUI.dir(actPath);
+	            dir(actPath);
 	        }
 	        else if( input.startsWith("cd ") ){               
-	            actPath = DateiEinlesenlUI.cd(input.substring(3,input.length()), actPath);
+	            actPath = cd(input.substring(3,input.length()), actPath);
 	        }
 	        else if( input.startsWith("back")){
-	        	HilfUI.clearScreen();
-	        	System.out.println("\nWillkommen zurück im Hauptmenü!");
-	        	System.out.println("upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen");
-	    		System.out.println("view \t\t- wechselt in die Ansicht, um Dokumente anzusehen");
-	    		System.out.println("saveall \t- speichert alle Dokumente ab (not working!)");
-	    		System.out.println("loadall \t- ruft gespeicherte Dokumente ab (not working!)");
-	    	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
-	    		System.out.println("end\t\t- beendet das Programm");
-	    	    System.out.println("----------------");
+	        	this.file = null;
+	        	this.name = null;
+	        	HilfUI.printBefehleControllerUIClear();
 	            break;
 	        }
 	        else if (input.startsWith("info") ) {
-	        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
-	        	DateiEinlesenlUI.info(pathGet, input.substring(5));
+	        	if (HilfUI.isWindows() == true) {
+	        		Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
+	        		info(pathGet, input.substring(5));
+	        	}
+	        	else if (HilfUI.isMac() == true){
+	        		Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "/" + input.substring(5));
+	        		info(pathGet, input.substring(5));
+	        	}
+	        	else {
+	        		System.out.println("Betriebssystem wird nicht unterstÃ¼tzt!");
+	        	}
+				
 	        }
 	        else if (input.startsWith("save") ) {
-	        	String name = input.substring(5);
-	        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
-	        	DateiEinlesenlUI.save(pathGet, name);
+	        	if (HilfUI.isWindows() == true) {
+	        		String name = input.substring(5);
+		        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
+		        	this.file = pathGet;
+		        	this.name = name;
+		        	break;
+	        	}
+	        	else if (HilfUI.isMac() == true) {
+	        		String name = input.substring(5);
+		        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "/" + input.substring(5));
+		        	this.file = pathGet;
+		        	this.name = name;
+		        	break;
+	        	}
+	        	else {
+	        		System.out.println("Betriebssystem wird nicht unterstÃ¼tzt!");
+	        	}
+	        	
 	        }
 	        else if (input.startsWith("help")) {
-	        	HilfUI.clearScreen();
-	        	System.out.println("\ndir\t\t- listet alle Dateien und Unterverzeichnisse auf");
-	    	    System.out.println("cd <dir>\t- wechselt in das angegebene Verzeichnis <dir>");
-	    	    System.out.println("cd ..\t\t- wechselt in das vorige Verzeichnis");
-	    	    System.out.println("info <name>\t- listet Informationen einer Datei/Ordner auf");
-	    	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");
-	    	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
-	    	    System.out.println("----------------\n");
+	        	HilfUI.printBefehleDateiEinlesenUIClear();
 	        }
 	        else{
 	            System.out.println("Unbekannter Befehl\n");
@@ -76,7 +81,7 @@ public class DateiEinlesenlUI {
 	    }
 	}
 	
-	public static File cd(String neuVZ, File actPath) throws IOException {
+	public File cd(String neuVZ, File actPath) throws IOException {
         System.out.println("Aufruf von cd mit dem Parameter "+neuVZ);
         if(neuVZ.equals("..")){
             File neu = new File(actPath.getCanonicalFile().getParent());
@@ -90,7 +95,7 @@ public class DateiEinlesenlUI {
         return actPath;
     }
 	
-	public static void dir(File actPath) {
+	public void dir(File actPath) {
         System.out.println("Aufruf von dir");
         File[] liste = actPath.listFiles();
         int files = 0;
@@ -114,7 +119,7 @@ public class DateiEinlesenlUI {
         System.out.println( dirs + " " + verzString + ", " + files + " " + dateiString); 
     }
 	
-	public static void info(Path file, String eingabe) {
+	public void info(Path file, String eingabe) {
 		System.out.println("Aufruf von info mit dem Parameter " + eingabe);
 		try {
 			System.out.println("Name der Datei: \t\t" + file.getFileName());
@@ -125,13 +130,13 @@ public class DateiEinlesenlUI {
 			System.out.println("Letzter Zugriff: \t\t" + attr.lastAccessTime());
 			System.out.println("Zuletzt bearbeitet: \t\t" + attr.lastModifiedTime());
 			
-			System.out.println("Größe: \t\t\t\t" + attr.size() + " Bytes");
+			System.out.println("Grï¿½ï¿½e: \t\t\t\t" + attr.size() + " Bytes");
 			System.out.println("Pfad der Datei: \t\t" + file + "\n");
 			if (attr.isDirectory() == true) {
 				System.out.println("Es handelt sich um ein Ordner!");
 			}
 			if (attr.isRegularFile() == true) {
-				System.out.println("Es handelt sich um eine regulär lesbare Datei!");
+				System.out.println("Es handelt sich um eine regulï¿½r lesbare Datei!");
 			}
 			if (attr.isSymbolicLink() == true) {
 				System.out.println("Es handelt sich um einen symbolischen Link!");
@@ -145,9 +150,17 @@ public class DateiEinlesenlUI {
 		}
 	}
 	
-	public static void save(Path file, String name) {
-		System.out.println("Aufruf von save mit dem Parameter " + name);
-		ServiceLocator.getInstance().getDc().hochladeDatei(file, name);
+	//public static void save(Path file, String name) {
+	//	System.out.println("Aufruf von save mit dem Parameter " + name);
+	//	ServiceLocator.getInstance().getDateienContainer().hochladeDatei(file, name);
+	//}
+	
+	public Path getPath() {
+		return file;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 }
