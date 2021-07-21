@@ -49,7 +49,7 @@ public class NutzerUI {
 	}
 	
 	public void ausfuereBefehle(Nutzer user) {
-		printBefehle();
+		HilfUI.printBefehleNutzerUI();
 		Scanner sca = new Scanner(System.in);
 		String command = "";
 		command = sca.next(); //SichereEingabe.liestChar
@@ -111,7 +111,7 @@ public class NutzerUI {
 		}else n.printNutzer();
 		boolean erfolg = false;
 		while(erfolg != true) {		
-			printBefehleEditNutzer();
+			HilfUI.printBefehleEditNutzer();
 			input = sc.next();   //SichereEingabe.liestChar
 			if(input.compareTo("username") == 0) {
 				String name = SichereEingabe.checkName(nc);   //SichereEingabe.liestChar
@@ -145,19 +145,5 @@ public class NutzerUI {
 		user = nc.sucheNutzer(name);
 		return user != null;
 	}
-	private void printBefehleEditNutzer() {
-		System.out.println("username \t ändert den Nutzername");
-		System.out.println("recht \t\t ändert das Racht");
-		System.out.println("vollname \t ändert den vollständigen Name");
-		System.out.println("end \t\t beendet die Bearbeitung");
-	}
-	
-	public void printBefehle() {
-		System.out.println("\n-----Arbeit mit Nutzer-----\n");
-		System.out.println("login \t\t meldet sich an");
-		System.out.println("create \t erzeugt neuen Nutzer");
-		System.out.println("edit \t\t bearbeitet den Nutzer");
-		System.out.println("del \t\t löscht den Nutzer");
-		System.out.println("end \t\t beendet das Programm\n");
-	}
+
 }

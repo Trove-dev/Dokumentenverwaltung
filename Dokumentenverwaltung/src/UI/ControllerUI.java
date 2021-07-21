@@ -27,10 +27,10 @@ public class ControllerUI implements Serializable{
 		
 	private void start() throws IOException {	
 		loadall();
-		NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
+		/*NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
 		ArrayList<Nutzer> nutzerListe = nc.getListeNutzer();	
 		NutzerUI nui = new NutzerUI(nc, nutzerListe);
-		nui.startAnmelden();
+		nui.startAnmelden();*/
 	
 		HilfUI.printBefehleControllerUI();
 	    String input = "";
@@ -109,8 +109,8 @@ public class ControllerUI implements Serializable{
 	private void anzeigeAlleDateien() {
 		DateiAnzeigeUI anzeigeFenster = new DateiAnzeigeUI();
 		anzeigeFenster.DateiAnzeigeUIAnzeige();
-		if (anzeigeFenster.getBefehl() == "listall") {
-			if (serviceLocator.getDateienContainer().getAlleDateien() != null) {
+		if (anzeigeFenster.getBefehl() == "listall") {       //////////////         listall
+			if (serviceLocator.getDateienContainer().getAlleDateien() != null) {   
 				System.out.println("Liste aller Dateien im Detail:\n");
 				serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
 				HilfUI.promtEnterKey();
