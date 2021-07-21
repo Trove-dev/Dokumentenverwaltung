@@ -48,7 +48,7 @@ public class DateiEinlesenlUI {
 	        		info(pathGet, input.substring(5));
 	        	}
 	        	else {
-	        		System.out.println("Betriebssystem wird nicht unterstÃ¼tzt!");
+	        		System.out.println("Betriebssystem wird nicht unterstützt!");
 	        	}
 				
 	        }
@@ -130,7 +130,11 @@ public class DateiEinlesenlUI {
 			System.out.println("Letzter Zugriff: \t\t" + attr.lastAccessTime());
 			System.out.println("Zuletzt bearbeitet: \t" + attr.lastModifiedTime());
 			
+<<<<<<< HEAD
 			System.out.println("Größe: \t\t\t" + attr.size() + " Bytes");
+=======
+			System.out.println("Größe: \t\t\t\t" + attr.size() + " Bytes");
+>>>>>>> master
 			System.out.println("Pfad der Datei: \t\t" + file + "\n");
 			if (attr.isDirectory() == true) {
 				System.out.println("Es handelt sich um ein Ordner!");

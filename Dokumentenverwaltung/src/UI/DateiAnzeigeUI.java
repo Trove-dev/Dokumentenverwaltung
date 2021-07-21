@@ -20,10 +20,14 @@ public class DateiAnzeigeUI {
 				  	this.befehl = "listall";
 				  	break;
 	        }
-	        if (input.startsWith("delete")){
+	        else if (input.startsWith("delete")){
 	        	this.befehl = "delete";
 	        	break;
 	        	
+	        }
+	        else if (input.startsWith("search")) {
+	        	this.befehl = "search";
+	        	break;
 	        }
 	        else if( input.startsWith("back")){
 	        	HilfUI.printBefehleControllerUIClear();
