@@ -129,12 +129,7 @@ public class DateiEinlesenlUI {
 			System.out.println("Erstellungsdatum: \t\t" + attr.creationTime());
 			System.out.println("Letzter Zugriff: \t\t" + attr.lastAccessTime());
 			System.out.println("Zuletzt bearbeitet: \t" + attr.lastModifiedTime());
-			
-<<<<<<< HEAD
 			System.out.println("Größe: \t\t\t" + attr.size() + " Bytes");
-=======
-			System.out.println("Größe: \t\t\t\t" + attr.size() + " Bytes");
->>>>>>> master
 			System.out.println("Pfad der Datei: \t\t" + file + "\n");
 			if (attr.isDirectory() == true) {
 				System.out.println("Es handelt sich um ein Ordner!");

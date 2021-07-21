@@ -156,6 +156,16 @@ public class ControllerUI implements Serializable{
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
 		}
+		else if(anzeigeFenster.getBefehl() == "addtag") {
+			String tmpSuche = "";
+			Scanner sc= new Scanner(System.in);
+			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
+			System.out.print("Welcher Datei möchten Sie ein Tag zuordnen? (Bitte Dateinamen eingeben): ");
+			String dateiName = sc.next();
+			
+			/////////
+			
+		}
 	}
 }
 
