@@ -3,7 +3,6 @@ package UI;
 import Verarbeitung.ServiceLocator;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
@@ -68,12 +67,14 @@ public class ControllerUI implements Serializable{
 	
 	private void uploadDatei() {
 		if (neueDatei() == false) {
-        	HilfUI.printBefehleControllerUIClear();
+        	System.out.println("Fehler beim Speichern!");
+        	HilfUI.promtEnterKey();
+			HilfUI.printBefehleControllerUIClear();
         }
         else {
-        	HilfUI.clearScreen();
-        	System.out.println("Datei wurde erfolgreich gespeichert!");
-        	HilfUI.printBefehleControllerUI();
+        	System.out.println("\nDatei wurde erfolgreich gespeichert!");
+        	HilfUI.promtEnterKey();
+        	HilfUI.printBefehleControllerUIClear();
         }
 	}
 
@@ -98,12 +99,11 @@ public class ControllerUI implements Serializable{
 			e.printStackTrace();
 		}
 		if (einleseFenster.getPath() != null && einleseFenster.getName() != null) {
-			serviceLocator.getDateienContainer().hochladeDatei(einleseFenster.getPath(), einleseFenster.getName());
-			return true;
+			if (serviceLocator.getDateienContainer().hochladeDatei(einleseFenster.getPath(), einleseFenster.getName()) == true) {
+				return true;
+			}
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	
 	private void dateiAnzeige() {
@@ -120,14 +120,14 @@ public class ControllerUI implements Serializable{
 			else {
 				System.out.println("Es wurde bisher keine Dateien gespeichert!\n");
 				HilfUI.promtEnterKey();
-				HilfUI.printBefehleControllerUI();
+				HilfUI.printBefehleControllerUIClear();
 			}
 		}
 		else if (anzeigeFenster.getBefehl() == "delete") {
 			boolean erfolg = false;
 			Scanner s = new Scanner(System.in);
 			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
-			System.out.print("Welche Datei mÃ¶chten Sie lÃ¶schen? (Bitte Dateinamen eingeben): ");
+			System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
 			String dateiName = s.next();
 			Iterator<Datei> it = serviceLocator.getDateienContainer().getAlleDateien().iterator();
 			while (it.hasNext()) {
@@ -146,6 +146,15 @@ public class ControllerUI implements Serializable{
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
 			}
+		}
+		else if (anzeigeFenster.getBefehl() == "search") {
+			String tmpSuche = "";
+			Scanner ss = new Scanner(System.in);
+			System.out.print("Bitte einen Dateinamen eingeben: ");
+			tmpSuche = ss.nextLine();
+			serviceLocator.getDateienContainer().sucheDatei(tmpSuche);
+			HilfUI.promtEnterKey();
+			HilfUI.printBefehleControllerUIClear();
 		}
 	}
 }
