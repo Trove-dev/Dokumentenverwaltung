@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
+import java.nio.file.attribute.UserPrincipal;
 import java.util.HashSet;
 import Datum.Datum;
 import Nutzer.Nutzer;
@@ -14,7 +15,7 @@ import Tag.TagsContainerInterface;
 public class Datei implements Serializable{
 	
 	private String name;
-	private String ersteller;
+	private String ersteller;                // ?? nötig ?
 	private String erstellungsDatum;
 	private String dateiPfad;
 	private String kommentar;
@@ -22,22 +23,22 @@ public class Datei implements Serializable{
 	private Datei verknuepfung[];
 	private String datumVonletzterAenderung;
 	private String format;
-	private int haeufigkeitVonOeffnung;
+	private int haeufigkeitVonOeffnung;		// nicht möglich?
 	private long groesse;
 	private TagsContainerInterface tc;
 
-	public Datei(String name, FileTime creationTime, FileTime lastAccessTime, FileTime lastModifiedTime,
-			boolean directory, boolean regularFile, boolean symbolicLink, boolean other, long size, Path file) {
+	public Datei(String name, UserPrincipal owner, FileTime creationTime, FileTime lastModifiedTime,
+			String extension, long size, Path file) {
 		this.name = name;
-		this.ersteller = null;
+		this.ersteller = owner.toString();
 		this.erstellungsDatum = creationTime.toString();
 		this.dateiPfad = file.toString();
 		this.kommentar = null;
 		this.tags = null;
 		this.verknuepfung = null;
 		this.datumVonletzterAenderung = lastModifiedTime.toString();
-		this.format = null;
-		this.haeufigkeitVonOeffnung = 0;
+		this.format = extension;
+		this.haeufigkeitVonOeffnung = 0;	// nicht möglich?
 		this.groesse = size;	
 	}
 	
@@ -91,7 +92,7 @@ public class Datei implements Serializable{
 		this.erstellungsDatum = erstellungsDatum;
 	}
 
-	public String getDateiPfed() {
+	public String getDateiPfad() {
 		return dateiPfad;
 	}
 
@@ -107,7 +108,7 @@ public class Datei implements Serializable{
 		this.kommentar = kommentar;
 	}
 
-	public TagsContainer[] getTags() {
+	public HashSet<Tag> getTags() {
 		return tags;
 	}
 
