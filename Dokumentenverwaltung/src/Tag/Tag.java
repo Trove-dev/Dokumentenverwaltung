@@ -4,40 +4,42 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import Datei.Datei;
 
-public class Tag implements TagsContainerInterface, Serializable{
+public class Tag implements Serializable{
 	
-	private Tag subTag;
+	
 	private String key;
 	private ArrayList <Datei> listeDateien = new ArrayList <>();
-	
+
 	public Tag(String schluessel) {
 		
 		key = schluessel;
 	}
-
-	public String getKey() {
-		return key;
+	
+	public void bindDokument(Datei dokument) {
+		listeDateien.add(dokument);
 	}
 	
-	public void addiereNewTag(Datei dokument, Tag tag, String key) {
-		if(tag != null) tag.subTag = new Tag(key);
-		listeDateien.add(dokument);
+	public void disconnectDokument(Datei dokument, Tag tag) {
+		tag.listeDateien.remove(dokument);
+		if(tag.listeDateien.isEmpty()) {
+			tag = null;
+		}
 	}
 
 	public ArrayList<Datei> getListeDateien() {
 		return listeDateien;
 	}
-
-	@Override
-	public Tag sucheTag(String key) {   ///
-		
-		return null;
-	}
-
-	@Override
-	public void addiereNeuesTag(String key) {   ///
-	}
 	
+	public void setListeDateien(ArrayList<Datei> listeDateien) {
+			this.listeDateien = listeDateien;
+	}
+
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
 	
 	
 }

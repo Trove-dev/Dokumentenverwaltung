@@ -20,6 +20,12 @@ public class NutzerContainer implements NutzerContainerInterface, Serializable{
 	}
 	
 	@Override
+/*
+	public boolean addNeuenNutzer(String name, Rechte rechte, String nameVollstaendig) {
+		if(sucheNutzer(name) != null || rechte == null) return false;
+		Nutzer newNutzer = new Nutzer(name, rechte, nameVollstaendig);
+		listeNutzer.add(newNutzer);
+		return true;*/
 	public Nutzer addNeuenNutzer(String name, Rechte rechte, String nameVollstaendig) {
 		Nutzer n = null;
 		if(sucheNutzer(name) == null && rechte != null) {

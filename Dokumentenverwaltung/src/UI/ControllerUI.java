@@ -4,11 +4,14 @@ import Verarbeitung.ServiceLocator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Scanner;
-import Datei.Datei;
+import java.util.TreeSet;
 import Nutzer.Nutzer;
+import java.io.Serializable;
 import Nutzer.NutzerContainerInterface;
+import Tag.Tag;
+import Tag.TagsContainerInterface;
+import Datei.Datei;
 
 public class ControllerUI implements Serializable{
 	
@@ -23,6 +26,13 @@ public class ControllerUI implements Serializable{
 		serviceLocator = ServiceLocator.getInstance();
 		start();
 	}
+		
+	
+	/*	TagsContainerInterface tc = serviceLocator.getTagsContainer();
+		TreeSet <Tag> tst = tc.getTagsListe();
+		TagUI tui = new TagUI(tc);
+		tui.anzeigeTagsCloud();  */
+		
 		
 	private void start() throws IOException {	
 		loadall();
@@ -77,7 +87,7 @@ public class ControllerUI implements Serializable{
         	HilfUI.printBefehleControllerUIClear();
         }
 	}
-
+	
 	private void saveall() {		
 		String dateiName = "containers.dat";
 		serviceLocator.speicherAlleContainer(dateiName, serviceLocator);
