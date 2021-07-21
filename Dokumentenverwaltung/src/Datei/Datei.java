@@ -15,7 +15,7 @@ import Tag.TagsContainerInterface;
 public class Datei implements Serializable{
 	
 	private String name;
-	private String ersteller;
+	private String ersteller;                // ?? nötig ?
 	private String erstellungsDatum;
 	private String dateiPfad;
 	private String kommentar;

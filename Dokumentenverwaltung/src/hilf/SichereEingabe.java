@@ -85,7 +85,7 @@ public class SichereEingabe {
 	 
 	public static String checkVollstaendigenName() {  
 		Scanner input = new Scanner(System.in);
-		System.out.print("Ihr vollständiger Name: ");
+		System.out.println("Ihr vollständiger Name: ");
 		boolean erfolg = false;
 		String inputnameVollstandig = "";		
 		while(erfolg != true) {

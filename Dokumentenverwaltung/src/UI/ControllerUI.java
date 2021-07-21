@@ -13,6 +13,7 @@ import Nutzer.NutzerContainerInterface;
 public class ControllerUI implements Serializable{
 	
 	private ServiceLocator serviceLocator;
+	Nutzer user;
 
 	public static void main(String[] args) throws IOException {
 		ControllerUI c = new ControllerUI();
@@ -24,14 +25,13 @@ public class ControllerUI implements Serializable{
 	}
 		
 	private void start() throws IOException {	
-		NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
+		loadall();
+		/*NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
 		ArrayList<Nutzer> nutzerListe = nc.getListeNutzer();	
 		NutzerUI nui = new NutzerUI(nc, nutzerListe);
-		// Auswahl Nutzer
-		nui.startAnmelden();
-		
+		nui.startAnmelden();*/
+	
 		HilfUI.printBefehleControllerUI();
-	    
 	    String input = "";
 	    Scanner sc = new Scanner(System.in);
 	    
@@ -109,8 +109,8 @@ public class ControllerUI implements Serializable{
 	private void dateiAnzeige() {
 		DateiAnzeigeUI anzeigeFenster = new DateiAnzeigeUI();
 		anzeigeFenster.DateiAnzeigeUIAnzeige();
-		if (anzeigeFenster.getBefehl() == "listall") {
-			if (serviceLocator.getDateienContainer().getAlleDateien() != null) {
+		if (anzeigeFenster.getBefehl() == "listall") {       //////////////         listall
+			if (serviceLocator.getDateienContainer().getAlleDateien() != null) {   
 				System.out.println("Liste aller Dateien im Detail:\n");
 				serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
 				HilfUI.promtEnterKey();
@@ -155,6 +155,16 @@ public class ControllerUI implements Serializable{
 			serviceLocator.getDateienContainer().sucheDatei(tmpSuche);
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
+		}
+		else if(anzeigeFenster.getBefehl() == "addtag") {
+			String tmpSuche = "";
+			Scanner sc= new Scanner(System.in);
+			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
+			System.out.print("Welcher Datei möchten Sie ein Tag zuordnen? (Bitte Dateinamen eingeben): ");
+			String dateiName = sc.next();
+			
+			/////////
+			
 		}
 	}
 }

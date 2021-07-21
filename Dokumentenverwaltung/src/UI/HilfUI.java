@@ -39,14 +39,30 @@ public class HilfUI {
 
 	public static void printBefehleDateiEinlesenUIClear() {
 		clearScreen();
-		System.out.println("\ndir\t\t- listet alle Dateien und Unterverzeichnisse auf");
-	    System.out.println("cd <dir>\t- wechselt in das angegebene Verzeichnis <dir>");
-	    System.out.println("cd ..\t\t- wechselt in das vorige Verzeichnis");
+		System.out.println("\ndir\t\t\t- listet alle Dateien und Unterverzeichnisse auf");
+	    System.out.println("cd <dir>\t\t- wechselt in das angegebene Verzeichnis <dir>");
+	    System.out.println("cd ..\t\t\t- wechselt in das vorige Verzeichnis");
 	    System.out.println("info <name>\t- listet Informationen einer Datei/Ordner auf");
 	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");
-	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
-	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
-	    System.out.println("---------------------");	
+	    System.out.println("help \t\t\t- zeigt alle verfügbaren Befehle an");
+	    System.out.println("back\t\t\t- wechselt zurück in die Hauptansicht");
+	    System.out.println("----------------");	
+	}
+	
+	public static void printBefehleEditNutzer() {
+		System.out.println("username \t ändert den Nutzername");
+		System.out.println("recht \t\t ändert das Racht");
+		System.out.println("vollname \t ändert den vollständigen Name");
+		System.out.println("end \t\t beendet die Bearbeitung");
+	}
+	
+	public static void printBefehleNutzerUI() {
+		System.out.println("\n-----Arbeit mit Nutzer-----\n");
+		System.out.println("login \t\t meldet sich an");
+		System.out.println("create \t erzeugt neuen Nutzer");
+		System.out.println("edit \t\t bearbeitet den Nutzer");
+		System.out.println("del \t\t löscht den Nutzer");
+		System.out.println("end \t\t beendet das Programm\n");
 	}
 	
 	public static void promtEnterKey() {

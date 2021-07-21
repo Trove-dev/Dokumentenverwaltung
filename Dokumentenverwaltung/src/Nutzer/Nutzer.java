@@ -2,7 +2,7 @@ package Nutzer;
 
 import java.io.Serializable;
 
-public class Nutzer implements NutzerContainerInterface, Serializable{
+public class Nutzer implements Serializable{
 	private String name;
 	private Rechte rechte;
 	private String nameVollstaendig;
@@ -35,6 +35,11 @@ public class Nutzer implements NutzerContainerInterface, Serializable{
 
 	public void setNameVollstaendig(String nameVollstaendig) {
 		this.nameVollstaendig = nameVollstaendig;
+	}
+	
+	public void printNutzer() {
+		
+		System.out.print("Username: " + name + "; das Recht : " + rechte + "; Ihr Name: " + nameVollstaendig+"\n");
 	}
 
 }

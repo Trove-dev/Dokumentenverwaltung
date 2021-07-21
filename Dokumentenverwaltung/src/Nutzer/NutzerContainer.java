@@ -20,17 +20,18 @@ public class NutzerContainer implements NutzerContainerInterface, Serializable{
 	}
 	
 	@Override
-	public boolean addNeuenNutzer(String name, Rechte rechte, String nameVollstaendig) {
-		if(sucheNutzer(name) != null || rechte == null) return false;
-		listeNutzer.add(new Nutzer(name, rechte, nameVollstaendig));
-		return true;
+	public Nutzer addNeuenNutzer(String name, Rechte rechte, String nameVollstaendig) {
+		Nutzer n = null;
+		if(sucheNutzer(name) == null && rechte != null) {
+			n = new Nutzer(name, rechte, nameVollstaendig);
+			listeNutzer.add(n);
+		}
+		return n;
 	}
 
-	public boolean loescheNutzer(String name) {
+	public void loescheNutzer(String name) {
 		Nutzer delNutzer = sucheNutzer(name);
-		if(delNutzer == null) return false;
 		listeNutzer.remove(delNutzer);
-		return true;
 	}
 	
 	public void bearbeiteNutzerName(Nutzer user, String nameNew) {
@@ -47,7 +48,7 @@ public class NutzerContainer implements NutzerContainerInterface, Serializable{
 	
 	public Nutzer sucheNutzer(String name) {
 		for(Nutzer user:listeNutzer) 
-			if(user.getName() == name)
+			if(user.getName().compareTo(name) == 0)
 				return user;
 		return null;		
 	}
@@ -58,17 +59,9 @@ public class NutzerContainer implements NutzerContainerInterface, Serializable{
 		return listeNutzer;
 	}
 
-	public void printNutzer() {
-	//	listeNutzer.sort(null);
+	public void printNutzerList() {
 		for(Nutzer user:listeNutzer) 
-			System.out.println("Name: " + user.getName() + " Name Voll " + user.getNameVollstaendig());
-	}
-
-	@Override
-	public boolean addNeuenNutzer(String name, int rechte, String nameVollstaendig) {
+			System.out.println("\nName: " + user.getName() + "; Rechte : " + user.getRechte()+ "; vollständiger Name : " + user.getNameVollstaendig() + "\n");
 		
-		return false;
 	}
-	
-
 }
