@@ -39,7 +39,7 @@ public class Nutzer implements NutzerContainerInterface, Serializable{
 	
 	public void printNutzer() {
 		
-		System.out.print("Username: " + name + "; das Recht : " + rechte + "; Ihr Name: " + nameVollstaendig);
+		System.out.print("Username: " + name + "; das Recht : " + rechte + "; Ihr Name: " + nameVollstaendig+"\n");
 	}
 
 }

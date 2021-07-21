@@ -13,6 +13,7 @@ public class NutzerUI {
 	ArrayList<Nutzer> nutzerListe;
     Scanner sc;
     Nutzer user;
+    boolean angemeldet;
 	
 	public NutzerUI(NutzerContainerInterface nc, ArrayList<Nutzer> nutzerListe) {
 		this.nc = nc;
@@ -26,13 +27,12 @@ public class NutzerUI {
 			System.out.println("Es gibt noch keine Nutzer. Registrieren Sie sich bitte.");
 			erzeugeNutzer();
 			}else {
-				System.out.println("Die Liste der Nutzer:\n");
-				nc.printNutzerList();
-				ausfuereBefehle(user);
-				int antwort = 0;
-				for(int i = 0; i < nutzerListe.size(); i++) {
-					System.out.println(++antwort + " - " + nutzerListe.get(i).getName());
-					}
+				while (angemeldet != true) {
+					System.out.println("Sie müssen angemelddet sein");
+					System.out.println("\nDie Liste der Nutzer:");
+					nc.printNutzerList();
+					ausfuereBefehle(user);
+				}
 			}
 		return user;
 	}
@@ -54,30 +54,35 @@ public class NutzerUI {
 		String command = "";
 		command = sca.next(); //SichereEingabe.liestChar
 		if(command.compareTo("login") == 0) {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Geben Sie einen Name ein : ");
-			String userName = sc.next();  //SichereEingabe.liestChar
-			System.out.println("_"+userName+"_");
-			if(anmeldeNutzer(userName) == true) {
-				System.out.println("Sie sind angemeldet");
-			}else {
-				System.out.println("Dieser Name ist ungültig");
-				ausfuereBefehle(user);
-			}			
+			boolean erfolg = false;
+			while (erfolg != true) {
+				System.out.println("Geben Sie einen Name ein : ");
+				String userName = sca.next();  //SichereEingabe.liestChar
+				if(userName.compareTo("end") == 0) break;
+				if(anmeldeNutzer(userName) == true) {
+					System.out.println("Sie sind angemeldet");
+					angemeldet = true;
+					erfolg = true;
+				}else {
+					System.out.println("Dieser Name ist ungültig");
+					System.out.println("Die Liste der Nutzer:\n");
+					nc.printNutzerList();
+				}
+			}
 		}else if(command.compareTo("create") == 0) {
 			erzeugeNutzer();
 		}else if(command.compareTo("edit") == 0) {
 			bearbeiteNutzer();
 		}else if(command.compareTo("del") == 0) {
 			loescheNutzer();
-		}else if(command.compareTo("end") == 0) {
+		}else if(command.compareTo("end") == 0) {Runtime.getRuntime().exit(1);
 			System.out.println("Sie verlassen das Programm");
+			/////////////  
+			
 		}else {
 			System.out.println("Der falsche Befehl\n");
 			ausfuereBefehle(user);
 		}
-		sca.close();
-		sc.close();
 	}
 	private void loescheNutzer() {
 		nc.printNutzerList();
@@ -92,42 +97,47 @@ public class NutzerUI {
 			n.printNutzer();
 			System.out.println("wurde erfolgreich gelöscht");
 		}
-		input.close();
 	}
 	
 	private void bearbeiteNutzer() {
-		String userName = sc.nextLine();
+		System.out.println("Geben Sie einen Name ein : ");
+		String userName = sc.next();
+		String input = "";
 		if(userName == "end") return;
-		Nutzer n = nc.sucheNutzer(userName);
+		Nutzer n = nc.sucheNutzer(userName);		
+		if(n == null) {
+			System.out.println("Der Name ist ungültig");
+			bearbeiteNutzer();
+		}else n.printNutzer();
 		boolean erfolg = false;
-		while(erfolg != true) {
-			if(n == null) {
-				System.out.println("Der Name ist ungültig");
-				bearbeiteNutzer();
+		while(erfolg != true) {		
+			printBefehleEditNutzer();
+			input = sc.next();   //SichereEingabe.liestChar
+			if(input.compareTo("username") == 0) {
+				String name = SichereEingabe.checkName(nc);   //SichereEingabe.liestChar
+				n.setName(name);
+				if(n.getName().compareTo(name) != 0) erfolg = true;				
+			}else if(input.compareTo("recht") == 0) {
+				Rechte r = SichereEingabe.checkRechte();   //SichereEingabe.liestChar
+				n.setRechte(r);
+				if(n.getRechte().compareTo(r) == 0) System.out.println("Das gleiche Recht");
+				else erfolg = true;
+			}else if(input.compareTo("vollname") == 0) {
+				String nameVoll = SichereEingabe.checkVollstaendigenName();   //SichereEingabe.liestChar
+				n.setNameVollstaendig(nameVoll);
+				if(n.getNameVollstaendig().compareTo(nameVoll) == 0) System.out.println("Der gleiche Name");
+				else erfolg = true;
+			}else if(input.compareTo("end") == 0) {
+				//// zurück
+				break;
 			}else {
-				printBefehleEditNutzer();
-				String input = sc.nextLine();  //SichereEingabe.liestChar
-				if(input.compareTo(userName) == 0) {
-					String name = SichereEingabe.checkName(n);   //SichereEingabe.liestChar
-					n.setName(name);
-					erfolg = true;
-				}else if(input.compareTo("recht") == 0) {
-					Rechte r = SichereEingabe.checkRechte();   //SichereEingabe.liestChar
-					n.setRechte(r);
-					erfolg = true;
-				}else if(input.compareTo("vollname") == 0) {
-					String nameVoll = SichereEingabe.checkVollstaendigenName();   //SichereEingabe.liestChar
-					n.setNameVollstaendig(nameVoll);
-					erfolg = true;
-				}else if(input.compareTo("end") == 0) {
-					//// zurück
-					break;
-				}else {
-					System.out.println("Der falsche Befehl");
-					bearbeiteNutzer();
-				}
+				System.out.println("Der falsche Befehl");
+				bearbeiteNutzer();
+			}
 		}
-		if(erfolg == true) System.out.println("Der Nutzer wurde erfolgreich bearbeitet");
+		if(erfolg == true) {
+			System.out.println("Der Nutzer wurde erfolgreich bearbeitet");
+			bearbeiteNutzer();
 		}
 	}
 	
@@ -143,7 +153,7 @@ public class NutzerUI {
 	}
 	
 	public void printBefehle() {
-		System.out.println("-----Arbeit mit Nutzer-----\n");
+		System.out.println("\n-----Arbeit mit Nutzer-----\n");
 		System.out.println("login \t\t meldet sich an");
 		System.out.println("create \t erzeugt neuen Nutzer");
 		System.out.println("edit \t\t bearbeitet den Nutzer");
