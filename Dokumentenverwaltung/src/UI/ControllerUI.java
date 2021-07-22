@@ -17,6 +17,7 @@ public class ControllerUI implements Serializable{
 	
 	private ServiceLocator serviceLocator;
 	Nutzer user;
+	TagsContainerInterface tci;
 
 	public static void main(String[] args) throws IOException {
 		ControllerUI c = new ControllerUI();
@@ -34,7 +35,7 @@ public class ControllerUI implements Serializable{
 		NutzerUI nui = new NutzerUI(nc, nutzerListe);
 		nui.startAnmelden();
 		saveall();
-		
+		tci = serviceLocator.getTagsContainer();
 	
 		HilfUI.printBefehleControllerUI();
 	    String input = "";
@@ -98,7 +99,7 @@ public class ControllerUI implements Serializable{
 	}
 	
 	private boolean neueDatei() {
-		TagsContainerInterface tci = serviceLocator.getTagsContainer();
+		
 		DateiEinlesenlUI einleseFenster = new DateiEinlesenlUI();
 		try {
 			einleseFenster.DateiEinlesenUI();
@@ -106,7 +107,7 @@ public class ControllerUI implements Serializable{
 			e.printStackTrace();
 		}
 		if (einleseFenster.getPath() != null && einleseFenster.getName() != null) {
-			if (serviceLocator.getDateienContainer().hochladeDatei(einleseFenster.getPath(), einleseFenster.getName(), tci) == true) {
+			if (serviceLocator.getDateienContainer().hochladeDatei(einleseFenster.getPath(), einleseFenster.getName()) == true) {
 				return true;
 			}
 		}

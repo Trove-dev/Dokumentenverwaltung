@@ -26,7 +26,7 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		return uniqueInstance;
 	}
 	
-	public boolean hochladeDatei(Path file, String name, TagsContainerInterface tc) {
+	public boolean hochladeDatei(Path file, String name) {
 		try {
 			BasicFileAttributes a = Files.readAttributes(file, BasicFileAttributes.class);
 			FileOwnerAttributeView b = Files.getFileAttributeView(file, FileOwnerAttributeView.class);
@@ -41,7 +41,7 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 					return false;
 				}
 				else {
-					Datei tmp = new Datei(name, b.getOwner(), a.creationTime(), a.lastModifiedTime(), extension ,a.size(), file, tc);
+					Datei tmp = new Datei(name, b.getOwner(), a.creationTime(), a.lastModifiedTime(), extension ,a.size(), file);
 					dateienListe.add(tmp);
 					return true;
 				}

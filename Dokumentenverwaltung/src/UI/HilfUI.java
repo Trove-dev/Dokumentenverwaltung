@@ -64,14 +64,16 @@ public class HilfUI {
 		System.out.println("edit \t\t bearbeitet den Nutzer");
 		System.out.println("del \t\t löscht den Nutzer");
 		System.out.println("end \t\t beendet das Programm\n");
+		System.out.println("\n--------------------------------\n");
 	}
 	
 	public static void printBefehleTags() {
 		System.out.println("\n-------Arbeit mit Tags--------\n");
 		System.out.println("add \t\t Ein neues Tag hinzufügen");
 		System.out.println("del \t\t Ein Tag löschen");
-		System.out.println("unlink\t\tEin Tag und die Datei trennen");
+		System.out.println("unlink\t\t Ein Tag und die Datei trennen");
 		System.out.println("exit \t\t zum Menü-Datei");    //Aussage!!
+		System.out.println("\n--------------------------------\n");
 	}
 	
 	public static void promtEnterKey() {

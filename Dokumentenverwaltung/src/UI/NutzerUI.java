@@ -59,7 +59,7 @@ public class NutzerUI {
 				String userName = sca.next();  //SichereEingabe.liestChar
 				if(userName.compareTo("end") == 0) break;
 				if(anmeldeNutzer(userName) == true) {
-					System.out.println("Sie sind angemeldet");
+					System.out.println("\n" + userName + ", Sie sind angemeldet\n");
 					angemeldet = true;
 					erfolg = true;
 				}else {
