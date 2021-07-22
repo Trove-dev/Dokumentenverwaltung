@@ -10,5 +10,5 @@ public interface DateienContainerInterface {
 	public ArrayList<Datei> getAlleDateien();
 	public void zeigeAlleDateienDetails();
 	public void sucheDatei (String name);
-
+	public void sucheDateiTags (ArrayList<String> names);
 }
