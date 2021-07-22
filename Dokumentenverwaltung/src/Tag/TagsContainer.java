@@ -19,17 +19,17 @@ public class TagsContainer implements TagsContainerInterface, Serializable{
 		tag =  new Tag(key);
 		tagsListe.add(tag);
 		tag.bindDokument(dok);
-		dok.addiereTag(tag, key);
+		dok.addiereTag(tag);
 	}
 		
-	public void loescheTag(String key){
-		if(sucheTag(key) != null) tagsListe.remove(tag);
+	public void loescheTag(Tag tag){
+		tagsListe.remove(tag);
 	}
 	
 	@Override
 	public Tag sucheTag(String key) {
 		for(Tag suchTag: tagsListe) {
-			if(suchTag.getKey() == key) return suchTag;
+			if(suchTag.getKey().compareTo(key) == 0) return suchTag;
 		}
 		return null;
 	}
@@ -40,9 +40,10 @@ public class TagsContainer implements TagsContainerInterface, Serializable{
 	}
 	
 	public void printTagsListe() {
+		System.out.println("Diese Tags sind schon im System : \n");
 		int i = 0;
 		for(Tag tags:tagsListe) {
-				System.out.print("  "+ tags.getKey() + "  ");	
+				System.out.print(tags.getKey() + "\t\t");	
 				i ++;
 				if(i%5 == 0) System.out.print("\n");
 		}	

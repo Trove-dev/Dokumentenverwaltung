@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import Datei.Datei;
 
-public class Tag implements Serializable{
+public class Tag implements Serializable, Comparable<Tag>{
 	
 	
 	private String key;
 	private ArrayList <Datei> listeDateien = new ArrayList <>();
 
-	public Tag(String schluessel) {
-		
+	public Tag(String schluessel) {		
 		key = schluessel;
 	}
 	
@@ -19,11 +18,8 @@ public class Tag implements Serializable{
 		listeDateien.add(dokument);
 	}
 	
-	public void disconnectDokument(Datei dokument, Tag tag) {
-		tag.listeDateien.remove(dokument);
-		if(tag.listeDateien.isEmpty()) {
-			tag = null;
-		}
+	public void disconnectDokument(Datei dokument) {
+		listeDateien.remove(dokument);
 	}
 
 	public ArrayList<Datei> getListeDateien() {
@@ -39,6 +35,11 @@ public class Tag implements Serializable{
 	}
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	@Override
+	public int compareTo(Tag tag) {		
+		return key.compareTo(tag.getKey());
 	}
 	
 	

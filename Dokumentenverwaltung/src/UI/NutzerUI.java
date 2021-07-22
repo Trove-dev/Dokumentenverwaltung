@@ -28,8 +28,7 @@ public class NutzerUI {
 			erzeugeNutzer();
 			}else {
 				while (angemeldet != true) {
-					System.out.println("Sie müssen angemelddet sein");
-					System.out.println("\nDie Liste der Nutzer:");
+					System.out.println("Sie müssen angemeldet sein");
 					nc.printNutzerList();
 					ausfuereBefehle(user);
 				}
@@ -60,7 +59,7 @@ public class NutzerUI {
 				String userName = sca.next();  //SichereEingabe.liestChar
 				if(userName.compareTo("end") == 0) break;
 				if(anmeldeNutzer(userName) == true) {
-					System.out.println("Sie sind angemeldet");
+					System.out.println("\n" + userName + ", Sie sind angemeldet\n");
 					angemeldet = true;
 					erfolg = true;
 				}else {
@@ -115,18 +114,24 @@ public class NutzerUI {
 			input = sc.next();   //SichereEingabe.liestChar
 			if(input.compareTo("username") == 0) {
 				String name = SichereEingabe.checkName(nc);   //SichereEingabe.liestChar
-				n.setName(name);
-				if(n.getName().compareTo(name) != 0) erfolg = true;				
+				if(n.getName().compareTo(name) != 0) {
+					n.setName(name);
+					erfolg = true;				
+				}
 			}else if(input.compareTo("recht") == 0) {
 				Rechte r = SichereEingabe.checkRechte();   //SichereEingabe.liestChar
-				n.setRechte(r);
 				if(n.getRechte().compareTo(r) == 0) System.out.println("Das gleiche Recht");
-				else erfolg = true;
+				else {
+					n.setRechte(r);
+					erfolg = true;
+				}
 			}else if(input.compareTo("vollname") == 0) {
 				String nameVoll = SichereEingabe.checkVollstaendigenName();   //SichereEingabe.liestChar
-				n.setNameVollstaendig(nameVoll);
 				if(n.getNameVollstaendig().compareTo(nameVoll) == 0) System.out.println("Der gleiche Name");
-				else erfolg = true;
+				else {
+					n.setNameVollstaendig(nameVoll);
+					erfolg = true;
+				}				
 			}else if(input.compareTo("end") == 0) {
 				//// zurück
 				break;

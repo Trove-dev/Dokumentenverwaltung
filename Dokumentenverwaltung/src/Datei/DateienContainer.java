@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import Tag.Tag;
+import Tag.TagsContainerInterface;
+
 public class DateienContainer implements DateienContainerInterface, Serializable{
 	private static DateienContainer uniqueInstance = null;
 	private ArrayList<Datei> dateienListe = new ArrayList<>();
@@ -95,6 +98,43 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 			}
 		}
 		return results;
+	}
+	
+	public void sucheDateiKommentar(String kommentar) {       //   ???
+		
+	}
+	
+	@Override
+	public void sucheDateiTags(ArrayList<String> tagsNames) {
+		boolean[]gefunden = new boolean[tagsNames.size()];
+		ArrayList <Datei> tmp = new ArrayList<>();
+		boolean isTrue = true;
+		for (Datei d:dateienListe) {
+			if(d.getTags() != null) {
+				for(Tag t:d.getTags()) {
+					for(int i = 0; i < tagsNames.size(); i++) {
+						if(t.getKey().compareTo(tagsNames.get(i)) == 0) {
+							gefunden[i] = true;
+							break;
+						}
+					}
+				}
+			}
+			for(boolean b:gefunden) {
+				if(b == false) {
+					isTrue = false;
+					break;
+				}
+			}
+			if(isTrue) tmp.add(d);
+		}
+		
+		if(!tmp.isEmpty()) {
+			System.out.println("Diese Dateien wurden gefunden : \n");
+			for(Datei dat:tmp) {
+				dat.anzeigeDateiDetail();
+			}
+		}else System.out.println("Es wurde keine Dateien gefunden\n");
 	}
 	
 	public void sucheDatei(String suchWort) {

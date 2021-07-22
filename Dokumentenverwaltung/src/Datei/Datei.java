@@ -25,7 +25,7 @@ public class Datei implements Serializable{
 	private String format;
 	private int haeufigkeitVonOeffnung;		// nicht möglich?
 	private long groesse;
-	private TagsContainerInterface tc;
+	TagsContainerInterface tci;
 
 	public Datei(String name, UserPrincipal owner, FileTime creationTime, FileTime lastModifiedTime,
 			String extension, long size, Path file) {
@@ -48,23 +48,44 @@ public class Datei implements Serializable{
 		System.out.println("Ersteller der Datei:\t" + ersteller);
 		System.out.println("Erstellungsdatum:\t" + erstellungsDatum);
 		System.out.println("Dateifpad:\t\t" + dateiPfad);
-		System.out.println("Kommentar:\t\t" + kommentar);
-		System.out.println("Tags:\t\t\t" + tags);
-		System.out.println("Verknüpfung:\t\t" + verknuepfung);
+		printKommentarForInfo();		
+		printTagsForInfo();
+		printVerknuepfungForInfo();
 		System.out.println("Datum letzter Änderung:\t" + datumVonletzterAenderung);
 		System.out.println("Format:\t\t\t" + format);
 		System.out.println("Häufigkeit von Öffnung:\t" + haeufigkeitVonOeffnung);
 		System.out.println("Größe der Datei:\t" + groesse + " Bytes");
 		System.out.println("----------------------");
 	}
-
-	public void addiereTag(String key) {
-		if(this.tags == null) this.tags = new HashSet<Tag>();
-		this.tags.add(tc.sucheTag(key));
+	
+	public void printTagsForInfo() {
+		System.out.print("Tags: \t\t\t");
+		if(tags != null) {
+			for(Tag t:tags) System.out.print(t.getKey() + "\t\t");
+		}else System.out.print("noch keine\n");
 	}
 	
-	public void loescheTag(String key) {
-		Tag delTag = tc.sucheTag(key);
+	public void printKommentarForInfo() {
+		System.out.print("Kommentar: \t");
+		if(kommentar != null) System.out.print(kommentar);
+		else System.out.print("noch keine\n");
+	}
+	
+	public void printVerknuepfungForInfo() {
+		System.out.print("Verknüpfung: \t");
+		if(verknuepfung != null) {
+			for(Datei d:verknuepfung) {
+				System.out.println(d.dateiPfad);
+			}
+		}else System.out.print("noch keine\n");
+	}
+
+	public void addiereTag(Tag tag) {
+		if(this.tags == null) this.tags = new HashSet<Tag>();
+		this.tags.add(tag);
+	}
+	
+	public void loescheTag(Tag delTag) {
 		tags.remove(delTag);
 	}
 
@@ -111,7 +132,18 @@ public class Datei implements Serializable{
 	public HashSet<Tag> getTags() {
 		return tags;
 	}
-
+	
+	public void printTagsVonDatei() {
+		if(tags == null) System.out.println("\nEs gibt keine Tags für diese Datei\n");
+		else{
+			System.out.println("\nDie Datei enthält diese Tag(s) :\n");
+			int i = 0;
+			for(Tag tag:tags) {
+				System.out.println(tag.getKey() + "\t\t");
+				if(i%5 == 0) System.out.print("\n");
+			}
+		}
+	}
 
 	public Datei[] getVerknuepfung() {
 		return verknuepfung;

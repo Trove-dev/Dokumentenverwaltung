@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import Nutzer.Nutzer;
 import java.io.Serializable;
 import Nutzer.NutzerContainerInterface;
+import Nutzer.Rechte;
 import Tag.Tag;
 import Tag.TagsContainerInterface;
 import Datei.Datei;
@@ -17,6 +18,7 @@ public class ControllerUI implements Serializable{
 	
 	private ServiceLocator serviceLocator;
 	Nutzer user;
+	TagsContainerInterface tci;
 
 	public static void main(String[] args) throws IOException {
 		ControllerUI c = new ControllerUI();
@@ -27,19 +29,14 @@ public class ControllerUI implements Serializable{
 		start();
 	}
 		
-	
-	/*	TagsContainerInterface tc = serviceLocator.getTagsContainer();
-		TreeSet <Tag> tst = tc.getTagsListe();
-		TagUI tui = new TagUI(tc);
-		tui.anzeigeTagsCloud();  */
-		
-		
 	private void start() throws IOException {	
 		loadall();
-		/*NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
+		NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
 		ArrayList<Nutzer> nutzerListe = nc.getListeNutzer();	
 		NutzerUI nui = new NutzerUI(nc, nutzerListe);
-		nui.startAnmelden();*/
+		user = nui.startAnmelden();
+		saveall();
+		tci = serviceLocator.getTagsContainer();
 	
 		HilfUI.printBefehleControllerUI();
 	    String input = "";
@@ -69,7 +66,7 @@ public class ControllerUI implements Serializable{
 	        else if (input.startsWith("help")) {
 	    		HilfUI.printBefehleControllerUIClear();
 	        }
-	        else{
+	        else{ 
 	            System.out.println("Unbekannter Befehl\n");
 	        } 
 	    }
@@ -77,12 +74,13 @@ public class ControllerUI implements Serializable{
 	
 	private void uploadDatei() {
 		if (neueDatei() == false) {
-        	System.out.println("Fehler beim Speichern!");
+        	System.out.println("Fehler beim Speichern!"); 
         	HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
         }
         else {
         	System.out.println("\nDatei wurde erfolgreich gespeichert!");
+        	saveall();
         	HilfUI.promtEnterKey();
         	HilfUI.printBefehleControllerUIClear();
         }
@@ -91,7 +89,7 @@ public class ControllerUI implements Serializable{
 	private void saveall() {		
 		String dateiName = "containers.dat";
 		serviceLocator.speicherAlleContainer(dateiName, serviceLocator);
-		System.out.println("Die Dokumente wurden in der Datei " + dateiName + " gespeichert!\n");
+		System.out.println("Die Information wurde in der Datei " + dateiName + " gespeichert!\n");
 	}
 
 	private void loadall() {
@@ -102,6 +100,7 @@ public class ControllerUI implements Serializable{
 	}
 	
 	private boolean neueDatei() {
+		
 		DateiEinlesenlUI einleseFenster = new DateiEinlesenlUI();
 		try {
 			einleseFenster.DateiEinlesenUI();
@@ -119,13 +118,12 @@ public class ControllerUI implements Serializable{
 	private void dateiAnzeige() {
 		DateiAnzeigeUI anzeigeFenster = new DateiAnzeigeUI();
 		anzeigeFenster.DateiAnzeigeUIAnzeige();
-		if (anzeigeFenster.getBefehl() == "listall") {       //////////////         listall
+		if (anzeigeFenster.getBefehl() == "listall") {       
 			if (serviceLocator.getDateienContainer().getAlleDateien() != null) {   
 				System.out.println("Liste aller Dateien im Detail:\n");
 				serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
 				HilfUI.promtEnterKey();
-				HilfUI.printBefehleControllerUIClear();
-				
+				HilfUI.printBefehleControllerUIClear();				
 			}
 			else {
 				System.out.println("Es wurde bisher keine Dateien gespeichert!\n");
@@ -133,28 +131,35 @@ public class ControllerUI implements Serializable{
 				HilfUI.printBefehleControllerUIClear();
 			}
 		}
-		else if (anzeigeFenster.getBefehl() == "delete") {
+		else if (anzeigeFenster.getBefehl() == "delete") {               
 			boolean erfolg = false;
-			Scanner s = new Scanner(System.in);
-			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
-			System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
-			String dateiName = s.next();
-			Iterator<Datei> it = serviceLocator.getDateienContainer().getAlleDateien().iterator();
-			while (it.hasNext()) {
-				Datei datei = it.next();
-				if (datei.getName().equals(dateiName)) {
-					it.remove();
-					erfolg = true;
-					System.out.println("\nDatei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
-					HilfUI.promtEnterKey();
-					HilfUI.printBefehleControllerUIClear();
-					break;
-				}
-			}
-			if (erfolg == false) {
-				System.out.println("\nEs konnte keine Datei mit den Namen "+ dateiName + " gefunden werden!");
+			if(user != null && user.getRechte() != Rechte.admin) {
+				System.out.println("Nur Nutzer mit dem Recht admin darf Dateien löschen");
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
+			}else {
+				Scanner s = new Scanner(System.in);
+				serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
+				System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
+				String dateiName = s.next();
+				Iterator<Datei> it = serviceLocator.getDateienContainer().getAlleDateien().iterator();
+				while (it.hasNext()) {
+					Datei datei = it.next();
+					if (datei.getName().equals(dateiName)) {
+						it.remove();
+						erfolg = true;
+						System.out.println("\nDatei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
+						saveall();
+						HilfUI.promtEnterKey();
+						HilfUI.printBefehleControllerUIClear();
+						break;
+					}
+				}
+				if (erfolg == false) {
+					System.out.println("\nEs konnte keine Datei mit den Namen "+ dateiName + " gefunden werden!");
+					HilfUI.promtEnterKey();
+					HilfUI.printBefehleControllerUIClear();
+				}
 			}
 		}
 		else if (anzeigeFenster.getBefehl() == "search") {
@@ -166,16 +171,37 @@ public class ControllerUI implements Serializable{
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
 		}
-		else if(anzeigeFenster.getBefehl() == "addtag") {
+		else if (anzeigeFenster.getBefehl() == "searchTag") {                 
 			String tmpSuche = "";
-			Scanner sc= new Scanner(System.in);
-			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
-			System.out.print("Welcher Datei möchten Sie ein Tag zuordnen? (Bitte Dateinamen eingeben): ");
-			String dateiName = sc.next();
-			
-			/////////
+			Scanner sc = new Scanner(System.in);
+			System.out.print("Geben Sie bitte ein Tag ein :");
 			
 		}
+		else if(anzeigeFenster.getBefehl() == "worktags") {
+			Scanner sc = new Scanner(System.in);
+			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
+			System.out.print("Welche Datei möchten Sie für die Arbeit mit Tags ? (Bitte Dateinamen eingeben): ");
+			String dateiName = sc.next();
+			Iterator<Datei> it = serviceLocator.getDateienContainer().getAlleDateien().iterator();
+			boolean erfolg = false;
+			while (it.hasNext()) {
+				Datei datei = it.next();
+				if (datei.getName().equals(dateiName)) {					
+					erfolg = true;
+					System.out.println("\nSie habe die Datei mit dem Namen: " + dateiName + " ausgewählt");
+					TagUI tui = new TagUI(tci, datei);
+					//HilfUI.promtEnterKey();
+					//HilfUI.printBefehleControllerUIClear();
+					saveall();  /// ?
+					break;
+				}
+			}
+			if (erfolg == false) {
+				System.out.println("\nEs konnte keine Datei mit den Namen "+ dateiName + " gefunden werden!");
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUIClear();
+		}
 	}
+}
 }
 

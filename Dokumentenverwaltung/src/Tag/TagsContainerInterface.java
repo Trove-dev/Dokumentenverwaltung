@@ -9,5 +9,5 @@ public interface TagsContainerInterface {
 	public void addiereNeuesTag(Datei dok,String key);
 	public void printTagsListe();
 	public TreeSet<Tag> getTagsListe();
-	public void loescheTag(String name);
+	public void loescheTag(Tag tag);
 }

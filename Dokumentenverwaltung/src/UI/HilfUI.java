@@ -14,7 +14,7 @@ public class HilfUI {
 	
 	public static void printBefehleControllerUI() {
 		System.out.println("\nWillkommen im Hauptmenü vom Dokumentenmanager!\n"
-				+ "upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen\n"
+				+ "upload \t- wechselt in die Ansicht, um Dokumente hinzuzufügen\n"
 				+ "view \t\t- wechselt in die Ansicht, um Dokumente anzusehen\n"
 				+ "saveall \t- speichert alle Dokumente ab\n"
 				+ "loadall \t- ruft gespeicherte Dokumente ab\n"
@@ -30,8 +30,10 @@ public class HilfUI {
 	public static void printBefehleDateiAnzeigeUIClear() {
 		clearScreen();
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
-		System.out.println("delete\t\t- entfernt eine Datei");
-		System.out.println("search\t\t- sucht nach einer Datei");
+		System.out.println("delete\t- entfernt eine Datei");
+		System.out.println("search\t- sucht nach einer Datei");
+		System.out.println("searchTag\t- sucht nach einem Tag");
+		System.out.println("worktags\t- arbeitet mit Tags für eine Datei");
 	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
 	    System.out.println("---------------------");
@@ -44,6 +46,7 @@ public class HilfUI {
 	    System.out.println("cd ..\t\t\t- wechselt in das vorige Verzeichnis");
 	    System.out.println("info <name>\t- listet Informationen einer Datei/Ordner auf");
 	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");
+	    System.out.println("open <name>\t- öffnet eine Datei");
 	    System.out.println("help \t\t\t- zeigt alle verfügbaren Befehle an");
 	    System.out.println("back\t\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("----------------");	
@@ -57,12 +60,22 @@ public class HilfUI {
 	}
 	
 	public static void printBefehleNutzerUI() {
-		System.out.println("\n-----Arbeit mit Nutzer-----\n");
+		System.out.println("\n-------Arbeit mit Nutzer-------\n");
 		System.out.println("login \t\t meldet sich an");
 		System.out.println("create \t erzeugt neuen Nutzer");
 		System.out.println("edit \t\t bearbeitet den Nutzer");
 		System.out.println("del \t\t löscht den Nutzer");
-		System.out.println("end \t\t beendet das Programm\n");
+		System.out.println("end \t\t beendet das Programm");
+		System.out.println("---------------------------------\n");
+	}
+	
+	public static void printBefehleTags() {
+		System.out.println("\n-------Arbeit mit Tags--------\n");
+		System.out.println("add \t\t Ein neues Tag hinzufügen");
+		System.out.println("del \t\t Ein Tag löschen");
+		System.out.println("unlink\t\t Ein Tag und die Datei trennen");
+		System.out.println("exit \t\t zum Menü-Datei");    //Aussage!!
+		System.out.println("\n--------------------------------\n");
 	}
 	
 	public static void promtEnterKey() {
