@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import Tag.TagsContainerInterface;
+
 public class DateienContainer implements DateienContainerInterface, Serializable{
 	private static DateienContainer uniqueInstance = null;
 	private ArrayList<Datei> dateienListe = new ArrayList<>();
@@ -24,7 +26,7 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		return uniqueInstance;
 	}
 	
-	public boolean hochladeDatei(Path file, String name) {
+	public boolean hochladeDatei(Path file, String name, TagsContainerInterface tc) {
 		try {
 			BasicFileAttributes a = Files.readAttributes(file, BasicFileAttributes.class);
 			FileOwnerAttributeView b = Files.getFileAttributeView(file, FileOwnerAttributeView.class);
@@ -39,7 +41,7 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 					return false;
 				}
 				else {
-					Datei tmp = new Datei(name, b.getOwner(), a.creationTime(), a.lastModifiedTime(), extension ,a.size(), file);
+					Datei tmp = new Datei(name, b.getOwner(), a.creationTime(), a.lastModifiedTime(), extension ,a.size(), file, tc);
 					dateienListe.add(tmp);
 					return true;
 				}
