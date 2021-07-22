@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import Nutzer.Nutzer;
 import java.io.Serializable;
 import Nutzer.NutzerContainerInterface;
+import Nutzer.Rechte;
 import Tag.Tag;
 import Tag.TagsContainerInterface;
 import Datei.Datei;
@@ -33,7 +34,7 @@ public class ControllerUI implements Serializable{
 		NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
 		ArrayList<Nutzer> nutzerListe = nc.getListeNutzer();	
 		NutzerUI nui = new NutzerUI(nc, nutzerListe);
-		nui.startAnmelden();
+		user = nui.startAnmelden();
 		saveall();
 		tci = serviceLocator.getTagsContainer();
 	
@@ -130,29 +131,35 @@ public class ControllerUI implements Serializable{
 				HilfUI.printBefehleControllerUIClear();
 			}
 		}
-		else if (anzeigeFenster.getBefehl() == "delete") {
+		else if (anzeigeFenster.getBefehl() == "delete") {               
 			boolean erfolg = false;
-			Scanner s = new Scanner(System.in);
-			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
-			System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
-			String dateiName = s.next();
-			Iterator<Datei> it = serviceLocator.getDateienContainer().getAlleDateien().iterator();
-			while (it.hasNext()) {
-				Datei datei = it.next();
-				if (datei.getName().equals(dateiName)) {
-					it.remove();
-					erfolg = true;
-					System.out.println("\nDatei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
-					saveall();
-					HilfUI.promtEnterKey();
-					HilfUI.printBefehleControllerUIClear();
-					break;
-				}
-			}
-			if (erfolg == false) {
-				System.out.println("\nEs konnte keine Datei mit den Namen "+ dateiName + " gefunden werden!");
+			if(user != null && user.getRechte() != Rechte.admin) {
+				System.out.println("Nur Nutzer mit dem Recht admin darf Dateien löschen");
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
+			}else {
+				Scanner s = new Scanner(System.in);
+				serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
+				System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
+				String dateiName = s.next();
+				Iterator<Datei> it = serviceLocator.getDateienContainer().getAlleDateien().iterator();
+				while (it.hasNext()) {
+					Datei datei = it.next();
+					if (datei.getName().equals(dateiName)) {
+						it.remove();
+						erfolg = true;
+						System.out.println("\nDatei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
+						saveall();
+						HilfUI.promtEnterKey();
+						HilfUI.printBefehleControllerUIClear();
+						break;
+					}
+				}
+				if (erfolg == false) {
+					System.out.println("\nEs konnte keine Datei mit den Namen "+ dateiName + " gefunden werden!");
+					HilfUI.promtEnterKey();
+					HilfUI.printBefehleControllerUIClear();
+				}
 			}
 		}
 		else if (anzeigeFenster.getBefehl() == "search") {
@@ -164,10 +171,14 @@ public class ControllerUI implements Serializable{
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
 		}
-		else if(anzeigeFenster.getBefehl() == "worktags") {
-			
+		else if (anzeigeFenster.getBefehl() == "searchTag") {                 ///////////searchTag
 			String tmpSuche = "";
-			Scanner sc= new Scanner(System.in);
+			Scanner sc = new Scanner(System.in);
+			System.out.print("Geben Sie bitte ein Tag ein :");
+			
+		}
+		else if(anzeigeFenster.getBefehl() == "worktags") {
+			Scanner sc = new Scanner(System.in);
 			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
 			System.out.print("Welche Datei möchten Sie für die Arbeit mit Tags ? (Bitte Dateinamen eingeben): ");
 			String dateiName = sc.next();

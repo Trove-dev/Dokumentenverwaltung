@@ -32,6 +32,7 @@ public class HilfUI {
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
 		System.out.println("delete\t- entfernt eine Datei");
 		System.out.println("search\t- sucht nach einer Datei");
+		System.out.println("searchTag\t- sucht nach einem Tag");
 		System.out.println("worktags\t- arbeitet mit Tags für eine Datei");
 	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
@@ -58,13 +59,13 @@ public class HilfUI {
 	}
 	
 	public static void printBefehleNutzerUI() {
-		System.out.println("\n-----Arbeit mit Nutzer-----\n");
+		System.out.println("\n-------Arbeit mit Nutzer-------\n");
 		System.out.println("login \t\t meldet sich an");
 		System.out.println("create \t erzeugt neuen Nutzer");
 		System.out.println("edit \t\t bearbeitet den Nutzer");
 		System.out.println("del \t\t löscht den Nutzer");
-		System.out.println("end \t\t beendet das Programm\n");
-		System.out.println("\n--------------------------------\n");
+		System.out.println("end \t\t beendet das Programm");
+		System.out.println("---------------------------------\n");
 	}
 	
 	public static void printBefehleTags() {
