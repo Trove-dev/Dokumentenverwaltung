@@ -40,7 +40,7 @@ public class TagsContainer implements TagsContainerInterface, Serializable{
 	}
 	
 	public void printTagsListe() {
-		System.out.println("Diese Tags sind schon im System : \n");
+		System.out.print("Diese Tags sind schon im System: ");
 		int i = 0;
 		for(Tag tags:tagsListe) {
 				System.out.print(tags.getKey() + "\t\t");	

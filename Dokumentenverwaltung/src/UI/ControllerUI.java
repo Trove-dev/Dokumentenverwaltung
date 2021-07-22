@@ -74,7 +74,7 @@ public class ControllerUI implements Serializable{
 	
 	private void uploadDatei() {
 		if (neueDatei() == false) {
-        	System.out.println("Fehler beim Speichern!"); 
+        	System.out.println("Es wurde keine Datei gespeichert!"); 
         	HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
         }
@@ -165,18 +165,18 @@ public class ControllerUI implements Serializable{
 		else if (anzeigeFenster.getBefehl() == "search") {
 			String tmpSuche = "";
 			Scanner ss = new Scanner(System.in);
-			System.out.print("Bitte einen Dateinamen eingeben: ");
+			System.out.print("Bitte einen Dateinamen, Tag oder Dateiformat eingeben: ");
 			tmpSuche = ss.nextLine();
 			serviceLocator.getDateienContainer().sucheDatei(tmpSuche);
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
 		}
-		else if (anzeigeFenster.getBefehl() == "searchTag") {                 
-			String tmpSuche = "";
-			Scanner sc = new Scanner(System.in);
-			System.out.print("Geben Sie bitte ein Tag ein :");
-			
-		}
+//		else if (anzeigeFenster.getBefehl() == "searchTag") {                 
+//			String tmpSuche = "";
+//			Scanner sc = new Scanner(System.in);
+//			System.out.print("Geben Sie bitte ein Tag ein :");
+//			
+//		}
 		else if(anzeigeFenster.getBefehl() == "worktags") {
 			Scanner sc = new Scanner(System.in);
 			serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
