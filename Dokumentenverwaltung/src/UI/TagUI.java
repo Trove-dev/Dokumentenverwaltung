@@ -15,35 +15,34 @@ public class TagUI {
 	public TagUI(TagsContainerInterface tci, Datei dok) {
 		this.tci = tci;
 		ausfuerungBefehl(dok);
-	}
+	} 
 	
 	public void ausfuerungBefehl(Datei dok) {
-		meldeNutzer();
+		HilfUI.printBefehleTags();
 		String input = "";
 		sc = new Scanner(input);	
 		input = SichereEingabe.liesCharacters();		
-		if(input == "add") {
+		if(input.compareTo("add") == 0) {
 			anzeigeTagsCloud();
 			input = eingabeTag(dok);
 			checkAddTag(input, dok);
-		}else if(input == "del") {
+		}else if(input.compareTo("del") == 0) {
 			anzeigeTagsCloud();
 			input = eingabeTag(dok);
 			checkDelTag(input);
 		}
-		else if(input == "unlink"){
-			anzeigeTagsCloud();
-			input = eingabeTag(dok);
-			
+		else if(input.compareTo("unlink") == 0){
+			dok.printTagsVonDatei();
+			checkUnLinkTag(dok);			
 		}
-		else if(input == "exit") {
+		else if(input.compareTo("exit") == 0) {
 			// zurück im menü
 		}else {
 			System.out.println("Unbekannter Befehl");			
 		}
 		ausfuerungBefehl(dok);
 	}
-	
+
 	public void anzeigeTagsCloud() {
 		String input = "";
 		sc = new Scanner(input);
@@ -60,9 +59,11 @@ public class TagUI {
 		return input;
 	}
 	
-	public void checkUnLinkTag(String name, Datei dok) {
+	public void checkUnLinkTag(Datei dok) {
+		System.out.println("Welches Tag wollen Sie abbinden");
+		String name = eingabeTag(dok);
 		if(checkGlobal(name) == null) {
-			System.out.println("Dieses Tag gibt es nicht in Tag Kollektion");
+			System.out.println("Dieses Tag gibt es nicht in der Tag Kollektion");
 		}else if(checkLocal(dok, name) == null) {
 			System.out.println("Dieses Tag und diese Datei sind nicht angebunden");
 		}else {
@@ -73,6 +74,7 @@ public class TagUI {
 	public void checkDelTag(String name) {
 		if(checkGlobal(name) != null) {
 			tci.loescheTag(name);
+			System.out.println("Das Tag wurde entfernt");
 		} 
 	}
 	
@@ -96,15 +98,5 @@ public class TagUI {
 
 	private Tag checkGlobal(String name) {
 		return tci.sucheTag(name);
-	}
-		
-	public void meldeNutzer() {
-		System.out.println("add \t Ein neues Tag nuzufügen");
-		System.out.println("del \t Ein Tag löschen");
-		System.out.println("unlink \t Ein Tag und die Datei trennen");
-		System.out.println("help \t Ein Tag löschen");
-		System.out.println("exit \t zum Menü-Datei");    //Aussage!!
 	}	
-		
-	
 }

@@ -66,8 +66,9 @@ public class NutzerContainer implements NutzerContainerInterface, Serializable{
 	}
 
 	public void printNutzerList() {
+		System.out.println("Nutzer :\n");
 		for(Nutzer user:listeNutzer) 
-			System.out.println("\nName: " + user.getName() + "; Rechte : " + user.getRechte()+ "; vollständiger Name : " + user.getNameVollstaendig() + "\n");
+			System.out.println("Name: " + user.getName() + "; Rechte : " + user.getRechte()+ "; vollständiger Name : " + user.getNameVollstaendig() + "\n");
 		
 	}
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import Datei.Datei;
 
-public class Tag implements Serializable{
+public class Tag implements Serializable, Comparable<Tag>{
 	
 	
 	private String key;
@@ -39,6 +39,12 @@ public class Tag implements Serializable{
 	}
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	@Override
+	public int compareTo(Tag tag) {
+		
+		return key.compareTo(tag.getKey());
 	}
 	
 	

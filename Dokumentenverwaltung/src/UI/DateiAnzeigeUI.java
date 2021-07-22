@@ -29,8 +29,8 @@ public class DateiAnzeigeUI {
 	        	this.befehl = "search";
 	        	break;
 	        }
-	        else if (input.startsWith("addtag")) {
-	        	this.befehl = "addtag";
+	        else if (input.startsWith("worktags")) {
+	        	this.befehl = "worktags";
 	        	break;
 	        }
 	        else if( input.startsWith("back")){

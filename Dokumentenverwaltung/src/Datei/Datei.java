@@ -28,7 +28,7 @@ public class Datei implements Serializable{
 	private TagsContainerInterface tc;
 
 	public Datei(String name, UserPrincipal owner, FileTime creationTime, FileTime lastModifiedTime,
-			String extension, long size, Path file) {
+			String extension, long size, Path file, TagsContainerInterface tc) {
 		this.name = name;
 		this.ersteller = owner.toString();
 		this.erstellungsDatum = creationTime.toString();
@@ -111,7 +111,16 @@ public class Datei implements Serializable{
 	public HashSet<Tag> getTags() {
 		return tags;
 	}
-
+	
+	public void printTagsVonDatei() {
+		if(tags.isEmpty()) System.out.println("Es gibt keine Tags für diese Datei");
+		else{
+			System.out.println("Die Datei enthält diese Tag(s) :\n");
+			for(Tag tag:tags) {
+			System.out.println(tag.getKey() + "\t");
+			}
+		}
+	}
 
 	public Datei[] getVerknuepfung() {
 		return verknuepfung;

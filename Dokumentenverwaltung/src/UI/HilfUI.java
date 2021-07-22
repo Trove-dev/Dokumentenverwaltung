@@ -14,7 +14,7 @@ public class HilfUI {
 	
 	public static void printBefehleControllerUI() {
 		System.out.println("\nWillkommen im Hauptmenü vom Dokumentenmanager!\n"
-				+ "upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen\n"
+				+ "upload \t- wechselt in die Ansicht, um Dokumente hinzuzufügen\n"
 				+ "view \t\t- wechselt in die Ansicht, um Dokumente anzusehen\n"
 				+ "saveall \t- speichert alle Dokumente ab\n"
 				+ "loadall \t- ruft gespeicherte Dokumente ab\n"
@@ -30,8 +30,9 @@ public class HilfUI {
 	public static void printBefehleDateiAnzeigeUIClear() {
 		clearScreen();
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
-		System.out.println("delete\t\t- entfernt eine Datei");
-		System.out.println("search\t\t- sucht nach einer Datei");
+		System.out.println("delete\t- entfernt eine Datei");
+		System.out.println("search\t- sucht nach einer Datei");
+		System.out.println("worktags\t- arbeitet mit Tags für eine Datei");
 	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
 	    System.out.println("---------------------");
@@ -63,6 +64,14 @@ public class HilfUI {
 		System.out.println("edit \t\t bearbeitet den Nutzer");
 		System.out.println("del \t\t löscht den Nutzer");
 		System.out.println("end \t\t beendet das Programm\n");
+	}
+	
+	public static void printBefehleTags() {
+		System.out.println("\n-------Arbeit mit Tags--------\n");
+		System.out.println("add \t\t Ein neues Tag hinzufügen");
+		System.out.println("del \t\t Ein Tag löschen");
+		System.out.println("unlink\t\tEin Tag und die Datei trennen");
+		System.out.println("exit \t\t zum Menü-Datei");    //Aussage!!
 	}
 	
 	public static void promtEnterKey() {
