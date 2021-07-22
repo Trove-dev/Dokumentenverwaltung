@@ -171,7 +171,7 @@ public class ControllerUI implements Serializable{
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
 		}
-		else if (anzeigeFenster.getBefehl() == "searchTag") {                 ///////////searchTag
+		else if (anzeigeFenster.getBefehl() == "searchTag") {                 
 			String tmpSuche = "";
 			Scanner sc = new Scanner(System.in);
 			System.out.print("Geben Sie bitte ein Tag ein :");

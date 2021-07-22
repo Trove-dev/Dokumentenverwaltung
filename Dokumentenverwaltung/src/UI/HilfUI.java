@@ -46,6 +46,7 @@ public class HilfUI {
 	    System.out.println("cd ..\t\t\t- wechselt in das vorige Verzeichnis");
 	    System.out.println("info <name>\t- listet Informationen einer Datei/Ordner auf");
 	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");
+	    System.out.println("open <name>\t- öffnet eine Datei");
 	    System.out.println("help \t\t\t- zeigt alle verfügbaren Befehle an");
 	    System.out.println("back\t\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("----------------");	
