@@ -3,8 +3,6 @@ package Datei;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import Tag.TagsContainerInterface;
-
 public interface DateienContainerInterface {
 	public boolean hochladeDatei(Path file, String name);
 	public ArrayList<Datei> getAlleDateien();

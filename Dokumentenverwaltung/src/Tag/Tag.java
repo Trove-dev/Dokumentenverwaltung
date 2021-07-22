@@ -42,5 +42,4 @@ public class Tag implements Serializable, Comparable<Tag>{
 		return key.compareTo(tag.getKey());
 	}
 	
-	
 }

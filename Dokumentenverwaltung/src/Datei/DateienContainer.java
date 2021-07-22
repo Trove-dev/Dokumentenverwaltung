@@ -144,9 +144,16 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 				tmp.add(a);
 			}
 		}
-		for (Datei b:dateienListe) {				//Suche nach Dateitypen
-			if (b.getFormat().contains(suchWort)) {
-				tmp.add(b);
+		for (Datei b:dateienListe) {
+			for (Tag t:b.getTags()) {
+				if (t.getKey().contains(suchWort)) {	//Suche nach Tag
+					tmp.add(b);
+				}
+			}
+		}
+		for (Datei c:dateienListe) {				//Suche nach Dateitypen
+			if (c.getFormat().contains(suchWort)) {
+				tmp.add(c);
 			}
 		}
 		ArrayList <Datei> results = dublikatEntfernen(tmp);
