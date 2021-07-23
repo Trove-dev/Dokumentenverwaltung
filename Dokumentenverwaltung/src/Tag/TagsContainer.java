@@ -18,6 +18,10 @@ public class TagsContainer implements TagsContainerInterface, Serializable{
 	public void addiereNeuesTag(Datei dok, String key) {
 		tag =  new Tag(key);
 		tagsListe.add(tag);
+		addiereEinTag(dok, tag);
+	}
+	@Override
+	public void addiereEinTag(Datei dok, Tag tag) {
 		tag.bindDokument(dok);
 		dok.addiereTag(tag);
 	}

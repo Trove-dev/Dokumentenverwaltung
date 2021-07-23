@@ -25,10 +25,15 @@ public class DateiAnzeigeUI {
 	        	break;
 	        	
 	        }
-	        else if (input.startsWith("search")) {
+	        else if (input.compareTo("searchtag") == 0) {
+	        	this.befehl = "searchtag";
+	        	break;
+	        }
+	        else if (input.compareTo("search") == 0) {
 	        	this.befehl = "search";
 	        	break;
 	        }
+	        
 	        else if (input.startsWith("worktags")) {
 	        	this.befehl = "worktags";
 	        	break;

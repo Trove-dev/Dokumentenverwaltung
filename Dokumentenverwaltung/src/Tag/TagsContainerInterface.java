@@ -10,4 +10,5 @@ public interface TagsContainerInterface {
 	public void printTagsListe();
 	public TreeSet<Tag> getTagsListe();
 	public void loescheTag(Tag tag);
+	public void addiereEinTag(Datei dok, Tag adddedTag);
 }

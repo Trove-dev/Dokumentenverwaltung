@@ -15,7 +15,6 @@ public class TagUI {
 	public TagUI(TagsContainerInterface tci, Datei dok) {
 		this.tci = tci;
 		dok.printTagsVonDatei();
-		ausfuerungBefehl(dok);
 	} 
 	
 	public void ausfuerungBefehl(Datei dok) {
@@ -41,7 +40,6 @@ public class TagUI {
 		}
 		else if(input.compareTo("exit") == 0) {
 			return;
-			// zurück im menü
 		}else {
 			System.out.println("Unbekannter Befehl");			
 		}
@@ -102,14 +100,16 @@ public class TagUI {
 			System.out.println("Das neue Tag wurde kreiert und an die Datei " + dok.getName() + " angebunden.");
 		}else if(checkLocal(dok, name) == null) {              // in global, not in local
 			Tag adddedTag = tci.sucheTag(name);
-			adddedTag.bindDokument(dok);                       // bind
+			tci.addiereEinTag(dok, adddedTag);
 			System.out.println("Das existierende Tag wurde an die Datei " + dok.getName() + " angebunden.");
-		}
+		}else System.out.println("Dieses Tag existiert schon");
 	}
 
 	private Tag checkLocal(Datei dok, String name) {
-		for(Tag t: dok.getTags()){
-			if(t.getKey().compareTo(name) == 0) return t;
+		if(dok.getTags() != null) {
+			for(Tag t: dok.getTags()){
+				if(t.getKey().compareTo(name) == 0) return t;
+			}
 		}
 		return null;
 	}

@@ -105,11 +105,11 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 	}
 	
 	@Override
-	public void sucheDateiTags(ArrayList<String> tagsNames) {
-		boolean[]gefunden = new boolean[tagsNames.size()];
-		ArrayList <Datei> tmp = new ArrayList<>();
-		boolean isTrue = true;
+	public void sucheDateiTags(ArrayList<String> tagsNames) {                //////////
+		ArrayList <Datei> tmp = new ArrayList<>();		
 		for (Datei d:dateienListe) {
+			boolean[]gefunden = new boolean[tagsNames.size()];
+			boolean isTrue = true;
 			if(d.getTags() != null) {
 				for(Tag t:d.getTags()) {
 					for(int i = 0; i < tagsNames.size(); i++) {

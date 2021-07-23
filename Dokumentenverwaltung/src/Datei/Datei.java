@@ -72,7 +72,7 @@ public class Datei implements Serializable{
 	}
 	
 	public void printVerknuepfungForInfo() {
-		System.out.print("Verknüpfung: \t");
+		System.out.print("\nVerknüpfung: \t");
 		if(verknuepfung != null) {
 			for(Datei d:verknuepfung) {
 				System.out.println(d.dateiPfad);
@@ -136,10 +136,10 @@ public class Datei implements Serializable{
 	public void printTagsVonDatei() {
 		if(tags == null) System.out.println("\nEs gibt keine Tags für diese Datei\n");
 		else{
-			System.out.println("\nDie Datei enthält diese Tag(s) :\n");
+			System.out.println("\nDie Datei enthält diese Tag(s) :");
 			int i = 0;
 			for(Tag tag:tags) {
-				System.out.println(tag.getKey() + "\t\t");
+				System.out.print(tag.getKey() + "\t\t");
 				if(i%5 == 0) System.out.print("\n");
 			}
 		}
