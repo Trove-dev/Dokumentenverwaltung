@@ -100,9 +100,9 @@ public class TagUI {
 			System.out.println("Das neue Tag wurde kreiert und an die Datei " + dok.getName() + " angebunden.");
 		}else if(checkLocal(dok, name) == null) {              // in global, not in local
 			Tag adddedTag = tci.sucheTag(name);
-			adddedTag.bindDokument(dok);                       // bind
+			tci.addiereEinTag(dok, adddedTag);
 			System.out.println("Das existierende Tag wurde an die Datei " + dok.getName() + " angebunden.");
-		}
+		}else System.out.println("Dieses Tag existiert schon");
 	}
 
 	private Tag checkLocal(Datei dok, String name) {
