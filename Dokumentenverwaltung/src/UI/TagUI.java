@@ -50,20 +50,20 @@ public class TagUI {
 		String input = "";
 		sc = new Scanner(input);
 		if(tci.getTagsListe().isEmpty()) {
-			System.out.println("Es gibt noch keine Tags ");
+			System.out.println("Es gibt noch keine Tags!");
 		}else tci.printTagsListe();		
 	}
 	
 	public String eingabeTag(Datei dok) {
 		String input = "";
 		sc = new Scanner(input);
-		System.out.println("\nGeben Sie bitte ein Tag ein :\n");
+		System.out.println("\n\nGeben Sie bitte ein Tag ein: ");
 		input = SichereEingabe.liesCharacters();
 		return input;
 	}
 	
 	public void checkUnLinkTag(Datei dok) {
-		System.out.println("\nWelches Tag wollen Sie abbinden ?");
+		System.out.println("\nWelches Tag wollen Sie abbinden?");
 		String name = eingabeTag(dok);
 		String mesUnlink = "Dieses Tag und die Datei " + dok.getName() + " sind nicht mehr angebunden";
 		if(checkGlobal(name) == null) {
