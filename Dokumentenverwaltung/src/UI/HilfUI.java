@@ -32,7 +32,7 @@ public class HilfUI {
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
 		System.out.println("delete\t- entfernt eine Datei");
 		System.out.println("search\t- sucht nach einer Datei");
-		System.out.println("searchTag\t- sucht nach einem Tag");
+		System.out.println("searchtag\t- sucht nach einem Tag");
 		System.out.println("worktags\t- arbeitet mit Tags für eine Datei");
 	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
@@ -76,6 +76,11 @@ public class HilfUI {
 		System.out.println("unlink\t\t Ein Tag und die Datei trennen");
 		System.out.println("exit \t\t zum Menü-Datei");    //Aussage!!
 		System.out.println("\n--------------------------------\n");
+	}
+	
+	public static void printBefehleSucheNachTags() {
+		System.out.println("\nstart \t\t startet die Suche");
+		System.out.println("add \t\t addiert ein Tag");
 	}
 	
 	public static void promtEnterKey() {

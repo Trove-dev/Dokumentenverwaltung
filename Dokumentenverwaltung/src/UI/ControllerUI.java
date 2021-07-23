@@ -1,6 +1,8 @@
 
 package UI;
 import Verarbeitung.ServiceLocator;
+import hilf.SichereEingabe;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.IOException;
@@ -162,7 +164,7 @@ public class ControllerUI implements Serializable{
 				}
 			}
 		}
-		else if (anzeigeFenster.getBefehl() == "search") {
+		else if (anzeigeFenster.getBefehl().compareTo("search") == 0) {
 			String tmpSuche = "";
 			Scanner ss = new Scanner(System.in);
 			System.out.print("Bitte einen Dateinamen eingeben: ");
@@ -171,11 +173,47 @@ public class ControllerUI implements Serializable{
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
 		}
-		else if (anzeigeFenster.getBefehl() == "searchTag") {                 
-			String tmpSuche = "";
-			Scanner sc = new Scanner(System.in);
-			System.out.print("Geben Sie bitte ein Tag ein :");
-			
+		else if (anzeigeFenster.getBefehl().compareTo("searchtag") == 0) {                 
+			ArrayList<String> tagsNames = new ArrayList<>();
+			boolean added = false;
+			while(added == false) {
+				String tmpSuche = ""; 
+				Scanner sc = new Scanner(System.in);
+				serviceLocator.getTagsContainer().printTagsListe();
+				System.out.println("\nGeben Sie bitte ein Tag ein oder exit, wenn Sie die Suche beenden wollen:");
+				tmpSuche = sc.next();
+				if(tmpSuche.compareTo("exit") == 0) {
+					tagsNames = null;
+					HilfUI.promtEnterKey();
+					HilfUI.printBefehleControllerUIClear();
+					break; 
+				}
+				if(tci.sucheTag(tmpSuche) != null) {
+					tagsNames.add(tmpSuche);
+					HilfUI.printBefehleSucheNachTags();
+					String command = SichereEingabe.liesCharacters();
+					if(command.compareTo("start") == 0) {
+						if(tagsNames != null && !tagsNames.isEmpty()) { 							
+							serviceLocator.getDateienContainer().sucheDateiTags(tagsNames);
+							HilfUI.promtEnterKey();
+							HilfUI.printBefehleControllerUIClear();
+							added = true;
+							break; 
+						}else {
+							System.out.println("Es gibt keine eingegebenen Tags");
+							continue;
+						}
+					}else if(command.compareTo("add") == 0) {
+						continue;
+					}else {
+						System.out.println("Unbekannter Befehl");
+					}
+					continue;
+				}else {
+					System.out.println("Dieses Tag gibt es nicht in der Tag Kollektion\n");
+					continue;
+				}			
+			}			
 		}
 		else if(anzeigeFenster.getBefehl() == "worktags") {
 			Scanner sc = new Scanner(System.in);
@@ -190,10 +228,11 @@ public class ControllerUI implements Serializable{
 					erfolg = true;
 					System.out.println("\nSie habe die Datei mit dem Namen: " + dateiName + " ausgewählt");
 					TagUI tui = new TagUI(tci, datei);
-					//HilfUI.promtEnterKey();
-					//HilfUI.printBefehleControllerUIClear();
-					saveall();  /// ?
-					break;
+					tui.ausfuerungBefehl(datei);
+					saveall(); 
+					HilfUI.promtEnterKey();
+					HilfUI.printBefehleControllerUIClear();
+					break; 
 				}
 			}
 			if (erfolg == false) {
