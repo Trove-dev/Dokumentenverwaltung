@@ -62,22 +62,25 @@ public class Datei implements Serializable{
 		System.out.print("Tags: \t\t\t");
 		if(tags != null) {
 			for(Tag t:tags) System.out.print(t.getKey() + "\t\t");
-		}else System.out.print("noch keine\n");
+		}else System.out.print("noch keine");
 	}
 	
 	public void printKommentarForInfo() {
-		System.out.print("Kommentar: \t");
-		if(kommentar != null) System.out.print(kommentar);
-		else System.out.print("noch keine\n");
+		String komm = "";
+		if(kommentar != "" && kommentar != null) komm = kommentar;
+		else komm = "noch keine";
+		System.out.println("Kommentar: \t" + komm);
+		
 	}
 	
 	public void printVerknuepfungForInfo() {
-		System.out.print("\nVerknüpfung: \t");
+		String bindDok = "";
 		if(verknuepfung != null) {
 			for(Datei d:verknuepfung) {
-				System.out.println(d.dateiPfad);
+				bindDok = bindDok + d.dateiPfad;
 			}
-		}else System.out.print("noch keine\n");
+		}else bindDok = "noch keine\n";
+		System.out.print("\nVerknüpfung: \t" + bindDok);
 	}
 
 	public void addiereTag(Tag tag) {
@@ -145,6 +148,15 @@ public class Datei implements Serializable{
 		}
 	}
 
+	public void printVerlinkungen() {
+		String message = "";
+		if(verknuepfung != null) {
+			for(Datei a:verknuepfung) {
+				message = message + a.getDateiPfad() + "/n";
+			}
+		}else message = "noch keine/n";
+		System.out.println("Die verlinkte Dateien: " + message);
+	}
 	public Datei[] getVerknuepfung() {
 		return verknuepfung;
 	}

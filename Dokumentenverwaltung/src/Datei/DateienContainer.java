@@ -100,12 +100,8 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		return results;
 	}
 	
-	public void sucheDateiKommentar(String kommentar) {       //   ???
-		
-	}
-	
 	@Override
-	public void sucheDateiTags(ArrayList<String> tagsNames) {                //////////
+	public void sucheDateiTags(ArrayList<String> tagsNames) {                
 		ArrayList <Datei> tmp = new ArrayList<>();		
 		for (Datei d:dateienListe) {
 			boolean[]gefunden = new boolean[tagsNames.size()];
@@ -136,7 +132,14 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 			}
 		}else System.out.println("Es wurde keine Dateien gefunden\n");
 	}
-	
+	public boolean checkFile(String name) {
+		for (Datei a:dateienListe) {
+			if(a.getDateiPfad().compareTo(name) == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public void sucheDatei(String suchWort) {
 		ArrayList <Datei> tmp = new ArrayList<>();
 		for (Datei a:dateienListe) {				//Suche nach Namen
