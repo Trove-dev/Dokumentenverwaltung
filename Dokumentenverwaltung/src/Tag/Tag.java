@@ -7,6 +7,10 @@ import Datei.Datei;
 public class Tag implements Serializable, Comparable<Tag>{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8424443437144281094L;
 	private String key;
 	private ArrayList <Datei> listeDateien = new ArrayList <>();
 

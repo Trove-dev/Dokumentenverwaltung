@@ -13,8 +13,13 @@ import java.util.Set;
 
 import Tag.Tag;
 import Tag.TagsContainerInterface;
+import Verlinkung.VerknuepfungVonDateien;
 
 public class DateienContainer implements DateienContainerInterface, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6592664557941871449L;
 	private static DateienContainer uniqueInstance = null;
 	private ArrayList<Datei> dateienListe = new ArrayList<>();
 	
@@ -100,12 +105,8 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		return results;
 	}
 	
-	public void sucheDateiKommentar(String kommentar) {       //   ???
-		
-	}
-	
 	@Override
-	public void sucheDateiTags(ArrayList<String> tagsNames) {                //////////
+	public void sucheDateiTags(ArrayList<String> tagsNames) {                
 		ArrayList <Datei> tmp = new ArrayList<>();		
 		for (Datei d:dateienListe) {
 			boolean[]gefunden = new boolean[tagsNames.size()];
@@ -137,6 +138,14 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		}else System.out.println("Es wurde keine Dateien gefunden\n");
 	}
 	
+	public Datei checkFile(String name) {
+		for (Datei a:dateienListe) {
+			if(a.getName().compareTo(name) == 0) {
+				return a;
+			}
+		}
+		return null;
+	}
 	public void sucheDatei(String suchWort) {
 		ArrayList <Datei> tmp = new ArrayList<>();
 		for (Datei a:dateienListe) {				//Suche nach Namen
@@ -145,9 +154,11 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 			}
 		}
 		for (Datei b:dateienListe) {
-			for (Tag t:b.getTags()) {
-				if (t.getKey().contains(suchWort)) {	//Suche nach Tag
-					tmp.add(b);
+			if(b.getTags() != null) {
+				for (Tag t:b.getTags()) {
+					if (t.getKey().contains(suchWort)) {	//Suche nach Tag
+						tmp.add(b);
+					}
 				}
 			}
 		}
@@ -156,6 +167,19 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 				tmp.add(c);
 			}
 		}
+		for(Datei d:dateienListe) {                //Suche nach verlinkten Dateien
+			HashSet<Datei> hs = d.getVerknuepfung();
+			if(hs != null && !hs.isEmpty()) {
+				for(Datei e:hs)
+					if(e.getName().contains(suchWort)) {
+						tmp.add(d);
+					}
+			}
+		}
+		for(Datei f:dateienListe) {
+			if(f.getKommentar() != null && f.getKommentar().contains(suchWort))
+				tmp.add(f);
+		}
 		ArrayList <Datei> results = dublikatEntfernen(tmp);
 		if (results.isEmpty() == false) {		//Ausgabe
 			for (Datei x:results) {
@@ -163,7 +187,7 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 			}
 		}
 		else {
-			System.out.println("\nEs konnten keine Dateien mit den Namen " + suchWort + " gefunden werden!");
+			System.out.println("\nEs konnten keine Dateien mit dem Suchwort " + suchWort + " gefunden werden!");
 		}
 	}
 }

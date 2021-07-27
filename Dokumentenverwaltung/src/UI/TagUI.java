@@ -33,10 +33,10 @@ public class TagUI {
 			anzeigeTagsCloud();
 		}
 		else if(input.compareTo("unlink") == 0){
-			anzeigeTagsCloud();
 			dok.printTagsVonDatei();
-			checkUnLinkTag(dok);
-			dok.printTagsVonDatei();
+			if(dok.getTags() != null && !dok.getTags().isEmpty())
+				if(checkUnLinkTag(dok))	
+					dok.printTagsVonDatei();
 		}
 		else if(input.compareTo("exit") == 0) {
 			return;
@@ -62,14 +62,16 @@ public class TagUI {
 		return input;
 	}
 	
-	public void checkUnLinkTag(Datei dok) {
+	public boolean checkUnLinkTag(Datei dok) {
+		boolean erfolg = false;
 		System.out.println("\nWelches Tag wollen Sie abbinden?");
 		String name = eingabeTag(dok);
-		String mesUnlink = "Dieses Tag und die Datei " + dok.getName() + " sind nicht mehr angebunden";
+		String mesUnlink = "Dieses Tag und die Datei " + dok.getName() + " sind nicht angebunden";
 		if(checkGlobal(name) == null) {
-			System.out.println("Dieses Tag gibt es nicht in der Tag Kollektion\n");
+			System.err.println("Dieses Tag gibt es nicht in der Tag Kollektion\n");
 		}else if(checkLocal(dok, name) == null) {
 			System.out.println(mesUnlink);
+			erfolg = true;
 		}else {
 			Tag unlinkTag = checkLocal(dok, name);
 			dok.loescheTag(unlinkTag);
@@ -78,9 +80,11 @@ public class TagUI {
 			if(unlinkTag.getListeDateien().isEmpty()) {
 				tci.loescheTag(unlinkTag);
 				mesDel = ",\ndieses Tag hat nun keine Anbindungen und wurde gelöscht\n";
+				erfolg = true;
 			}
 			System.out.println(mesUnlink + mesDel);
 		}
+		return erfolg;
 	}
 	
 	public void checkDelTag(Datei dok, String name) {

@@ -29,15 +29,25 @@ public class DateiAnzeigeUI {
 	        else if (input.compareTo("searchtag") == 0) {
 	        	this.befehl = "searchtag";
 	        	break;
-	        }
+	        }	        
 	        else if (input.compareTo("search") == 0) {
 	        	this.befehl = "search";
 	        	break;
 	        }
-	        
+	        else if (input.startsWith("open")) {
+	        	this.befehl = "open";
+	        	break;
+	        }
 	        else if (input.startsWith("worktags")) {
 	        	this.befehl = "worktags";
 	        	break;
+	        }
+	        else if (input.startsWith("workkomm")) {
+	        	this.befehl = "workkomm";
+	        	break;
+	        }
+	        else if (input.startsWith("workbind")) {
+	        	this.befehl = "workbind";
 	        }
 	        else if (input.startsWith("bin")) {
 	        	ServiceLocator.getInstance().getPapierkorb().papierkorbAnzeigen();
