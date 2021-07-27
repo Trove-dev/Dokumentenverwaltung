@@ -6,6 +6,10 @@ import java.io.Serializable;
 
 public class NutzerContainer implements NutzerContainerInterface, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5149599819425251462L;
 	private static NutzerContainer uniqueInstance = null;
 	private ArrayList <Nutzer> listeNutzer = new ArrayList<Nutzer>();
 	
@@ -66,7 +70,6 @@ public class NutzerContainer implements NutzerContainerInterface, Serializable{
 	}
 
 	public void printNutzerList() {
-		System.out.println("Nutzer :\n");
 		for(Nutzer user:listeNutzer) 
 			System.out.println("Name: " + user.getName() + "; Rechte : " + user.getRechte()+ "; vollständiger Name : " + user.getNameVollstaendig() + "\n");
 		

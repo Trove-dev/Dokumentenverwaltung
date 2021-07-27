@@ -81,8 +81,10 @@ public class HilfUI {
 	}
 	
 	public static void printBefehleSucheNachTags() {
+		System.out.println("\n--------------------------");
 		System.out.println("\nstart \t\t startet die Suche");
 		System.out.println("add \t\t addiert ein Tag");
+		System.out.println("--------------------------\n");
 	}
 	
 	public static void printBefehleVerlinkung() {

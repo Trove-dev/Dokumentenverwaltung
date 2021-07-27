@@ -14,13 +14,17 @@ import Tag.TagsContainerInterface;
 
 public class Datei implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8201169257780113281L;
 	private String name;
 	private String ersteller;                // ?? nötig ?
 	private String erstellungsDatum;
 	private String dateiPfad;
 	private String kommentar;
 	private HashSet <Tag> tags;
-	private Datei verknuepfung[];
+	private HashSet<Datei> verknuepfung;
 	private String datumVonletzterAenderung;
 	private String format;
 	private int haeufigkeitVonOeffnung;		// nicht möglich?
@@ -44,7 +48,7 @@ public class Datei implements Serializable{
 	
 	public void anzeigeDateiDetail() {
 		//System.out.println(this);				//debug
-		System.out.println("Name der Datei:\t\t" + name);
+		System.out.println("Name der Datei:\t" + name);
 		System.out.println("Ersteller der Datei:\t" + ersteller);
 		System.out.println("Erstellungsdatum:\t" + erstellungsDatum);
 		System.out.println("Dateifpad:\t\t" + dateiPfad);
@@ -69,20 +73,28 @@ public class Datei implements Serializable{
 		String komm = "";
 		if(kommentar != "" && kommentar != null) komm = kommentar;
 		else komm = "noch keine";
-		System.out.println("Kommentar: \t" + komm);
+		System.out.println("Kommentar: \t\t" + komm);
 		
 	}
 	
 	public void printVerknuepfungForInfo() {
 		String bindDok = "";
-		if(verknuepfung != null) {
+		if(verknuepfung != null && !verknuepfung.isEmpty()) {
 			for(Datei d:verknuepfung) {
-				bindDok = bindDok + d.dateiPfad;
+				bindDok = bindDok + d.name + "; ";
 			}
-		}else bindDok = "noch keine\n";
-		System.out.print("\nVerknüpfung: \t" + bindDok);
+		}else bindDok = "noch keine";
+		System.out.println("\nVerknüpfung: \t" + bindDok);
 	}
 
+	public boolean searchBinds(Datei dok) {
+		if(verknuepfung != null) {
+			if(verknuepfung.contains(dok))
+				return true;
+		}
+		return false;
+	}
+	
 	public void addiereTag(Tag tag) {
 		if(this.tags == null) this.tags = new HashSet<Tag>();
 		this.tags.add(tag);
@@ -157,11 +169,24 @@ public class Datei implements Serializable{
 		}else message = "noch keine/n";
 		System.out.println("Die verlinkte Dateien: " + message);
 	}
-	public Datei[] getVerknuepfung() {
+	
+	public void bindDokument(Datei dok) {
+		if(verknuepfung == null) verknuepfung = new HashSet<>();
+		verknuepfung.add(dok);
+		if(dok.verknuepfung == null) dok.verknuepfung = new HashSet<Datei>();
+		dok.verknuepfung.add(this);
+	}
+	
+	public void unlinkDokument(Datei dok) {
+		verknuepfung.remove(dok);
+		dok.verknuepfung.remove(this);
+	}
+	
+	public HashSet<Datei> getVerknuepfung() {
 		return verknuepfung;
 	}
 
-	public void setVerknuepfung(Datei[] verknuepfung) {
+	public void setVerknuepfung(HashSet<Datei> verknuepfung) {
 		this.verknuepfung = verknuepfung;
 	}
 

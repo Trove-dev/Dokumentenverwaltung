@@ -9,4 +9,5 @@ public interface DateienContainerInterface {
 	public void zeigeAlleDateienDetails();
 	public void sucheDatei (String name);
 	public void sucheDateiTags (ArrayList<String> names);
+	public Datei checkFile(String name);
 }

@@ -7,6 +7,10 @@ import Datei.Datei;
 import java.io.Serializable;
 
 public class TagsContainer implements TagsContainerInterface, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4717748924499047648L;
 	private Tag tag;
 	private static TagsContainer uniqueInstance = null;
 	private TreeSet<Tag> tagsListe = new TreeSet<>();
