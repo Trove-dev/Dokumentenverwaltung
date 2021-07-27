@@ -30,10 +30,9 @@ public class HilfUI {
 	public static void printBefehleDateiAnzeigeUIClear() {
 		clearScreen();
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
-		System.out.println("delete\t- entfernt eine Datei");
-		System.out.println("search\t- sucht nach einer Datei");   ///System.out.println("search\t\t- sucht nach einer Datei mittels Name, Tag oder Format");
+		System.out.println("delete\t\t- entfernt eine Datei");
+		System.out.println("search\t\t- sucht nach einer Datei");   ///System.out.println("search\t\t- sucht nach einer Datei mittels Name, Tag oder Format");
 		System.out.println("searchtag\t- sucht nach einem Tag");
-		System.out.println("delete\t- entfernt eine Datei");
 		System.out.println("open \t\t- öffnet eine Datei");
 		System.out.println("worktags\t- arbeitet mit Tags für eine Datei");
 		System.out.println("workkomm\t- fügt Kommentare zu Dateien hinzu, ändert die");
@@ -48,7 +47,7 @@ public class HilfUI {
 		System.out.println("\ndir\t\t\t- listet alle Dateien und Unterverzeichnisse auf");
 	    System.out.println("cd <dir>\t\t- wechselt in das angegebene Verzeichnis <dir>");
 	    System.out.println("cd ..\t\t\t- wechselt in das vorige Verzeichnis");
-	    System.out.println("info <name>\t- listet Informationen einer Datei/Ordner auf");
+	    System.out.println("info <name>\t\t- listet Informationen einer Datei/Ordner auf");
 	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");	    
 	    System.out.println("help \t\t\t- zeigt alle verfügbaren Befehle an");
 	    System.out.println("back\t\t\t- wechselt zurück in die Hauptansicht");
@@ -84,6 +83,14 @@ public class HilfUI {
 	public static void printBefehleSucheNachTags() {
 		System.out.println("\nstart \t\t startet die Suche");
 		System.out.println("add \t\t addiert ein Tag");
+	}
+	
+	public static void printBefehleVerlinkung() {
+		System.out.println("\n--------------Arbeit mit Verliunkung-------------\n");
+		System.out.println("bind \t\t bindet der Datei an");
+		System.out.println("unlink \t trennt Dateien");
+		System.out.println("exit \t\t beendet die Arbeit mit Verlinkungen");
+		System.out.println("\n-------------------------------------------------\n");
 	}
 	
 	public static void promtEnterKey() {
