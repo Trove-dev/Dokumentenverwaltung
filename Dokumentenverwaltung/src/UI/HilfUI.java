@@ -30,11 +30,10 @@ public class HilfUI {
 	public static void printBefehleDateiAnzeigeUIClear() {
 		clearScreen();
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
-		System.out.println("delete\t- entfernt eine Datei");
-		System.out.println("search\t- sucht nach einer Datei");   ///System.out.println("search\t\t- sucht nach einer Datei mittels Name, Tag oder Format");
-		System.out.println("searchtag\t- sucht nach einem Tag");
 		System.out.println("delete\t\t- entfernt eine Datei");
-		
+		System.out.println("search\t\t- sucht nach einer Datei");   ///System.out.println("search\t\t- sucht nach einer Datei mittels Name, Tag oder Format");
+		System.out.println("searchtag\t- sucht nach einem Tag");
+		System.out.println("bin\t\t- öffent den Papierkorb");
 		System.out.println("worktags\t- arbeitet mit Tags für eine Datei");
 	    System.out.println("back\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("help \t\t- zeigt alle verfügbaren Befehle an");
