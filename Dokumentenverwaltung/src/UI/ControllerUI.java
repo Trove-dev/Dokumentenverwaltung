@@ -12,6 +12,9 @@ import java.util.Scanner;
 import java.util.TreeSet;
 import Nutzer.Nutzer;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import Nutzer.NutzerContainerInterface;
 import Nutzer.Rechte;
 import Tag.Tag;
@@ -140,7 +143,7 @@ public class ControllerUI implements Serializable{
 				HilfUI.printBefehleControllerUIClear();
 			}
 		}
-		else if (anzeigeFenster.getBefehl() == "delete") {               
+		else if (anzeigeFenster.getBefehl() == "delete") {  
 			DateiUIDeleteDatei duiDelete = new DateiUIDeleteDatei(serviceLocator.getDateienContainer());
 			duiDelete.deleteDatei(user);
 			saveall();

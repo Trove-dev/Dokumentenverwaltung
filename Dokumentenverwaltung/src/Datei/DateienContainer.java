@@ -97,9 +97,9 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 	
 	private ArrayList<Datei> dublikatEntfernen(ArrayList<Datei> inputList) {	//Dublikate entfernen
 		ArrayList <Datei> results = new ArrayList<>();
-		for (Datei element : inputList) {
-			if (!results.contains(element)) {
-				results.add(element);
+		for (Datei a : inputList) {
+			if (!results.contains(a)) {
+				results.add(a);
 			}
 		}
 		return results;

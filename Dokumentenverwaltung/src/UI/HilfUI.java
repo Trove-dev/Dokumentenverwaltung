@@ -34,6 +34,7 @@ public class HilfUI {
 		System.out.println("search\t\t- sucht nach einer Datei");   ///System.out.println("search\t\t- sucht nach einer Datei mittels Name, Tag oder Format");
 		System.out.println("searchtag\t- sucht nach einem Tag");
 		System.out.println("open \t\t- öffnet eine Datei");
+		System.out.println("bin\t\t- öffent den Papierkorb");
 		System.out.println("worktags\t- arbeitet mit Tags für eine Datei");
 		System.out.println("workkomm\t- fügt Kommentare zu Dateien hinzu, ändert die");
 		System.out.println("workbind\t- arbeitet mit Verlinkungen zwischen Dateien");
