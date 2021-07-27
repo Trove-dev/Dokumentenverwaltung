@@ -139,7 +139,14 @@ public class ControllerUI implements Serializable{
 				System.out.println("Nur Nutzer mit dem Recht admin darf Dateien löschen");
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
-			}else {
+			}
+			else if(serviceLocator.getDateienContainer().getAlleDateien() == null) {
+				System.out.println("Es befinden sich keine gespeicherten Dateien im Speicher!");
+				HilfUI.promtEnterKey();
+				HilfUI.clearScreen();
+				HilfUI.printBefehleControllerUI();
+			}
+			else {
 				Scanner s = new Scanner(System.in);
 				serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
 				System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
