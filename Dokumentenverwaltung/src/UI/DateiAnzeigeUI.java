@@ -3,7 +3,7 @@ package UI;
 import java.util.Scanner;
 
 public class DateiAnzeigeUI {
-	private String befehl;
+	private String befehl = "";
 	
 	public void DateiAnzeigeUIAnzeige() {
 		
