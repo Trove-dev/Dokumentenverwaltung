@@ -5,8 +5,10 @@ import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import Datei.Datei;
+import UI.HilfUI;
 
 public class Papierkorb implements Serializable{
 
@@ -46,10 +48,7 @@ public class Papierkorb implements Serializable{
 	}
 	
 	public void leerePapierkorb() {
-		for (Datei a:papierkorb) {
-			System.out.println(a.getName() + " wurde gelöscht!");
-			papierkorb.remove(a);
-		}
+		papierkorb.clear();
 	}
 
 	public static Papierkorb getInstance() {

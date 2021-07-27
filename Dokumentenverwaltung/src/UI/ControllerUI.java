@@ -253,22 +253,29 @@ public class ControllerUI implements Serializable{
 			}
 		}
 		else if(anzeigeFenster.getBefehl() == "restore") {
-			String tmpBin = "";
-			Scanner sb = new Scanner(System.in);
-			serviceLocator.getPapierkorb().papierkorbAnzeigen();
-			System.out.print("Bitte einen Dateinamen eingeben von der Datei, die Sie wiederherstellen möchten: ");
-			tmpBin = sb.nextLine();
-			Datei tmp = serviceLocator.getPapierkorb().wiederherstelle(tmpBin);
-			if (tmp != null) {
-				Path tmpPath = Paths.get(tmp.getDateiPfad());
-				serviceLocator.getDateienContainer().hochladeDatei(tmpPath, tmp.getName());
-				System.out.println("Datei wurde erfolgreich wiederhergestellt!");
-				saveall();
-				HilfUI.promtEnterKey();
-				HilfUI.printBefehleControllerUIClear();
+			if (serviceLocator.getPapierkorb().istLeer() == false){
+				String tmpBin = "";
+				Scanner sb = new Scanner(System.in);
+				serviceLocator.getPapierkorb().papierkorbAnzeigen();
+				System.out.print("Bitte einen Dateinamen eingeben von der Datei, die Sie wiederherstellen möchten: ");
+				tmpBin = sb.nextLine();
+				Datei tmp = serviceLocator.getPapierkorb().wiederherstelle(tmpBin);
+				if (tmp != null) {
+					Path tmpPath = Paths.get(tmp.getDateiPfad());
+					serviceLocator.getDateienContainer().hochladeDatei(tmpPath, tmp.getName());
+					System.out.println("Datei wurde erfolgreich wiederhergestellt!");
+					saveall();
+					HilfUI.promtEnterKey();
+					HilfUI.printBefehleControllerUIClear();
+				}
+				else {
+					System.out.println("Datei konnte nicht wiederhergestellt werden! (Dateiname überprüfen und erneut versuchen...)");
+					HilfUI.promtEnterKey();
+					HilfUI.printBefehleControllerUIClear();
+				}
 			}
 			else {
-				System.out.println("Datei konnte nicht gelöscht werden! (Dateiname überprüfen und erneut versuchen...)");
+				System.out.println("Es liegen keine Dateien im Papierkorb vor!");
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
 			}
