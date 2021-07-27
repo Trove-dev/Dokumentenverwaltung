@@ -66,13 +66,13 @@ public class Datei implements Serializable{
 	}
 	
 	public void printKommentarForInfo() {
-		System.out.print("Kommentar: \t");
+		System.out.print("Kommentar: \t\t");
 		if(kommentar != null) System.out.print(kommentar);
 		else System.out.print("noch keine\n");
 	}
 	
 	public void printVerknuepfungForInfo() {
-		System.out.print("\nVerknüpfung: \t");
+		System.out.print("Verknüpfung: \t\t");
 		if(verknuepfung != null) {
 			for(Datei d:verknuepfung) {
 				System.out.println(d.dateiPfad);

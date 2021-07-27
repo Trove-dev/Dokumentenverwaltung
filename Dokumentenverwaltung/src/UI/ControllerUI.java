@@ -10,6 +10,9 @@ import java.util.Scanner;
 import java.util.TreeSet;
 import Nutzer.Nutzer;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import Nutzer.NutzerContainerInterface;
 import Nutzer.Rechte;
 import Tag.Tag;
@@ -139,7 +142,14 @@ public class ControllerUI implements Serializable{
 				System.out.println("Nur Nutzer mit dem Recht admin darf Dateien löschen");
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
-			}else {
+			}
+			else if(serviceLocator.getDateienContainer().getAlleDateien() == null) {
+				System.out.println("Es befinden sich keine gespeicherten Dateien im Speicher!");
+				HilfUI.promtEnterKey();
+				HilfUI.clearScreen();
+				HilfUI.printBefehleControllerUI();
+			}
+			else {
 				Scanner s = new Scanner(System.in);
 				serviceLocator.getDateienContainer().zeigeAlleDateienDetails();
 				System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
@@ -148,6 +158,7 @@ public class ControllerUI implements Serializable{
 				while (it.hasNext()) {
 					Datei datei = it.next();
 					if (datei.getName().equals(dateiName)) {
+						serviceLocator.getPapierkorb().hochladeDateiPapierkorb(datei);
 						it.remove();
 						erfolg = true;
 						System.out.println("\nDatei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
@@ -239,8 +250,53 @@ public class ControllerUI implements Serializable{
 				System.out.println("\nEs konnte keine Datei mit den Namen "+ dateiName + " gefunden werden!");
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
+			}
+		}
+		else if(anzeigeFenster.getBefehl() == "restore") {
+			String tmpBin = "";
+			Scanner sb = new Scanner(System.in);
+			serviceLocator.getPapierkorb().papierkorbAnzeigen();
+			System.out.print("Bitte einen Dateinamen eingeben von der Datei, die Sie wiederherstellen möchten: ");
+			tmpBin = sb.nextLine();
+			Datei tmp = serviceLocator.getPapierkorb().wiederherstelle(tmpBin);
+			if (tmp != null) {
+				Path tmpPath = Paths.get(tmp.getDateiPfad());
+				serviceLocator.getDateienContainer().hochladeDatei(tmpPath, tmp.getName());
+				System.out.println("Datei wurde erfolgreich wiederhergestellt!");
+				saveall();
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUIClear();
+			}
+			else {
+				System.out.println("Datei konnte nicht gelöscht werden! (Dateiname überprüfen und erneut versuchen...)");
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUIClear();
+			}
+		}
+		else if (anzeigeFenster.getBefehl() == "delall") {
+			Scanner s = new Scanner (System.in);
+			if (serviceLocator.getPapierkorb().istLeer() == false) {
+				while (true) { 
+					System.out.print("Möchten Sie wirklich den gesamten Papierkorb leeren? (y or n): ");
+					String eingabe = s.nextLine();
+					if (eingabe.equals("y")) {
+						serviceLocator.getPapierkorb().leerePapierkorb();
+						System.out.println("Papierkorb wurde geleert!");
+						break;
+					}
+					else if (eingabe.equals("n")) {
+						break;
+					}
+				}
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUIClear();
+			}
+			else {
+				System.out.println("Es konnten keine Dateien im Papierkorb gefunden werden!");
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUIClear();
+			}
 		}
 	}
-}
 }
 
