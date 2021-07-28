@@ -20,6 +20,7 @@ public class TagUI {
 	public void ausfuerungBefehl(Datei dok) {
 		HilfUI.printBefehleTags();
 		String input = "";
+		System.out.print("Bitte eine Befehl eingeben: ");
 		sc = new Scanner(input);	
 		input = SichereEingabe.liesCharacters();		
 		if(input.compareTo("add") == 0) {
@@ -57,14 +58,14 @@ public class TagUI {
 	public String eingabeTag(Datei dok) {
 		String input = "";
 		sc = new Scanner(input);
-		System.out.println("\n\nGeben Sie bitte ein Tag ein: ");
+		System.out.print("\nGeben Sie bitte ein Tag ein: ");
 		input = SichereEingabe.liesCharacters();
 		return input;
 	}
 	
 	public boolean checkUnLinkTag(Datei dok) {
 		boolean erfolg = false;
-		System.out.println("\nWelches Tag wollen Sie abbinden?");
+		System.out.print("\nWelches Tag wollen Sie abbinden? ");
 		String name = eingabeTag(dok);
 		String mesUnlink = "Dieses Tag und die Datei " + dok.getName() + " sind nicht angebunden";
 		if(checkGlobal(name) == null) {

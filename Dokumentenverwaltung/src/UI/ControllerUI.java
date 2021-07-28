@@ -182,10 +182,12 @@ public class ControllerUI implements Serializable{
 			DateiUIWorkBind duiWorkbind = new DateiUIWorkBind(serviceLocator.getDateienContainer());
 			duiWorkbind.workbind();
 			saveall();
+			HilfUI.promtEnterKey();
+			HilfUI.printBefehleControllerUIClear();
 		}
 		else if(anzeigeFenster.getBefehl() == "bin") {
 			PapierkorbUI puiRestore = new PapierkorbUI(serviceLocator.getPapierkorb(), serviceLocator.getDateienContainer());
-			puiRestore.startRestore();
+			puiRestore.startBin();
 			saveall();
 		}
 	}

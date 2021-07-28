@@ -51,11 +51,12 @@ public class NutzerUI {
 		HilfUI.printBefehleNutzerUI();
 		Scanner sca = new Scanner(System.in);
 		String command = "";
+		System.out.print("Bitte einen Befehl eingeben: ");
 		command = sca.next(); //SichereEingabe.liestChar
 		if(command.compareTo("login") == 0) {
 			boolean erfolg = false;
 			while (erfolg != true) {
-				System.out.println("Geben Sie einen Name ein : ");
+				System.out.print("Geben Sie einen Namen ein: ");
 				String userName = sca.next();  //SichereEingabe.liestChar
 				if(userName.compareTo("end") == 0) break;
 				if(anmeldeNutzer(userName) == true) {
@@ -99,13 +100,13 @@ public class NutzerUI {
 	}
 	
 	private void bearbeiteNutzer() {
-		System.out.println("Geben Sie einen Name ein : ");
+		System.out.print("Geben Sie einen Namen ein: ");
 		String userName = sc.next();
 		String input = "";
 		if(userName == "end") return;
 		Nutzer n = nc.sucheNutzer(userName);		
 		if(n == null) {
-			System.out.println("Der Name ist ungültig");
+			System.out.println("Der Name ist ungültig!");
 			bearbeiteNutzer();
 		}else n.printNutzer();
 		boolean erfolg = false;
