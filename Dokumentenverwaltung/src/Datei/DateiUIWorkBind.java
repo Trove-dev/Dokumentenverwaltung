@@ -9,6 +9,10 @@ public class DateiUIWorkBind {
 
 	public DateiUIWorkBind(DateienContainerInterface dci) {
 		this.dci = dci;
+		if (dci.getAlleDateien() == null) {
+			System.err.println("Für die Arbeit mit Verlinkungen müssen mindestens 2 Dateien vorhanden sein");
+			return;
+		}
 		if(dci.getAlleDateien().size() <2) {
 			System.err.println("Für die Arbeit mit Verlinkungen müssen mindestens 2 Dateien vorhanden sein");
 			return;
@@ -23,7 +27,12 @@ public class DateiUIWorkBind {
 	}
 	
 	public void workbind() {
-		
+		if (dci.getAlleDateien() == null) {
+			return;
+		}
+		if(dci.getAlleDateien().size() <2) {
+			return;
+		}
 		HilfUI.printBefehleVerlinkung();
 		String command = SichereEingabe.liesCharacters();
 		switch(command){

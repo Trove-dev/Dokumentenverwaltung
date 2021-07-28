@@ -1,5 +1,8 @@
 package UI;
 
+import java.nio.file.attribute.FileTime;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class HilfUI {
@@ -74,23 +77,23 @@ public class HilfUI {
 	
 	public static void printBefehleTags() {
 		System.out.println("\n-------Arbeit mit Tags--------");
-		System.out.println("add \t\t- Ein neues Tag hinzufügen");
-		System.out.println("del \t\t- Ein Tag löschen");
-		System.out.println("unlink\t\t- Ein Tag und die Datei trennen");
-		System.out.println("exit \t\t- zum Menü-Datei");    //Aussage!!
+		System.out.println("add \t\t- ein neues Tag hinzufügen");
+		System.out.println("del \t\t- ein Tag löschen");
+		System.out.println("unlink\t\t- ein Tag und die Datei trennen");
+		System.out.println("exit \t\t- zurück ins Hauptmenü");
 		System.out.println("--------------------------------");
 	}
 	
 	public static void printBefehleSucheNachTags() {
 		System.out.println("\n--------------------------");
 		System.out.println("\nstart \t\t- startet die Suche");
-		System.out.println("add \t\t- addiert ein Tag");
+		System.out.println("add \t\t- addiert einen Tag");
 		System.out.println("--------------------------");
 	}
 	
 	public static void printBefehleVerlinkung() {
-		System.out.println("\n--------------Arbeit mit Verliunkung-------------");
-		System.out.println("bind \t\t- bindet der Datei an");
+		System.out.println("\n--------------Arbeit mit Verlinkung-------------");
+		System.out.println("bind \t\t- bindet eine Datei an");
 		System.out.println("unlink \t\t- trennt Dateien");
 		System.out.println("exit \t\t- beendet die Arbeit mit Verlinkungen");
 		System.out.println("-------------------------------------------------");
@@ -122,6 +125,10 @@ public class HilfUI {
 	}
 	public static boolean isMac() {
 		return getOsName().startsWith("Mac");
+	}
+	public static void printFileTime(FileTime fileTime) {
+	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy\thh:mm:ss");
+	    System.out.print(dateFormat.format(fileTime.toMillis()) + "\t");
 	}
 	
 }

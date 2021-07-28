@@ -21,7 +21,7 @@ public class DateiUIOpenDatei {
 	public void startOpeningDatei() throws IOException {
 		Scanner sc = new Scanner(System.in);
 		dci.zeigeAlleDateienDetails();
-		System.out.println("Geben Sie bitte den Name der Datei");
+		System.out.print("Geben Sie bitte den Namen der Datei ein: ");
 		String dateiName = sc.next();
 		Datei dok = dci.checkFile(dateiName);
 		if(dok != null) {
