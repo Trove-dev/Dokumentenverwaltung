@@ -48,29 +48,10 @@ public class DateiAnzeigeUI {
 	        }
 	        else if (input.startsWith("workbind")) {
 	        	this.befehl = "workbind";
+	        	break;
 	        }
 	        else if (input.startsWith("bin")) {
-	        	ServiceLocator.getInstance().getPapierkorb().papierkorbAnzeigen();
-	        	System.out.println("Papierkorb Menü");
-	        	while (true) {
-	        		Scanner s = new Scanner(System.in);
-	        		System.out.println("restore\t\t- Datei wiederherstellen");
-	        		System.out.println("delall\t\t- gesamten Papierkorb löschen");
-	        		System.out.println("back\t\t- zurück ins Hauptmenü");
-	        		System.out.print("Bitte Befehl eingeben: ");
-	        		String tmp = s.nextLine();
-	        		if (tmp.equals("restore")) {
-	        			befehl = "restore";
-	        			break;
-	        		}
-	        		else if(tmp.equals("delall")) {
-	        			befehl = "delall";
-	        			break;
-	        		}
-	        		else if(tmp.equals("back")) {
-	        			break;
-	        		}
-	        	}
+	        	this.befehl = "bin";
 	        	break;
 	        }
 	        else if( input.startsWith("back")){

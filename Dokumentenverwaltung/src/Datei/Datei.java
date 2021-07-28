@@ -222,4 +222,8 @@ public class Datei implements Serializable{
 		this.groesse = groesse;
 	}
 	
+	public void setTags(HashSet <Tag> tags) {
+		this.tags = tags;
+	}
+	
 }
