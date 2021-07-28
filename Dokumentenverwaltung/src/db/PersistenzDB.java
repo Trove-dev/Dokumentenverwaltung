@@ -11,7 +11,8 @@ import java.io.Serializable;
 import Verarbeitung.ServiceLocator;
 
 public class PersistenzDB implements PersistenzIF, Serializable{
-	private static final long serialVersionUID = -1538934785359729971L;
+
+	private static final long serialVersionUID = 1L;
 	private static PersistenzDB uniqueInstance = null;
 	
 	private PersistenzDB() {}

@@ -18,6 +18,7 @@ public class HilfUI {
 				+ "view \t\t- wechselt in die Ansicht, um Dokumente anzusehen\n"
 				+ "saveall \t- speichert alle Dokumente ab\n"
 				+ "loadall \t- ruft gespeicherte Dokumente ab\n"
+				+ "end \t\t- beendet das Programm\n"
 				+ "help \t\t- zeigt alle verfügbaren Befehle an\n"
 				+ "---------------------");
 	}
@@ -89,7 +90,7 @@ public class HilfUI {
 	}
 	
 	public static void printBefehleVerlinkung() {
-		System.out.println("\n--------------Arbeit mit Verliunkung-------------\n");
+		System.out.println("\n--------------Arbeit mit Verlinkung-------------\n");
 		System.out.println("bind \t\t bindet der Datei an");
 		System.out.println("unlink \t trennt Dateien");
 		System.out.println("exit \t\t beendet die Arbeit mit Verlinkungen");

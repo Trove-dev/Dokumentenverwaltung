@@ -16,10 +16,8 @@ import Tag.TagsContainerInterface;
 import Verlinkung.VerknuepfungVonDateien;
 
 public class DateienContainer implements DateienContainerInterface, Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6592664557941871449L;
+
+	private static final long serialVersionUID = 1L;
 	private static DateienContainer uniqueInstance = null;
 	private ArrayList<Datei> dateienListe = new ArrayList<>();
 	

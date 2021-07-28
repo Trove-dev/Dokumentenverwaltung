@@ -12,6 +12,7 @@ import UI.HilfUI;
 
 public class Papierkorb implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private static Papierkorb uniqueInstance = null;
 	private ArrayList<Datei> papierkorb = new ArrayList<>();
 	

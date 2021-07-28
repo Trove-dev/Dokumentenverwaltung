@@ -13,11 +13,8 @@ import Tag.TagsContainer;
 import Tag.TagsContainerInterface;
 
 public class Datei implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8201169257780113281L;
+
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String ersteller;                // ?? nötig ?
 	private String erstellungsDatum;

@@ -6,10 +6,7 @@ import java.io.Serializable;
 
 public class NutzerContainer implements NutzerContainerInterface, Serializable{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5149599819425251462L;
+	private static final long serialVersionUID = 1L;
 	private static NutzerContainer uniqueInstance = null;
 	private ArrayList <Nutzer> listeNutzer = new ArrayList<Nutzer>();
 	

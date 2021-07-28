@@ -51,12 +51,12 @@ public class NutzerUI {
 		HilfUI.printBefehleNutzerUI();
 		Scanner sca = new Scanner(System.in);
 		String command = "";
-		command = sca.next(); //SichereEingabe.liestChar
+		command = SichereEingabe.liesCharacters();
 		if(command.compareTo("login") == 0) {
 			boolean erfolg = false;
 			while (erfolg != true) {
 				System.out.println("Geben Sie einen Name ein : ");
-				String userName = sca.next();  //SichereEingabe.liestChar
+				String userName = SichereEingabe.liesCharacters();
 				if(userName.compareTo("end") == 0) break;
 				if(anmeldeNutzer(userName) == true) {
 					System.out.println("\n" + userName + ", Sie sind angemeldet\n");
@@ -75,9 +75,9 @@ public class NutzerUI {
 		}else if(command.compareTo("del") == 0) {
 			loescheNutzer();
 		}else if(command.compareTo("end") == 0) {
-			System.out.println("Sie verlassen das Programm");
-			/////////////  
+			System.out.println("Sie verlassen das Programm");			
 			sca.close();
+			System.exit(0);
 		}else {
 			System.out.println("Der falsche Befehl\n");
 			ausfuereBefehle(user);

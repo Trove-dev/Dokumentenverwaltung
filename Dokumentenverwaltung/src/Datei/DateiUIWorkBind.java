@@ -1,5 +1,6 @@
 package Datei;
 
+import java.util.Scanner;
 import UI.HilfUI;
 import hilf.SichereEingabe;
 
@@ -9,78 +10,129 @@ public class DateiUIWorkBind {
 
 	public DateiUIWorkBind(DateienContainerInterface dci) {
 		this.dci = dci;
-		if(dci.getAlleDateien().size() <2) {
+	}
+
+	public void workbind() {
+
+		if (dci.getAlleDateien().size() < 2) {
 			System.err.println("Für die Arbeit mit Verlinkungen müssen mindestens 2 Dateien vorhanden sein");
 			return;
 		}
 		dci.zeigeAlleDateienDetails();
 		dokument = checkDateien();
-		if(dokument == null) {
-			System.out.println("Diese Datei ist nicht im System");
+		if (dokument == null) {
 			return;
 		}
-		printDateiVerlinkund(dokument);
+		while (true) {
+			System.out.println("\nSie arbeiten mit der Datei " + dokument.getName());
+			printDateiVerlinkund(dokument);
+			HilfUI.printBefehleVerlinkung();
+			Scanner input = new Scanner(System.in);
+			String command = input.next();
+			if(command.compareTo("bind") == 0) {
+				if(bindCommand(dokument) == false) break;
+			}
+			else if(command.compareTo("unlink") == 0) {
+				if(unlinkCommand(dokument) == false) break;
+			}
+			else if(command.compareTo("exit") ==0) {
+				break;
+			}
+			else {
+				System.err.println("Unbekannter Befehl\n");
+				
+			}
+		}
 	}
-	
-	public void workbind() {
-		
-		HilfUI.printBefehleVerlinkung();
-		String command = SichereEingabe.liesCharacters();
-		switch(command){
-		case "bind":				
-			Datei dok2 = checkDateien();
-			if(dokument.getVerknuepfung() != null) {
-				if(dokument == dok2) {
-					System.err.println("Eine Datei kann nicht an sich angebunden sein");
-					break;
-				}else if(dokument.searchBinds(dok2)) {
+	private boolean bindCommand(Datei dokument) {
+		boolean isContinue = false;
+		while(true) {
+			Datei dok = checkDateien();
+			if(dok == null) {
+				isContinue = false;
+				break;
+			}
+			if (dokument == dok) {
+				System.err.println("Eine Datei kann nicht an sich angebunden sein");
+				continue;
+			}
+			if (dokument.getVerknuepfung() != null) {
+				if (dokument.searchBinds(dok)) {
 					System.err.println("Die Dateien sind schon verbunden");
+					continue;
+				}else {
+					isContinue = tryBinding(dokument, dok);
 					break;
 				}
-			}
-			try{
-				dokument.bindDokument(dok2);
-				printDateiVerlinkund(dokument);
-				printDateiVerlinkund(dok2);
-				break;
-			}catch (Exception i) {
-				i.printStackTrace();
-			}
-		case "unlink":
-			if(dokument.getVerknuepfung() == null || dokument.getVerknuepfung().isEmpty()) {
-				System.out.println("Die Datei hat keine Dateien zum Trennen");
-				break;
-			}			
-			dok2 = checkDateien();
-			if(dokument.searchBinds(dok2) == false) {
-				System.out.println("Die Datei " + dokument + " und die Datei " + dok2.getName() 
-				+ " sind nicht verbunden\n");
+			} 
+			else {
+				isContinue = tryBinding(dokument, dok);			
 				break;
 			}
-			try{
-				dokument.unlinkDokument(dok2);
-				printDateiVerlinkund(dokument);
-				printDateiVerlinkund(dok2);
-			}catch (Exception i) {
-				i.printStackTrace();
-			}
-		case "exit":
-			break;
-		default:
-			System.err.println("Unbekannter Befehl\n");
-			workbind();
-		}	
+		}
+		return isContinue;
 	}
 	
-	public Datei checkDateien() {
+	private boolean tryBinding(Datei dokument, Datei dok) {
+		try {
+				dokument.bindDokument(dok);
+				printDateiVerlinkund(dokument);
+				printDateiVerlinkund(dok);
+				System.out.println("Die Dateien sind nun verbunden");
+				return true;
+
+			} catch (Exception i) {
+				i.printStackTrace();
+			}
+		return false;
+	}
+	private boolean unlinkCommand(Datei dokument) {
+		boolean isContinue = false;
+		while(true) {
+			if (dokument.getVerknuepfung() == null || dokument.getVerknuepfung().isEmpty()) {
+				System.out.println("Die Datei hat keine Dateien zum Trennen");
+				isContinue = true;
+				break;
+			}
+			Datei dok = checkDateien();
+			if(dok == null) {
+				isContinue = false;
+				break;
+			}
+			if(dokument == dok) {
+				System.err.println("Eine Datei konnte mit sich nicht verbunden\n");
+				continue;
+			}
+			if (dokument.searchBinds(dok) == false) {
+				System.out.println("Die Datei " + dokument.getName() + " und die Datei " 
+												+ dok.getName() + " sind nicht verbunden\n");
+				continue;
+			}
+			try {
+				dokument.unlinkDokument(dok);
+				printDateiVerlinkund(dokument);
+				printDateiVerlinkund(dok);
+				System.out.println("Die Dateien " + dokument.getName() + " und " + dok.getName() + " sind nicht mehr verbunden");
+				isContinue = true;
+			} catch (Exception i) {
+				i.printStackTrace();
+			}	
+		}
+		return isContinue;
+	}
+	
+	private Datei checkDateien() {
+		Scanner input = new Scanner(System.in);
 		Datei dok = null;
 		System.out.print("Welche Datei möchten Sie für die Arbeit mit Verlinkung ? "
-					+ "\nSie können auch exit eintippen, um dieses Prozess zu beenden.\n");
-		while(true) {
-			String dateiName = SichereEingabe.liesCharacters();	
-			if(dateiName.compareTo("exit") == 0) break;
+				+ "\nSie können auch exit eintippen, um dieses Prozess zu beenden.\n");
+		while (true) {
+			String dateiName = input.next();
+			if (dateiName.compareTo("exit") == 0)
+				break;
 			dok = dci.checkFile(dateiName);
-			if(dok != null) break;
+			if (dok != null)
+				break;
 			else {
 				System.out.println("Ein falscher Name. Geben Sie den nochmal bitte\n");
 				continue;
@@ -88,13 +140,13 @@ public class DateiUIWorkBind {
 		}
 		return dok;
 	}
-	
-	public void printDateiVerlinkund(Datei dok) {
+
+	private void printDateiVerlinkund(Datei dok) {
 		System.out.println("--------------------------------------------");
 		System.out.print("Für die Datei " + dok.getName() + " gilt :");
 		dok.printVerknuepfungForInfo();
-		System.out.println("\n------------------------------------------\n");
+		System.out.println("---------------------------------------------\n");
 
 	}
-	
+
 }
