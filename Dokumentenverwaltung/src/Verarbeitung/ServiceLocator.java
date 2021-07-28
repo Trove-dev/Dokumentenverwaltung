@@ -5,12 +5,12 @@ import Datei.DateienContainer;
 import Datei.DateienContainerInterface;
 import Nutzer.NutzerContainer;
 import Nutzer.NutzerContainerInterface;
+import Papierkorb.Papierkorb;
 import Tag.TagsContainer;
 import Tag.TagsContainerInterface;
 import Verlinkung.VerknuepfungVonDateien;
 import db.PersistenzDB;
 import db.PersistenzIF;
-import papierkorb.Papierkorb;
 
 public class ServiceLocator implements Serializable{
 	
