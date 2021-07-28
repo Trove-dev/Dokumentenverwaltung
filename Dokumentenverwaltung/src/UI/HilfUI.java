@@ -14,7 +14,7 @@ public class HilfUI {
 	
 	public static void printBefehleControllerUI() {
 		System.out.println("\nWillkommen im Hauptmenü vom Dokumentenmanager!\n"
-				+ "upload \t- wechselt in die Ansicht, um Dokumente hinzuzufügen\n"
+				+ "upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen\n"
 				+ "view \t\t- wechselt in die Ansicht, um Dokumente anzusehen\n"
 				+ "saveall \t- speichert alle Dokumente ab\n"
 				+ "loadall \t- ruft gespeicherte Dokumente ab\n"
@@ -49,51 +49,59 @@ public class HilfUI {
 	    System.out.println("cd <dir>\t\t- wechselt in das angegebene Verzeichnis <dir>");
 	    System.out.println("cd ..\t\t\t- wechselt in das vorige Verzeichnis");
 	    System.out.println("info <name>\t\t- listet Informationen einer Datei/Ordner auf");
-	    System.out.println("save <name>\t- speichert Informationen einer Datei/Ordner ab");	    
+	    System.out.println("save <name>\t\t- speichert Informationen einer Datei/Ordner ab");	    
 	    System.out.println("help \t\t\t- zeigt alle verfügbaren Befehle an");
 	    System.out.println("back\t\t\t- wechselt zurück in die Hauptansicht");
 	    System.out.println("----------------");	
 	}
 	
 	public static void printBefehleEditNutzer() {
-		System.out.println("username \t ändert den Nutzername");
-		System.out.println("recht \t\t ändert das Racht");
-		System.out.println("vollname \t ändert den vollständigen Name");
-		System.out.println("end \t\t beendet die Bearbeitung");
+		System.out.println("username \t- ändert den Nutzername");
+		System.out.println("recht \t\t- ändert das Racht");
+		System.out.println("vollname \t- ändert den vollständigen Name");
+		System.out.println("end \t\t- beendet die Bearbeitung");
 	}
 	
 	public static void printBefehleNutzerUI() {
-		System.out.println("\n-------Arbeit mit Nutzer-------\n");
-		System.out.println("login \t\t meldet sich an");
-		System.out.println("create \t erzeugt neuen Nutzer");
-		System.out.println("edit \t\t bearbeitet den Nutzer");
-		System.out.println("del \t\t löscht den Nutzer");
-		System.out.println("end \t\t beendet das Programm");
+		System.out.println("\n-------Arbeit mit Nutzer-------");
+		System.out.println("login \t\t- meldet sich an");
+		System.out.println("create \t\t- erzeugt neuen Nutzer");
+		System.out.println("edit \t\t- bearbeitet den Nutzer");
+		System.out.println("del \t\t- löscht den Nutzer");
+		System.out.println("end \t\t- beendet das Programm");
 		System.out.println("---------------------------------\n");
 	}
 	
 	public static void printBefehleTags() {
-		System.out.println("\n-------Arbeit mit Tags--------\n");
-		System.out.println("add \t\t Ein neues Tag hinzufügen");
-		System.out.println("del \t\t Ein Tag löschen");
-		System.out.println("unlink\t\t Ein Tag und die Datei trennen");
-		System.out.println("exit \t\t zum Menü-Datei");    //Aussage!!
-		System.out.println("\n--------------------------------\n");
+		System.out.println("\n-------Arbeit mit Tags--------");
+		System.out.println("add \t\t- Ein neues Tag hinzufügen");
+		System.out.println("del \t\t- Ein Tag löschen");
+		System.out.println("unlink\t\t- Ein Tag und die Datei trennen");
+		System.out.println("exit \t\t- zum Menü-Datei");    //Aussage!!
+		System.out.println("--------------------------------");
 	}
 	
 	public static void printBefehleSucheNachTags() {
 		System.out.println("\n--------------------------");
-		System.out.println("\nstart \t\t startet die Suche");
-		System.out.println("add \t\t addiert ein Tag");
-		System.out.println("--------------------------\n");
+		System.out.println("\nstart \t\t- startet die Suche");
+		System.out.println("add \t\t- addiert ein Tag");
+		System.out.println("--------------------------");
 	}
 	
 	public static void printBefehleVerlinkung() {
-		System.out.println("\n--------------Arbeit mit Verliunkung-------------\n");
-		System.out.println("bind \t\t bindet der Datei an");
-		System.out.println("unlink \t trennt Dateien");
-		System.out.println("exit \t\t beendet die Arbeit mit Verlinkungen");
-		System.out.println("\n-------------------------------------------------\n");
+		System.out.println("\n--------------Arbeit mit Verliunkung-------------");
+		System.out.println("bind \t\t- bindet der Datei an");
+		System.out.println("unlink \t\t- trennt Dateien");
+		System.out.println("exit \t\t- beendet die Arbeit mit Verlinkungen");
+		System.out.println("-------------------------------------------------");
+	}
+	
+	public static void printBefehlePapierkorb() {
+		System.out.println("\n--------------Arbeit mit Papierkorb-------------");
+		System.out.println("restore\t\t- Datei wiederherstellen");
+		System.out.println("delall\t\t- gesamten Papierkorb löschen");
+		System.out.println("back\t\t- zurück ins Hauptmenü");
+		System.out.println("-------------------------------------------------");
 	}
 	
 	public static void promtEnterKey() {

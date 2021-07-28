@@ -30,7 +30,7 @@ public void deleteDatei(Nutzer user) {
 		Scanner s = new Scanner(System.in);
 		dci.zeigeAlleDateienDetails();
 		System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
-		String dateiName = s.next();
+		String dateiName = s.nextLine();
 		Iterator<Datei> it = dci.getAlleDateien().iterator();
 		while (it.hasNext()) {
 			Datei datei = it.next();

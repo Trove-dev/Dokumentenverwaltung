@@ -19,12 +19,9 @@ public class PapierkorbUI {
 	}
 	
 	public void startBin() {
-		System.out.println("Papierkorb Menü");
 		while (true) {
 			Scanner s = new Scanner(System.in);
-			System.out.println("restore\t\t- Datei wiederherstellen");
-			System.out.println("delall\t\t- gesamten Papierkorb löschen");
-			System.out.println("back\t\t- zurück ins Hauptmenü");
+			UI.HilfUI.printBefehlePapierkorb();
 			System.out.print("Bitte Befehl eingeben: ");
 			String tmp = s.nextLine();
 			if (tmp.equals("restore")) {

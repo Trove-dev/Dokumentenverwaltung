@@ -25,20 +25,20 @@ public class SichereEingabe {
 		
 		for(char a:symboleUserName_NameVoll) System.out.print(a + " ");
 		for(char b:symboleUserName) System.out.print(b + " ");
-		System.out.println("\nIhr Username: ");			
+		System.out.print("\nIhr Username: ");			
 		String inputName = "";	
 		Scanner input = new Scanner(System.in);
 		boolean erfolg = false;
 		while(erfolg != true) {
 			inputName = input.nextLine();
 			if(nc.sucheNutzer(inputName) != null) {
-				System.out.println("Dieser Username ist belegt. Geben Sie anderen Name ein:");
+				System.out.print("Dieser Username ist belegt. Geben Sie anderen Name ein: ");
 				continue;
 			}
 			
 			if(!checkUebereinstimmung(inputName, symboleUserName_NameVoll) 
 					|| !checkUebereinstimmung(inputName, symboleUserName)) {
-				System.out.println("Username enthält falsche Symbole. Geben Sie den nochmal: ");
+				System.out.print("Username enthält falsche Symbole. Geben Sie den nochmal: ");
 				continue;
 			}
 			
@@ -86,17 +86,17 @@ public class SichereEingabe {
 	 
 	public static String checkVollstaendigenName() {  
 		Scanner input = new Scanner(System.in);
-		System.out.println("Ihr vollständiger Name: ");
+		System.out.print("Ihr vollständiger Name: ");
 		boolean erfolg = false;
 		String inputnameVollstandig = "";		
 		while(erfolg != true) {
 			inputnameVollstandig = input.nextLine();			
 			if(!SichereEingabe.checkUebereinstimmung(inputnameVollstandig, symboleUserName_NameVoll)){
-				System.out.println("Geben Sie bitte Ihren richtigen Name: ");	
+				System.out.print("Geben Sie bitte Ihren richtigen Namen ein: ");	
 				continue;
 			}
 			if(inputnameVollstandig.length() <2) {
-				System.out.println("Geben Sie bitte Ihren richtigen Name: ");	
+				System.out.print("Geben Sie bitte Ihren richtigen Namen ein: ");	
 				continue;
 			}
 			erfolg = true;

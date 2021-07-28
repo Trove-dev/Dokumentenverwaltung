@@ -48,7 +48,7 @@ public class Datei implements Serializable{
 	
 	public void anzeigeDateiDetail() {
 		//System.out.println(this);				//debug
-		System.out.println("Name der Datei:\t" + name);
+		System.out.println("Name der Datei:\t\t" + name);
 		System.out.println("Ersteller der Datei:\t" + ersteller);
 		System.out.println("Erstellungsdatum:\t" + erstellungsDatum);
 		System.out.println("Dateifpad:\t\t" + dateiPfad);
@@ -84,7 +84,7 @@ public class Datei implements Serializable{
 				bindDok = bindDok + d.name + "; ";
 			}
 		}else bindDok = "noch keine";
-		System.out.println("\nVerknüpfung: \t" + bindDok);
+		System.out.println("\nVerknüpfung: \t\t" + bindDok);
 	}
 
 	public boolean searchBinds(Datei dok) {

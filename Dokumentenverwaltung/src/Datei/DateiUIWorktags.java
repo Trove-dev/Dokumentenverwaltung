@@ -20,7 +20,7 @@ public class DateiUIWorktags {
 	public void worktags() {
 		Scanner sc = new Scanner(System.in);
 		dci.zeigeAlleDateienDetails();
-		System.out.print("Welche Datei möchten Sie für die Arbeit mit Tags ? (Bitte Dateinamen eingeben): ");
+		System.out.print("Welche Datei möchten Sie für die Arbeit mit Tags? (Bitte Dateinamen eingeben): ");
 		String dateiName = sc.next();
 		Iterator<Datei> it = dci.getAlleDateien().iterator();
 		boolean erfolg = false;
