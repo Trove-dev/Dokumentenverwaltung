@@ -30,7 +30,7 @@ import Datei.DateiUIWorktags;
 
 public class ControllerUI implements Serializable{
 	
-	private static final long serialVersionUID = -8612358928700116808L;
+	private static final long serialVersionUID = 1L;
 	private ServiceLocator serviceLocator;
 	Nutzer user;
 
@@ -61,9 +61,11 @@ public class ControllerUI implements Serializable{
 	        input = input.trim();
 	        if (input.startsWith("upload")){
 	            uploadDatei();
+	            HilfUI.printBefehleControllerUIClear();
 	        }
 	        else if (input.startsWith("view")){                
 				dateiAnzeige();
+				HilfUI.printBefehleControllerUIClear();
 	        }
 	        else if (input.startsWith("end")) {
 	        	System.out.println("Programm wird beendet. \n\nAuf Wiedersehen!");
@@ -72,15 +74,18 @@ public class ControllerUI implements Serializable{
 	        }
 	        else if (input.startsWith("saveall")) {
 	        	saveall();
+	        	HilfUI.printBefehleControllerUIClear();
 	        }
 	        else if (input.startsWith("loadall")) {
 	        	loadall();
+	        	HilfUI.printBefehleControllerUIClear();
 	        }
 	        else if (input.startsWith("help")) {
 	    		HilfUI.printBefehleControllerUIClear();
 	        }
 	        else{ 
 	            System.err.println("Unbekannter Befehl\n");
+	            HilfUI.printBefehleControllerUIClear();
 	        } 
 	    }
     }

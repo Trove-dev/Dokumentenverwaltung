@@ -3,10 +3,8 @@ package Nutzer;
 import java.io.Serializable;
 
 public class Nutzer implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3570322538905849483L;
+
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private Rechte rechte;
 	private String nameVollstaendig;

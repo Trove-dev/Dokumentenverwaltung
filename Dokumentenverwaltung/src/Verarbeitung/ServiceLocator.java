@@ -14,6 +14,8 @@ import db.PersistenzIF;
 
 public class ServiceLocator implements Serializable{
 	
+
+	private static final long serialVersionUID = 1L;
 	private static ServiceLocator uniqueInstance = null;
 	
 	private DateienContainerInterface dc;

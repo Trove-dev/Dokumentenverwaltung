@@ -52,12 +52,12 @@ public class NutzerUI {
 		Scanner sca = new Scanner(System.in);
 		String command = "";
 		System.out.print("Bitte einen Befehl eingeben: ");
-		command = sca.next(); //SichereEingabe.liestChar
+		command = SichereEingabe.liesCharacters();
 		if(command.compareTo("login") == 0) {
 			boolean erfolg = false;
 			while (erfolg != true) {
 				System.out.print("Geben Sie einen Namen ein: ");
-				String userName = sca.next();  //SichereEingabe.liestChar
+				String userName = SichereEingabe.liesCharacters();
 				if(userName.compareTo("end") == 0) break;
 				if(anmeldeNutzer(userName) == true) {
 					System.out.println("\n" + userName + ", Sie sind angemeldet\n");
@@ -76,9 +76,9 @@ public class NutzerUI {
 		}else if(command.compareTo("del") == 0) {
 			loescheNutzer();
 		}else if(command.compareTo("end") == 0) {
-			System.out.println("Sie verlassen das Programm");
-			/////////////  
+			System.out.println("Sie verlassen das Programm");			
 			sca.close();
+			System.exit(0);
 		}else {
 			System.out.println("Der falsche Befehl\n");
 			ausfuereBefehle(user);
@@ -112,29 +112,28 @@ public class NutzerUI {
 		boolean erfolg = false;
 		while(erfolg != true) {		
 			HilfUI.printBefehleEditNutzer();
-			input = sc.next();   //SichereEingabe.liestChar
+			input = SichereEingabe.liesCharacters();
 			if(input.compareTo("username") == 0) {
-				String name = SichereEingabe.checkName(nc);   //SichereEingabe.liestChar
+				String name = SichereEingabe.checkName(nc);   
 				if(n.getName().compareTo(name) != 0) {
 					n.setName(name);
 					erfolg = true;				
 				}
 			}else if(input.compareTo("recht") == 0) {
-				Rechte r = SichereEingabe.checkRechte();   //SichereEingabe.liestChar
+				Rechte r = SichereEingabe.checkRechte();  
 				if(n.getRechte().compareTo(r) == 0) System.out.println("Das gleiche Recht");
 				else {
 					n.setRechte(r);
 					erfolg = true;
 				}
 			}else if(input.compareTo("vollname") == 0) {
-				String nameVoll = SichereEingabe.checkVollstaendigenName();   //SichereEingabe.liestChar
+				String nameVoll = SichereEingabe.checkVollstaendigenName();   
 				if(n.getNameVollstaendig().compareTo(nameVoll) == 0) System.out.println("Der gleiche Name");
 				else {
 					n.setNameVollstaendig(nameVoll);
 					erfolg = true;
 				}				
 			}else if(input.compareTo("end") == 0) {
-				//// zurück
 				break;
 			}else {
 				System.out.println("Der falsche Befehl");
