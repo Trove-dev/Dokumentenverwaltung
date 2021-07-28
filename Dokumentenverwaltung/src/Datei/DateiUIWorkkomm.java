@@ -14,9 +14,13 @@ public class DateiUIWorkkomm {
 	}
 
 	public void workkomm() {
+		if (dci.getAlleDateien() == null) {
+			System.out.println("Es wurden bisher noch keine Dateien hochgeladen!");
+			return;
+		}
 		Scanner sc = new Scanner(System.in);
 		dci.zeigeAlleDateienDetails();
-		System.out.print("Welche Datei möchten Sie für die Arbeit mit Kommentaren ? (Bitte Dateinamen eingeben): ");
+		System.out.print("Welche Datei möchten Sie für die Arbeit mit den Kommentaren auswählen?: ");
 		String dateiName = sc.next();
 		Iterator<Datei> it = dci.getAlleDateien().iterator();
 		boolean erfolg = false;
@@ -26,7 +30,7 @@ public class DateiUIWorkkomm {
 				erfolg = true;
 				System.out.print("\nSie haben die Datei mit dem Namen: " + dateiName + " ausgewählt. ");
 				printKommentare(datei);
-				System.out.println("Geben Sie einen Kommentar bitte ein :");
+				System.out.print("Geben Sie einen Kommentar ein :");
 				sc = new Scanner(System.in);
 				datei.setKommentar(sc.nextLine());
 				printKommentare(datei);

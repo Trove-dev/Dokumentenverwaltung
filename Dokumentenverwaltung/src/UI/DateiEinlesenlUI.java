@@ -18,51 +18,51 @@ public class DateiEinlesenlUI {
 	public void DateiEinlesenUI() throws IOException {
 		HilfUI.printBefehleDateiEinlesenUIClear();
 	    
-	    String input = "";
-	    File actPath = new File(".");
-	    Scanner sc = new Scanner(System.in);
+	    String eingabe = "";
+	    File aktPfad = new File(".");
+	    Scanner s = new Scanner(System.in);
 	    
 	    while(true){
-	        System.out.print(actPath.getCanonicalPath() + "> ");
-	        input = sc.nextLine();
-	        input = input.trim();
-	        if( input.startsWith("dir") ){                
-	            dir(actPath);
+	        System.out.print(aktPfad.getCanonicalPath() + "> ");
+	        eingabe = s.nextLine();
+	        eingabe = eingabe.trim();
+	        if (eingabe.startsWith("dir") ){                
+	            dir(aktPfad);
 	        }
-	        else if( input.startsWith("cd ") ){               
-	            actPath = cd(input.substring(3,input.length()), actPath);
+	        else if (eingabe.startsWith("cd ") ){               
+	            aktPfad = cd(eingabe.substring(3,eingabe.length()), aktPfad);
 	        }
-	        else if( input.startsWith("back")){
+	        else if (eingabe.startsWith("back")){
 	        	this.file = null;
 	        	this.name = null;
 	        	HilfUI.printBefehleControllerUIClear();
 	            break;
 	        }
-	        else if (input.startsWith("info") ) {
+	        else if (eingabe.startsWith("info") ) {
 	        	if (HilfUI.isWindows() == true) {
-	        		Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
-	        		info(pathGet, input.substring(5));
+	        		Path pathGet = Paths.get(Paths.get(aktPfad.getCanonicalPath()) + "\\" + eingabe.substring(5));
+	        		info(pathGet, eingabe.substring(5));
 	        	}
 	        	else if (HilfUI.isMac() == true){
-	        		Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "/" + input.substring(5));
-	        		info(pathGet, input.substring(5));
+	        		Path pathGet = Paths.get(Paths.get(aktPfad.getCanonicalPath()) + "/" + eingabe.substring(5));
+	        		info(pathGet, eingabe.substring(5));
 	        	}
 	        	else {
 	        		System.out.println("Betriebssystem wird nicht unterstützt!");
 	        	}
 				
 	        }
-	        else if (input.startsWith("save") ) {
+	        else if (eingabe.startsWith("save") ) {
 	        	if (HilfUI.isWindows() == true) {
-	        		String name = input.substring(5);
-		        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "\\" + input.substring(5));
+	        		String name = eingabe.substring(5);
+		        	Path pathGet = Paths.get(Paths.get(aktPfad.getCanonicalPath()) + "\\" + eingabe.substring(5));
 		        	this.file = pathGet;
 		        	this.name = name;
 		        	break;
 	        	}
 	        	else if (HilfUI.isMac() == true) {
-	        		String name = input.substring(5);
-		        	Path pathGet = Paths.get(Paths.get(actPath.getCanonicalPath()) + "/" + input.substring(5));
+	        		String name = eingabe.substring(5);
+		        	Path pathGet = Paths.get(Paths.get(aktPfad.getCanonicalPath()) + "/" + eingabe.substring(5));
 		        	this.file = pathGet;
 		        	this.name = name;
 		        	break;
@@ -72,7 +72,7 @@ public class DateiEinlesenlUI {
 	        	}
 	        	
 	        }
-	        else if (input.startsWith("help")) {
+	        else if (eingabe.startsWith("help")) {
 	        	HilfUI.printBefehleDateiEinlesenUIClear();
 	        }
 	        else{
@@ -81,43 +81,56 @@ public class DateiEinlesenlUI {
 	    }
 	}
 	
-	public File cd(String neuVZ, File actPath) throws IOException {
-        System.out.println("Aufruf von cd mit dem Parameter "+neuVZ);
-        if(neuVZ.equals("..")){
-            File neu = new File(actPath.getCanonicalFile().getParent());
-            return neu;
+	public File cd(String eingabe, File aktPfad) throws IOException {
+        System.out.println("Aufruf von cd mit dem Parameter "+eingabe);
+        if(eingabe.equals("..")){
+            File erg = new File(aktPfad.getCanonicalFile().getParent());
+            return erg;
         }
-        File neu = new File(actPath.getCanonicalPath()+"/"+neuVZ);
-        if(neu.exists()&&neu.isDirectory()){
-            return neu;
+        else {
+        	if (HilfUI.isWindows()) {
+        		File erg = new File(aktPfad.getCanonicalPath() + "\\" + eingabe);
+        		if(erg.exists() && erg.isDirectory()){
+                    return erg;
+                }
+                else {
+                	System.out.println("Verzeichnis existiert nicht!");
+                	return aktPfad;
+                }
+        	}
+        	else if (HilfUI.isMac()) {
+        		File erg = new File(aktPfad.getCanonicalPath() + "/" + eingabe);
+        		if(erg.exists() && erg.isDirectory()){
+                    return erg;
+                }
+                else {
+                	System.out.println("Verzeichnis existiert nicht!");
+                	return aktPfad;
+                }
+        	}
         }
-        System.out.println("Unbekanntes Verzeichnis");
-        return actPath;
+		return aktPfad;
     }
 	
-	public void dir(File actPath) {
-        System.out.println("Aufruf von dir");
-        File[] liste = actPath.listFiles();
-        int files = 0;
-        int dirs = 0;
-        DateFormat dateformat = DateFormat.getDateInstance();
-        DateFormat timeformat = DateFormat.getTimeInstance();
-        for(int i=0; i<liste.length; i++){
-            System.out.print(dateformat.format(new Date(liste[i].lastModified()))+"\t");
-            System.out.print(timeformat.format(new Date(liste[i].lastModified()))+"\t");
-            if(liste[i].isFile()){
-                System.out.print( liste[i].length() + "\t\t" );
-                System.out.println( liste[i].getName() );
-                files++;
-            } else{
-                System.out.println( "<DIR>\t\t" + liste[i].getName() );
-                dirs++;
+	public void dir(File aktPfad) throws IOException {
+        
+		System.out.println("Aufruf von dir");
+        
+        for (final File file : aktPfad.listFiles()) {
+        	Path fileNew = file.toPath();
+        	BasicFileAttributes attr = Files.readAttributes(fileNew, BasicFileAttributes.class);
+        	if (file.isDirectory()) {
+            	HilfUI.printFileTime(attr.lastModifiedTime());
+            	System.out.print(attr.size() + "\t<DIR>\t");
+            	System.out.print(file.getName() + "\n");
+            } 
+        	else {
+        		HilfUI.printFileTime(attr.lastModifiedTime());
+        		System.out.print(attr.size() + "\t\t");
+            	System.out.print(file.getName() + "\n");
             }
         }
-        String dateiString = (files==1) ? "Datei" : "Dateien";
-        String verzString = (dirs==1) ? "Verzeichnis" : "Verzeichnisse";
-        System.out.println( dirs + " " + verzString + ", " + files + " " + dateiString); 
-    }
+	}
 	
 	public void info(Path file, String eingabe) {
 		System.out.println("Aufruf von info mit dem Parameter " + eingabe);
