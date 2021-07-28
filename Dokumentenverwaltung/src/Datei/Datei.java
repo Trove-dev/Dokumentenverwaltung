@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
 import java.nio.file.attribute.UserPrincipal;
+import java.text.DateFormat;
 import java.util.HashSet;
 import Datum.Datum;
 import Nutzer.Nutzer;
@@ -45,7 +46,7 @@ public class Datei implements Serializable{
 	
 	public void anzeigeDateiDetail() {
 		//System.out.println(this);				//debug
-		System.out.println("Name der Datei:\t" + name);
+		System.out.println("Name der Datei:\t\t" + name);
 		System.out.println("Ersteller der Datei:\t" + ersteller);
 		System.out.println("Erstellungsdatum:\t" + erstellungsDatum);
 		System.out.println("Dateifpad:\t\t" + dateiPfad);
@@ -81,7 +82,7 @@ public class Datei implements Serializable{
 				bindDok = bindDok + d.name + "; ";
 			}
 		}else bindDok = "noch keine";
-		System.out.println("\nVerknüpfung: \t" + bindDok);
+		System.out.println("\nVerknüpfung: \t\t" + bindDok);
 	}
 
 	public boolean searchBinds(Datei dok) {
@@ -217,6 +218,10 @@ public class Datei implements Serializable{
 
 	public void setGroesse(long groesse) {
 		this.groesse = groesse;
+	}
+	
+	public void setTags(HashSet <Tag> tags) {
+		this.tags = tags;
 	}
 	
 }

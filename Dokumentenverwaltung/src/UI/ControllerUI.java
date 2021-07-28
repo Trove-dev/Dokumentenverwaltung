@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 
 import Nutzer.NutzerContainerInterface;
 import Nutzer.Rechte;
+import Papierkorb.PapierkorbUI;
 import Tag.Tag;
 import Tag.TagUISearchTag;
 import Tag.TagsContainerInterface;
@@ -149,7 +150,7 @@ public class ControllerUI implements Serializable{
 			}
 		}
 		else if (anzeigeFenster.getBefehl() == "delete") {  
-			DateiUIDeleteDatei duiDelete = new DateiUIDeleteDatei(serviceLocator.getDateienContainer());
+			DateiUIDeleteDatei duiDelete = new DateiUIDeleteDatei(serviceLocator.getDateienContainer(), serviceLocator.getPapierkorb());
 			duiDelete.deleteDatei(user);
 			saveall();
 		}
@@ -176,17 +177,24 @@ public class ControllerUI implements Serializable{
 			duiWorktag.worktags();
 			saveall();
 			
-	}
+		}
 		else if(anzeigeFenster.getBefehl() == "workkomm") {
 			DateiUIWorkkomm duiWorkkomm = new DateiUIWorkkomm(serviceLocator.getDateienContainer());
 			duiWorkkomm.workkomm();
 			saveall();
-	}
+		}
 		else if(anzeigeFenster.getBefehl() == "workbind") {
 			DateiUIWorkBind duiWorkbind = new DateiUIWorkBind(serviceLocator.getDateienContainer());
 			duiWorkbind.workbind();
 			saveall();
+			HilfUI.promtEnterKey();
+			HilfUI.printBefehleControllerUIClear();
+		}
+		else if(anzeigeFenster.getBefehl() == "bin") {
+			PapierkorbUI puiRestore = new PapierkorbUI(serviceLocator.getPapierkorb(), serviceLocator.getDateienContainer());
+			puiRestore.startBin();
+			saveall();
+		}
 	}
-}
 }
 

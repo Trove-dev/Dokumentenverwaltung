@@ -61,6 +61,40 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		}
 	}
 	
+	public boolean hochladeObjekt(Path file, String name, Datei datei) {
+		try {
+			BasicFileAttributes a = Files.readAttributes(file, BasicFileAttributes.class);
+			FileOwnerAttributeView b = Files.getFileAttributeView(file, FileOwnerAttributeView.class);
+			
+			if (a.isDirectory() == false) {
+				String extension = "";
+				int t = name.lastIndexOf(".");
+				extension = name.substring(t);
+				
+				if (dublikatFinden(file) == true) {
+					System.out.println("\nDiese Datei wurde bereits hinzugefügt!");
+					return false;
+				}
+				else {
+					Datei tmp = new Datei(name, b.getOwner(), a.creationTime(), a.lastModifiedTime(), extension ,a.size(), file);
+					tmp.setKommentar(datei.getKommentar());
+					tmp.setTags(datei.getTags());
+					tmp.setVerknuepfung(datei.getVerknuepfung());
+					dateienListe.add(tmp);
+					return true;
+				}
+			}
+			else {
+				System.out.println("\nEs handelt sich bei " + name + " um ein Ordner!");
+				return false;
+			}
+		}
+		catch(IOException e) {
+			System.out.println("\nDatei konnte nicht geladen werden! (Nicht vorhanden oder korrupt)");
+			return false;
+		}
+	}
+	
 	public void zeigeAlleDateien() {
 		for(Datei a:dateienListe) {
 			System.out.println(a);

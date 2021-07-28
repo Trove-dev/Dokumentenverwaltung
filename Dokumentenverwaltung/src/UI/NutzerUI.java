@@ -51,11 +51,12 @@ public class NutzerUI {
 		HilfUI.printBefehleNutzerUI();
 		Scanner sca = new Scanner(System.in);
 		String command = "";
+		System.out.print("Bitte einen Befehl eingeben: ");
 		command = SichereEingabe.liesCharacters();
 		if(command.compareTo("login") == 0) {
 			boolean erfolg = false;
 			while (erfolg != true) {
-				System.out.println("Geben Sie einen Name ein : ");
+				System.out.print("Geben Sie einen Namen ein: ");
 				String userName = SichereEingabe.liesCharacters();
 				if(userName.compareTo("end") == 0) break;
 				if(anmeldeNutzer(userName) == true) {
@@ -99,41 +100,40 @@ public class NutzerUI {
 	}
 	
 	private void bearbeiteNutzer() {
-		System.out.println("Geben Sie einen Name ein : ");
+		System.out.print("Geben Sie einen Namen ein: ");
 		String userName = sc.next();
 		String input = "";
 		if(userName == "end") return;
 		Nutzer n = nc.sucheNutzer(userName);		
 		if(n == null) {
-			System.out.println("Der Name ist ungültig");
+			System.out.println("Der Name ist ungültig!");
 			bearbeiteNutzer();
 		}else n.printNutzer();
 		boolean erfolg = false;
 		while(erfolg != true) {		
 			HilfUI.printBefehleEditNutzer();
-			input = sc.next();   //SichereEingabe.liestChar
+			input = SichereEingabe.liesCharacters();
 			if(input.compareTo("username") == 0) {
-				String name = SichereEingabe.checkName(nc);   //SichereEingabe.liestChar
+				String name = SichereEingabe.checkName(nc);   
 				if(n.getName().compareTo(name) != 0) {
 					n.setName(name);
 					erfolg = true;				
 				}
 			}else if(input.compareTo("recht") == 0) {
-				Rechte r = SichereEingabe.checkRechte();   //SichereEingabe.liestChar
+				Rechte r = SichereEingabe.checkRechte();  
 				if(n.getRechte().compareTo(r) == 0) System.out.println("Das gleiche Recht");
 				else {
 					n.setRechte(r);
 					erfolg = true;
 				}
 			}else if(input.compareTo("vollname") == 0) {
-				String nameVoll = SichereEingabe.checkVollstaendigenName();   //SichereEingabe.liestChar
+				String nameVoll = SichereEingabe.checkVollstaendigenName();   
 				if(n.getNameVollstaendig().compareTo(nameVoll) == 0) System.out.println("Der gleiche Name");
 				else {
 					n.setNameVollstaendig(nameVoll);
 					erfolg = true;
 				}				
 			}else if(input.compareTo("end") == 0) {
-				//// zurück
 				break;
 			}else {
 				System.out.println("Der falsche Befehl");

@@ -24,7 +24,7 @@ public class TagUISearchTag {
 			String tmpSuche = ""; 
 			Scanner sc = new Scanner(System.in);
 			tci.printTagsListe();
-			System.out.println("\nGeben Sie bitte ein Tag ein oder exit, wenn Sie die Suche beenden wollen:");
+			System.out.print("\nGeben Sie bitte ein Tag ein oder exit, wenn Sie die Suche beenden wollen: ");
 			tmpSuche = sc.next();
 			if(tmpSuche.compareTo("exit") == 0) {
 				tagsNames = null;

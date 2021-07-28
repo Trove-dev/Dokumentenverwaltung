@@ -2,19 +2,21 @@ package Datei;
 
 import java.util.Iterator;
 import java.util.Scanner;
-
 import Nutzer.Nutzer;
 import Nutzer.Rechte;
+import Papierkorb.Papierkorb;
 import UI.HilfUI;
 
 public class DateiUIDeleteDatei {
 
 DateienContainerInterface dci;
+Papierkorb p;
 
 
-public DateiUIDeleteDatei(DateienContainerInterface dci) {
+public DateiUIDeleteDatei(DateienContainerInterface dci, Papierkorb p) {
 
 	this.dci = dci;
+	this.p = p;
 }
 
 public void deleteDatei(Nutzer user) {
@@ -27,12 +29,13 @@ public void deleteDatei(Nutzer user) {
 	}else {
 		Scanner s = new Scanner(System.in);
 		dci.zeigeAlleDateienDetails();
-		System.out.print("Welche Datei möchten Sie löschen? (Bitte Dateinamen eingeben): ");
-		String dateiName = s.next();
+		System.out.print("Welche Datei möchten Sie löschen?: ");
+		String dateiName = s.nextLine();
 		Iterator<Datei> it = dci.getAlleDateien().iterator();
 		while (it.hasNext()) {
 			Datei datei = it.next();
 			if (datei.getName().equals(dateiName)) {
+				p.hochladeDateiPapierkorb(datei);
 				it.remove();
 				erfolg = true;
 				System.out.println("\nDatei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
