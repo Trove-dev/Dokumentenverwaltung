@@ -1,27 +1,14 @@
 
 package UI;
 import Verarbeitung.ServiceLocator;
-import hilf.SichereEingabe;
-
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.TreeSet;
 import Nutzer.Nutzer;
 import java.io.Serializable;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import Nutzer.NutzerContainerInterface;
-import Nutzer.Rechte;
 import Papierkorb.PapierkorbUI;
-import Tag.Tag;
 import Tag.TagUISearchTag;
-import Tag.TagsContainerInterface;
-import Datei.Datei;
 import Datei.DateiUIDeleteDatei;
 import Datei.DateiUIOpenDatei;
 import Datei.DateiUIWorkBind;
@@ -60,7 +47,7 @@ public class ControllerUI implements Serializable{
 	    	input = sc.nextLine();
 	        input = input.trim();
 	        if (input.startsWith("upload")){
-	            uploadDatei();
+	            neueDatei();
 	            HilfUI.printBefehleControllerUIClear();
 	        }
 	        else if (input.startsWith("view")){                
@@ -90,20 +77,6 @@ public class ControllerUI implements Serializable{
 	    }
     }
 	
-	private void uploadDatei() {
-		if (neueDatei() == false) {
-        	System.out.println("Es wurde keine Datei gespeichert!"); 
-        	HilfUI.promtEnterKey();
-			HilfUI.printBefehleControllerUIClear();
-        }
-        else {
-        	System.out.println("\nDatei wurde erfolgreich gespeichert!");
-        	saveall();
-        	HilfUI.promtEnterKey();
-        	HilfUI.printBefehleControllerUIClear();
-        }
-	}
-	
 	private void saveall() {		
 		String dateiName = "containers.dat";
 		serviceLocator.speicherAlleContainer(dateiName, serviceLocator);
@@ -117,8 +90,7 @@ public class ControllerUI implements Serializable{
 			System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
 	}
 	
-	private boolean neueDatei() {
-		
+	private void neueDatei() {
 		DateiEinlesenlUI einleseFenster = new DateiEinlesenlUI();
 		try {
 			einleseFenster.DateiEinlesenUI();
@@ -127,10 +99,15 @@ public class ControllerUI implements Serializable{
 		}
 		if (einleseFenster.getPath() != null && einleseFenster.getName() != null) {
 			if (serviceLocator.getDateienContainer().hochladeDatei(einleseFenster.getPath(), einleseFenster.getName()) == true) {
-				return true;
+				System.out.println("\nDatei wurde erfolgreich gespeichert!");
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUIClear();
+				return;
 			}
 		}
-		return false;
+		System.out.println("Es wurde keine Datei gespeichert!");
+		HilfUI.promtEnterKey();
+		HilfUI.printBefehleControllerUIClear();
 	}
 	
 	private void dateiAnzeige() throws IOException {
