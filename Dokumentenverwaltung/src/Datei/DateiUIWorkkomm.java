@@ -30,7 +30,7 @@ public class DateiUIWorkkomm {
 				erfolg = true;
 				System.out.print("\nSie haben die Datei mit dem Namen: " + dateiName + " ausgewählt. ");
 				printKommentare(datei);
-				System.out.print("Geben Sie einen Kommentar ein :");
+				System.out.print("Geben Sie einen Kommentar ein: ");
 				sc = new Scanner(System.in);
 				datei.setKommentar(sc.nextLine());
 				printKommentare(datei);
@@ -49,5 +49,21 @@ public class DateiUIWorkkomm {
 	public void printKommentare(Datei datei) {
 		if(datei.getKommentar() == "" || datei.getKommentar() == null) System.out.println("Den Kommentar gibt es nicht");
 		else System.out.println("Der Kommentar: " + datei.getKommentar());
+	}
+
+	public void workkommName(String name) {
+		Scanner sc = new Scanner(System.in);
+		Iterator<Datei> it = dci.getAlleDateien().iterator();
+		while (it.hasNext()) {
+			Datei datei = it.next();
+			if (datei.getName().equals(name)) {
+				System.out.print("Geben Sie einen Kommentar ein: ");
+				sc = new Scanner(System.in);
+				datei.setKommentar(sc.nextLine());
+				printKommentare(datei);
+				break; 
+			}
+		}
+		
 	}
 }

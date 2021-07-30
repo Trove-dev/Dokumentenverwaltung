@@ -99,6 +99,27 @@ public class ControllerUI implements Serializable{
 		}
 		if (einleseFenster.getPath() != null && einleseFenster.getName() != null) {
 			if (serviceLocator.getDateienContainer().hochladeDatei(einleseFenster.getPath(), einleseFenster.getName()) == true) {
+				String tmpEingabe = "";
+				Scanner s = new Scanner(System.in);
+				System.out.print("Möchten Sie einen Tag hinzufügen? (y or n) ");
+				tmpEingabe = s.nextLine();
+				if (tmpEingabe.equals("y")) {
+					DateiUIWorktags duiWorktag = new DateiUIWorktags(serviceLocator.getDateienContainer(), serviceLocator.getTagsContainer());
+					duiWorktag.worktagsName(einleseFenster.getName());
+				}
+				System.out.print("Möchten Sie einen Kommentar hinzufügen? (y or n) ");
+				tmpEingabe = s.nextLine();
+				if (tmpEingabe.equals("y")) {
+					DateiUIWorkkomm duiWorkkomm = new DateiUIWorkkomm(serviceLocator.getDateienContainer());
+					duiWorkkomm.workkommName(einleseFenster.getName());
+				}
+				System.out.print("Möchten Sie eine Verlinkung hinzufügen? (y or n) ");
+				tmpEingabe = s.nextLine();
+				if (tmpEingabe.equals("y")) {
+					DateiUIWorkBind duiWorkbind = new DateiUIWorkBind(serviceLocator.getDateienContainer());
+					duiWorkbind.workbindName(einleseFenster.getName());
+				}
+				
 				System.out.println("\nDatei wurde erfolgreich gespeichert!");
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
