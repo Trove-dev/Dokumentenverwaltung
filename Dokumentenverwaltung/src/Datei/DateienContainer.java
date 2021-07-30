@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileOwnerAttributeView;
 import java.nio.file.spi.FileTypeDetector;
@@ -47,8 +48,11 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 					return false;
 				}
 				else {
-
-					Datei tmp = new Datei(name, b.getOwner(), a.creationTime(), a.lastModifiedTime(), extension ,a.size(), file);
+					String tmpOwner = b.getOwner().toString();
+					String tmpCreationTime = a.creationTime().toString();
+					String tmpLastModiefiedTime = a.lastModifiedTime().toString();
+					String tmpfile = file.toString();
+					Datei tmp = new Datei(name, tmpOwner, tmpCreationTime, tmpLastModiefiedTime, extension ,a.size(), tmpfile);
 					dateienListe.add(tmp);
 					return true;
 				}
@@ -64,36 +68,23 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		}
 	}
 	
-	public boolean hochladeObjekt(Path file, String name, Datei datei) {
+	public boolean hochladeObjekt(Datei datei) {
 		try {
-			BasicFileAttributes a = Files.readAttributes(file, BasicFileAttributes.class);
-			FileOwnerAttributeView b = Files.getFileAttributeView(file, FileOwnerAttributeView.class);
-			
-			if (a.isDirectory() == false) {
-				String extension = "";
-				int t = name.lastIndexOf(".");
-				extension = name.substring(t);
-				
-				if (dublikatFinden(file) == true) {
-					System.out.println("\nDiese Datei wurde bereits hinzugefügt!");
-					return false;
-				}
-				else {
-					Datei tmp = new Datei(name, b.getOwner(), a.creationTime(), a.lastModifiedTime(), extension ,a.size(), file);
-					tmp.setKommentar(datei.getKommentar());
-					tmp.setTags(datei.getTags());
-					tmp.setVerknuepfung(datei.getVerknuepfung());
-					dateienListe.add(tmp);
-					return true;
-				}
-			}
-			else {
-				System.out.println("\nEs handelt sich bei " + name + " um ein Ordner!");
+			if (dublikatFinden(Paths.get(datei.getDateiPfad())) == true) {
+				System.out.println("\nDiese Datei wurde bereits hinzugefügt!");
 				return false;
 			}
+			else {
+				Datei uploadDatei = new Datei(datei.getName(), datei.getErsteller(), datei.getErstellungsDatum(), datei.getDatumVonletzterAenderung(), datei.getDateiPfad(), datei.getGroesse(), datei.getName());
+				uploadDatei.setKommentar(datei.getKommentar());
+				uploadDatei.setTags(datei.getTags());
+				uploadDatei.setVerknuepfung(datei.getVerknuepfung());
+				dateienListe.add(uploadDatei);
+				return true;
+			}
 		}
-		catch(IOException e) {
-			System.out.println("\nDatei konnte nicht geladen werden! (Nicht vorhanden oder korrupt)");
+		catch(Exception e) {
+			System.out.println("Datei konnte nicht geladen werden! \nFehlercode: " + e);
 			return false;
 		}
 	}

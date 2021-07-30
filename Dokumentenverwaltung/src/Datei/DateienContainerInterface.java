@@ -10,5 +10,5 @@ public interface DateienContainerInterface {
 	public void sucheDatei (String name);
 	public void sucheDateiTags (ArrayList<String> names);
 	public Datei checkFile(String name);
-	public boolean hochladeObjekt(Path tmpPath, String name, Datei tmp);
+	public boolean hochladeObjekt(Datei datei);
 }

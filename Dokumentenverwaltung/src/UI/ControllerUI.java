@@ -55,6 +55,7 @@ public class ControllerUI implements Serializable{
 				HilfUI.printBefehleControllerUIClear();
 	        }
 	        else if (input.startsWith("end")) {
+	        	saveall();
 	        	System.out.println("Programm wird beendet. \n\nAuf Wiedersehen!");
 	        	sc.close();
 	        	break;
@@ -80,14 +81,14 @@ public class ControllerUI implements Serializable{
 	private void saveall() {		
 		String dateiName = "containers.dat";
 		serviceLocator.speicherAlleContainer(dateiName, serviceLocator);
-		System.out.println("Die Information wurde in der Datei " + dateiName + " gespeichert!\n");
+		System.out.println("Alle Daten wurden in der Datei " + dateiName + " gespeichert!\n");
 	}
 
 	private void loadall() {
 		String dateiName = "containers.dat";
 		if(serviceLocator.ladeAlleContainer(dateiName) != null)
 			serviceLocator = serviceLocator.ladeAlleContainer(dateiName);
-			System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
+			System.out.println("Alle Daten wurden aus der Datei " + dateiName + " ausgelesen!\n");
 	}
 	
 	private void neueDatei() {
@@ -119,8 +120,7 @@ public class ControllerUI implements Serializable{
 					DateiUIWorkBind duiWorkbind = new DateiUIWorkBind(serviceLocator.getDateienContainer());
 					duiWorkbind.workbindName(einleseFenster.getName());
 				}
-				
-				System.out.println("\nDatei wurde erfolgreich gespeichert!");
+				saveall();
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
 				return;

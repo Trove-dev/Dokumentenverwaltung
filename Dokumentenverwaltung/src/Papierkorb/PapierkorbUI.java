@@ -48,8 +48,7 @@ public class PapierkorbUI {
 			tmpBin = sb.nextLine();
 			Datei tmp = pk.wiederherstelle(tmpBin);
 			if (tmp != null) {
-				Path tmpPath = Paths.get(tmp.getDateiPfad());
-				dci.hochladeObjekt(tmpPath, tmp.getName(), tmp);
+				dci.hochladeObjekt(tmp);
 				System.out.println("Datei wurde erfolgreich wiederhergestellt!");
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
