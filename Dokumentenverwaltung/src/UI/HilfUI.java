@@ -19,8 +19,8 @@ public class HilfUI {
 		System.out.println("\nWillkommen im Hauptmenü vom Dokumentenmanager!\n"
 				+ "upload \t\t- wechselt in die Ansicht, um Dokumente hinzuzufügen\n"
 				+ "view \t\t- wechselt in die Ansicht, um Dokumente anzusehen\n"
-				+ "saveall \t- speichert alle Dokumente ab\n"
-				+ "loadall \t- ruft gespeicherte Dokumente ab\n"
+				//+ "saveall \t- speichert alle Dokumente ab\n"			Debug
+				//+ "loadall \t- ruft gespeicherte Dokumente ab\n"		Debug
 				+ "end \t\t- beendet das Programm\n"
 				+ "help \t\t- zeigt alle verfügbaren Befehle an\n"
 				+ "---------------------");
