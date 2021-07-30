@@ -141,6 +141,23 @@ public class DateiUIWorkBind {
 		}
 		return dok;
 	}
+	
+	private Datei checkDateien(String name) {
+		Datei dok = null;
+		while (true) {
+			String dateiName = name;
+			if (dateiName.compareTo("exit") == 0)
+				break;
+			dok = dci.checkFile(dateiName);
+			if (dok != null)
+				break;
+			else {
+				System.out.println("Ein falscher Name. Geben Sie den nochmal bitte\n");
+				continue;
+			}
+		}
+		return dok;
+	}
 
 	private void printDateiVerlinkund(Datei dok) {
 		System.out.println("--------------------------------------------");
@@ -150,4 +167,34 @@ public class DateiUIWorkBind {
 
 	}
 
+	public void workbindName(String name) {
+		if (dci.getAlleDateien().size() < 2) {
+			System.err.println("Für die Arbeit mit Verlinkungen müssen mindestens 2 Dateien vorhanden sein");
+			return;
+		}
+		dci.zeigeAlleDateienDetails();
+		dokument = checkDateien(name);
+		if (dokument == null) {
+			return;
+		}
+		while (true) {
+			System.out.println("\nSie arbeiten mit der Datei " + dokument.getName());
+			printDateiVerlinkund(dokument);
+			HilfUI.printBefehleVerlinkung();
+			Scanner input = new Scanner(System.in);
+			String command = input.next();
+			if(command.compareTo("bind") == 0) {
+				if(bindCommand(dokument) == false) break;
+			}
+			else if(command.compareTo("unlink") == 0) {
+				if(unlinkCommand(dokument) == false) break;
+			}
+			else if(command.compareTo("exit") ==0) {
+				break;
+			}
+			else {
+				System.err.println("Unbekannter Befehl\n");
+			}
+		}
+	}
 }
