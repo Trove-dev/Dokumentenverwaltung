@@ -53,22 +53,30 @@ public class DateiEinlesenlUI {
 				
 	        }
 	        else if (eingabe.startsWith("save") ) {
-	        	if (HilfUI.isWindows() == true) {
-	        		String name = eingabe.substring(5);
-		        	Path pathGet = Paths.get(Paths.get(aktPfad.getCanonicalPath()) + "\\" + eingabe.substring(5));
-		        	this.file = pathGet;
-		        	this.name = name;
-		        	break;
+	        	System.out.println("Aufruf von save mit dem Parameter " + eingabe);
+	        	try {
+	        		if (HilfUI.isWindows() == true) {
+		        		String name = eingabe.substring(5);
+			        	Path pathGet = Paths.get(Paths.get(aktPfad.getCanonicalPath()) + "\\" + eingabe.substring(5));
+			        	BasicFileAttributes attr = Files.readAttributes(pathGet, BasicFileAttributes.class);
+			        	this.file = pathGet;
+			        	this.name = name;
+			        	break;
+		        	}
+		        	else if (HilfUI.isMac() == true) {
+		        		String name = eingabe.substring(5);
+			        	Path pathGet = Paths.get(Paths.get(aktPfad.getCanonicalPath()) + "/" + eingabe.substring(5));
+			        	BasicFileAttributes attr = Files.readAttributes(pathGet, BasicFileAttributes.class);
+			        	this.file = pathGet;
+			        	this.name = name;
+			        	break;
+		        	}
+		        	else {
+		        		System.out.println("Betriebssystem wird nicht unterstüzt!");
+		        	}
 	        	}
-	        	else if (HilfUI.isMac() == true) {
-	        		String name = eingabe.substring(5);
-		        	Path pathGet = Paths.get(Paths.get(aktPfad.getCanonicalPath()) + "/" + eingabe.substring(5));
-		        	this.file = pathGet;
-		        	this.name = name;
-		        	break;
-	        	}
-	        	else {
-	        		System.out.println("Betriebssystem wird nicht unterstüzt!");
+	        	catch(IOException e) {
+	        		System.out.println("Datei konnte nicht geladen werden! (Stellen Sie sicher, dass Sie den gesamten Namen inkl. Dateierweiterung eingegeben haben)\n");
 	        	}
 	        	
 	        }
@@ -82,7 +90,7 @@ public class DateiEinlesenlUI {
 	}
 	
 	public File cd(String eingabe, File aktPfad) throws IOException {
-        System.out.println("Aufruf von cd mit dem Parameter "+eingabe);
+        System.out.println("Aufruf von cd mit dem Parameter " + eingabe);
         if(eingabe.equals("..")){
             File erg = new File(aktPfad.getCanonicalFile().getParent());
             return erg;

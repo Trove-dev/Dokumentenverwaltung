@@ -43,26 +43,32 @@ public class DateiUIOpenDatei {
 				if(dci.hochladeDatei(pathGet, dateiName) == true) {
 					System.out.println("Die Datei ist nun im System");
 					openDatei(dci.checkFile(dateiName), dateiName);
-				}else {
+				}
+				else {
 					System.out.println("Die Daten konnten nicht gespeichert werden");
 					HilfUI.promtEnterKey();
 					HilfUI.printBefehleControllerUIClear();
 				}
 			}
-			}		
+		}		
 	}
 	
 	public void openDatei(Datei dok, String dateiName) {
-		if (dok.getName().equals(dateiName)) {	
+		try {
+			if (dok.getName().equals(dateiName)) {	
 				try {
 					if (Desktop.isDesktopSupported()) {
 						Desktop.getDesktop().open(new File(dok.getDateiPfad()));
-						
 					}
-				}catch (IOException ioe) {
+				}
+				catch (IOException ioe) {
 					ioe.printStackTrace();
 				}
 			}
+		}
+		catch (Exception e) {
+			System.out.println("Fehler beim Laden! \nFehlercode: " + e);
+		}
 	}
 }
 	

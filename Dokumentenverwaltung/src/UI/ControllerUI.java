@@ -1,27 +1,14 @@
 
 package UI;
 import Verarbeitung.ServiceLocator;
-import hilf.SichereEingabe;
-
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.TreeSet;
 import Nutzer.Nutzer;
 import java.io.Serializable;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import Nutzer.NutzerContainerInterface;
-import Nutzer.Rechte;
 import Papierkorb.PapierkorbUI;
-import Tag.Tag;
 import Tag.TagUISearchTag;
-import Tag.TagsContainerInterface;
-import Datei.Datei;
 import Datei.DateiUIDeleteDatei;
 import Datei.DateiUIOpenDatei;
 import Datei.DateiUIWorkBind;
@@ -60,7 +47,8 @@ public class ControllerUI implements Serializable{
 	    	input = sc.nextLine();
 	        input = input.trim();
 	        if (input.startsWith("upload")){
-	            uploadDatei();
+	            neueDatei();
+	            HilfUI.printBefehleControllerUIClear();
 	        }
 	        else if (input.startsWith("view")){                
 				dateiAnzeige();
@@ -90,35 +78,20 @@ public class ControllerUI implements Serializable{
 	    }
     }
 	
-	private void uploadDatei() {
-		if (neueDatei() == false) {
-        	System.out.println("Es wurde keine Datei gespeichert!"); 
-        	HilfUI.promtEnterKey();
-			HilfUI.printBefehleControllerUIClear();
-        }
-        else {
-        	System.out.println("\nDatei wurde erfolgreich gespeichert!");
-        	saveall();
-        	HilfUI.promtEnterKey();
-        	HilfUI.printBefehleControllerUIClear();
-        }
-	}
-	
 	private void saveall() {		
 		String dateiName = "containers.dat";
 		serviceLocator.speicherAlleContainer(dateiName, serviceLocator);
-		System.out.println("Die Information wurde in der Datei " + dateiName + " gespeichert!\n");
+		System.out.println("Alle Daten wurden in der Datei " + dateiName + " gespeichert!\n");
 	}
 
 	private void loadall() {
 		String dateiName = "containers.dat";
 		if(serviceLocator.ladeAlleContainer(dateiName) != null)
 			serviceLocator = serviceLocator.ladeAlleContainer(dateiName);
-			System.out.println("Die Dokumente wurden aus der Datei " + dateiName + " ausgelesen!\n");
+			System.out.println("Alle Daten wurden aus der Datei " + dateiName + " ausgelesen!\n");
 	}
 	
-	private boolean neueDatei() {
-		
+	private void neueDatei() {
 		DateiEinlesenlUI einleseFenster = new DateiEinlesenlUI();
 		try {
 			einleseFenster.DateiEinlesenUI();
@@ -127,10 +100,35 @@ public class ControllerUI implements Serializable{
 		}
 		if (einleseFenster.getPath() != null && einleseFenster.getName() != null) {
 			if (serviceLocator.getDateienContainer().hochladeDatei(einleseFenster.getPath(), einleseFenster.getName()) == true) {
-				return true;
+				String tmpEingabe = "";
+				Scanner s = new Scanner(System.in);
+				System.out.print("Möchten Sie einen Tag hinzufügen? (y or n) ");
+				tmpEingabe = s.nextLine();
+				if (tmpEingabe.equals("y")) {
+					DateiUIWorktags duiWorktag = new DateiUIWorktags(serviceLocator.getDateienContainer(), serviceLocator.getTagsContainer());
+					duiWorktag.worktagsName(einleseFenster.getName());
+				}
+				System.out.print("Möchten Sie einen Kommentar hinzufügen? (y or n) ");
+				tmpEingabe = s.nextLine();
+				if (tmpEingabe.equals("y")) {
+					DateiUIWorkkomm duiWorkkomm = new DateiUIWorkkomm(serviceLocator.getDateienContainer());
+					duiWorkkomm.workkommName(einleseFenster.getName());
+				}
+				System.out.print("Möchten Sie eine Verlinkung hinzufügen? (y or n) ");
+				tmpEingabe = s.nextLine();
+				if (tmpEingabe.equals("y")) {
+					DateiUIWorkBind duiWorkbind = new DateiUIWorkBind(serviceLocator.getDateienContainer());
+					duiWorkbind.workbindName(einleseFenster.getName());
+				}
+				saveall();
+				HilfUI.promtEnterKey();
+				HilfUI.printBefehleControllerUIClear();
+				return;
 			}
 		}
-		return false;
+		System.out.println("Es wurde keine Datei gespeichert!");
+		HilfUI.promtEnterKey();
+		HilfUI.printBefehleControllerUIClear();
 	}
 	
 	private void dateiAnzeige() throws IOException {

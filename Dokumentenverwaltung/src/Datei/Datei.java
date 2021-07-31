@@ -28,16 +28,16 @@ public class Datei implements Serializable{
 	private long groesse;
 	TagsContainerInterface tci;
 
-	public Datei(String name, UserPrincipal owner, FileTime creationTime, FileTime lastModifiedTime,
-			String extension, long size, Path file) {
+	public Datei(String name, String tmpOwner, String tmpCreationTime, String tmpLastModiefiedTime,
+			String extension, long size, String tmpfile) {
 		this.name = name;
-		this.ersteller = owner.toString();
-		this.erstellungsDatum = creationTime.toString();
-		this.dateiPfad = file.toString();
+		this.ersteller = tmpOwner;
+		this.erstellungsDatum = tmpCreationTime;
+		this.dateiPfad = tmpfile;
 		this.kommentar = null;
 		this.tags = null;
 		this.verknuepfung = null;
-		this.datumVonletzterAenderung = lastModifiedTime.toString();
+		this.datumVonletzterAenderung = tmpLastModiefiedTime;
 		this.format = extension;
 		this.haeufigkeitVonOeffnung = 0;	// nicht möglich?
 		this.groesse = size;	
@@ -212,7 +212,7 @@ public class Datei implements Serializable{
 		this.haeufigkeitVonOeffnung = haeufigkeitVonOeffnung;
 	}
 
-	public double getGroesse() {
+	public long getGroesse() {
 		return groesse;
 	}
 
