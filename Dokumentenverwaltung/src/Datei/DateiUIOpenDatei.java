@@ -41,7 +41,7 @@ public class DateiUIOpenDatei {
 			}
 			if(pathGet != null) {
 				if(dci.hochladeDatei(pathGet, dateiName) == true) {
-					System.out.println("Die Datei sit nun im System");
+					System.out.println("Die Datei ist nun im System");
 					openDatei(dci.checkFile(dateiName), dateiName);
 				}else {
 					System.out.println("Die Daten konnten nicht gespeichert werden");

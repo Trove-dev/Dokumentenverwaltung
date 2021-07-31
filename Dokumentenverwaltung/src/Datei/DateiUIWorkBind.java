@@ -115,6 +115,7 @@ public class DateiUIWorkBind {
 				printDateiVerlinkund(dok);
 				System.out.println("Die Dateien " + dokument.getName() + " und " + dok.getName() + " sind nicht mehr verbunden");
 				isContinue = true;
+				break;
 			} catch (Exception i) {
 				i.printStackTrace();
 			}	

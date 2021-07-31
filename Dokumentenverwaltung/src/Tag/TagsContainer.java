@@ -30,6 +30,7 @@ public class TagsContainer implements TagsContainerInterface, Serializable{
 		
 	public void loescheTag(Tag tag){
 		tagsListe.remove(tag);
+		tag = null;
 	}
 	
 	@Override

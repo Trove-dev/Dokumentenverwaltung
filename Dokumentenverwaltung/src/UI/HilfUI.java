@@ -34,8 +34,8 @@ public class HilfUI {
 	public static void printBefehleDateiAnzeigeUIClear() {
 		clearScreen();
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
-		System.out.println("delete\t\t- entfernt eine Datei");
-		System.out.println("search\t\t- sucht nach einer Datei");   ///System.out.println("search\t\t- sucht nach einer Datei mittels Name, Tag oder Format");
+		System.out.println("delete\t- entfernt eine Datei");
+		System.out.println("search\t- sucht nach einer Datei");   ///System.out.println("search\t\t- sucht nach einer Datei mittels Name, Tag oder Format", Kommentar);
 		System.out.println("searchtag\t- sucht nach einem Tag");
 		System.out.println("open \t\t- öffnet eine Datei");
 		System.out.println("bin\t\t- öffent den Papierkorb");
@@ -67,13 +67,13 @@ public class HilfUI {
 	}
 	
 	public static void printBefehleNutzerUI() {
-		System.out.println("\n-------Arbeit mit Nutzer-------");
+		System.out.println("\n--------Arbeit mit Nutzer--------");
 		System.out.println("login \t\t- meldet sich an");
-		System.out.println("create \t\t- erzeugt neuen Nutzer");
+		System.out.println("create \t- erzeugt neuen Nutzer");
 		System.out.println("edit \t\t- bearbeitet den Nutzer");
 		System.out.println("del \t\t- löscht den Nutzer");
 		System.out.println("end \t\t- beendet das Programm");
-		System.out.println("---------------------------------\n");
+		System.out.println("-----------------------------------\n");
 	}
 	
 	public static void printBefehleTags() {
@@ -89,6 +89,7 @@ public class HilfUI {
 		System.out.println("\n--------------------------");
 		System.out.println("\nstart \t\t- startet die Suche");
 		System.out.println("add \t\t- addiert einen Tag");
+		System.out.println("exit \t\t- beendet die Suche");
 		System.out.println("--------------------------");
 	}
 	
@@ -102,7 +103,7 @@ public class HilfUI {
 	
 	public static void printBefehlePapierkorb() {
 		System.out.println("\n--------------Arbeit mit Papierkorb-------------");
-		System.out.println("restore\t\t- Datei wiederherstellen");
+		System.out.println("restore\t- Datei wiederherstellen");
 		System.out.println("delall\t\t- gesamten Papierkorb löschen");
 		System.out.println("back\t\t- zurück ins Hauptmenü");
 		System.out.println("-------------------------------------------------");

@@ -55,11 +55,11 @@ public class TagUI {
 		}else tci.printTagsListe();		
 	}
 	
-	public String eingabeTag(Datei dok) {
+	public String eingabeTag(Datei dok){
 		String input = "";
-		sc = new Scanner(input);
+		sc = new Scanner(System.in);
 		System.out.print("\nGeben Sie bitte ein Tag ein: ");
-		input = SichereEingabe.liesCharacters();
+		input = sc.next();
 		return input;
 	}
 	

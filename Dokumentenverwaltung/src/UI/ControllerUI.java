@@ -61,13 +61,13 @@ public class ControllerUI implements Serializable{
 	        input = input.trim();
 	        if (input.startsWith("upload")){
 	            uploadDatei();
-	            HilfUI.printBefehleControllerUIClear();
 	        }
 	        else if (input.startsWith("view")){                
 				dateiAnzeige();
 				HilfUI.printBefehleControllerUIClear();
 	        }
 	        else if (input.startsWith("end")) {
+	        	saveall();
 	        	System.out.println("Programm wird beendet. \n\nAuf Wiedersehen!");
 	        	sc.close();
 	        	break;
@@ -158,7 +158,7 @@ public class ControllerUI implements Serializable{
 			String tmpSuche = "";
 			Scanner ss = new Scanner(System.in);
 			System.out.print("Bitte einen Dateinamen, Tag, Kommentar oder Dateiformat eingeben: ");    /// ????? tag unten
-			tmpSuche = ss.nextLine();
+			tmpSuche = ss.next();
 			serviceLocator.getDateienContainer().sucheDatei(tmpSuche);
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();

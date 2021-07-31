@@ -10,10 +10,8 @@ import java.nio.file.spi.FileTypeDetector;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
 import Tag.Tag;
 import Tag.TagsContainerInterface;
-import Verlinkung.VerknuepfungVonDateien;
 
 public class DateienContainer implements DateienContainerInterface, Serializable{
 
@@ -163,7 +161,9 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		}
 		
 		if(!tmp.isEmpty()) {
-			System.out.println("Diese Dateien wurden gefunden : \n");
+			String tags = "";
+			for(String t:tagsNames) tags = tags + t + "  ";
+			System.out.println("\nDiese Dateien wurden gefunden mit Tag(s): " + tags +"\n");
 			for(Datei dat:tmp) {
 				dat.anzeigeDateiDetail();
 			}
