@@ -29,9 +29,10 @@ public class TagUI {
 			checkAddTag(input, dok);
 		}else if(input.compareTo("del") == 0) {
 			anzeigeTagsCloud();
+			if(tci.getTagsListe().isEmpty()) return;
 			input = eingabeTag(dok);
 			checkDelTag(dok, input);
-			anzeigeTagsCloud();
+			anzeigeTagsCloud(); 
 		}
 		else if(input.compareTo("unlink") == 0){
 			dok.printTagsVonDatei();
