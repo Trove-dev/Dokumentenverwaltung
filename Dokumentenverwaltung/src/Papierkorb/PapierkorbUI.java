@@ -40,30 +40,36 @@ public class PapierkorbUI {
 	
 	
 	public void startRestore() {
-		if (pk.istLeer() == false){
-			String tmpBin = "";
-			Scanner sb = new Scanner(System.in);
-			pk.papierkorbAnzeigen();
-			System.out.print("Bitte einen Dateinamen eingeben von der Datei, die Sie wiederherstellen möchten: ");
-			tmpBin = sb.nextLine();
-			Datei tmp = pk.wiederherstelle(tmpBin);
-			if (tmp != null) {
-				dci.hochladeObjekt(tmp);
-				System.out.println("Datei wurde erfolgreich wiederhergestellt!");
-				HilfUI.promtEnterKey();
-				HilfUI.printBefehleControllerUIClear();
+		boolean erfolg = false;
+		pk.papierkorbAnzeigen();
+		while (erfolg == false) {
+			if (pk.istLeer() == false){
+				String tmpBin = "";
+				Scanner sb = new Scanner(System.in);
+				System.out.print("Bitte einen Dateinamen eingeben von der Datei, die Sie wiederherstellen möchten: ");
+				tmpBin = sb.nextLine();
+				Datei tmp = pk.wiederherstelle(tmpBin);
+				if (tmp != null) {
+					dci.hochladeObjekt(tmp);
+					System.out.println("Datei wurde erfolgreich wiederhergestellt!");
+					erfolg = true;
+				}
+				else if (tmpBin.equals("exit")) {
+					System.out.println("Papierkorb wurde beendet");
+					break;
+				}
+				else {
+					System.out.println("Datei konnte nicht wiederhergestellt werden! (Dateiname überprüfen und erneut versuchen...)\n");
+					
+				}
 			}
 			else {
-				System.out.println("Datei konnte nicht wiederhergestellt werden! (Dateiname überprüfen und erneut versuchen...)");
-				HilfUI.promtEnterKey();
-				HilfUI.printBefehleControllerUIClear();
+				System.out.println("Es liegen keine Dateien im Papierkorb vor!");
+				break;
 			}
 		}
-		else {
-			System.out.println("Es liegen keine Dateien im Papierkorb vor!");
-			HilfUI.promtEnterKey();
-			HilfUI.printBefehleControllerUIClear();
-		}	
+		HilfUI.promtEnterKey();
+		HilfUI.printBefehleControllerUIClear();
 	}
 	
 	

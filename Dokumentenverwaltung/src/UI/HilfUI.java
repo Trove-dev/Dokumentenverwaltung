@@ -69,7 +69,7 @@ public class HilfUI {
 	public static void printBefehleNutzerUI() {
 		System.out.println("\n--------Arbeit mit Nutzer--------");
 		System.out.println("login \t\t- meldet sich an");
-		System.out.println("create \t- erzeugt neuen Nutzer");
+		System.out.println("create \t\t- erzeugt neuen Nutzer");
 		System.out.println("edit \t\t- bearbeitet den Nutzer");
 		System.out.println("del \t\t- löscht den Nutzer");
 		System.out.println("end \t\t- beendet das Programm");
