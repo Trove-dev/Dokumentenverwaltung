@@ -24,7 +24,8 @@ public class NutzerUI {
 	public Nutzer startAnmelden() {
 		
 		if(nutzerListe.isEmpty()) {			
-			System.out.println("Es gibt noch keine Nutzer. Registrieren Sie sich bitte.");
+			System.out.println("Es gibt noch keine Nutzer. Registrieren Sie sich bitte. "
+					+ "Oder exit für das Ende des Programms. ");
 			erzeugeNutzer();
 			}else {
 				while (angemeldet != true) {
@@ -36,7 +37,7 @@ public class NutzerUI {
 		return user;
 	}
 	
-	private void erzeugeNutzer() {
+	private void erzeugeNutzer(){
 		String name = SichereEingabe.checkName(nc);
 		Rechte recht = SichereEingabe.checkRechte();
 		String vollName = SichereEingabe.checkVollstaendigenName();
@@ -106,11 +107,11 @@ public class NutzerUI {
 		if(userName == "end") return;
 		Nutzer n = nc.sucheNutzer(userName);		
 		if(n == null) {
-			System.out.println("Der Name ist ungültig!");
+			System.err.println("Der Name ist ungültig!");
 			bearbeiteNutzer();
 		}else n.printNutzer();
 		boolean erfolg = false;
-		while(erfolg != true) {		
+		while(true) {		
 			HilfUI.printBefehleEditNutzer();
 			input = SichereEingabe.liesCharacters();
 			if(input.compareTo("username") == 0) {
@@ -121,28 +122,34 @@ public class NutzerUI {
 				}
 			}else if(input.compareTo("recht") == 0) {
 				Rechte r = SichereEingabe.checkRechte();  
-				if(n.getRechte().compareTo(r) == 0) System.out.println("Das gleiche Recht");
+				if(n.getRechte().compareTo(r) == 0) {
+					System.err.println("Das gleiche Recht");
+					continue;
+				}
 				else {
 					n.setRechte(r);
 					erfolg = true;
 				}
 			}else if(input.compareTo("vollname") == 0) {
 				String nameVoll = SichereEingabe.checkVollstaendigenName();   
-				if(n.getNameVollstaendig().compareTo(nameVoll) == 0) System.out.println("Der gleiche Name");
+				if(n.getNameVollstaendig().compareTo(nameVoll) == 0) {
+					System.err.println("Der gleiche Name");
+					continue;
+				}
 				else {
 					n.setNameVollstaendig(nameVoll);
 					erfolg = true;
 				}				
 			}else if(input.compareTo("end") == 0) {
-				break;
+				return;
 			}else {
-				System.out.println("Der falsche Befehl");
-				bearbeiteNutzer();
+				System.err.println("Der falsche Befehl");
+				continue;
 			}
-		}
-		if(erfolg == true) {
-			System.out.println("Der Nutzer wurde erfolgreich bearbeitet");
-			bearbeiteNutzer();
+			if(erfolg == true) {
+				System.out.println("Der Nutzer wurde erfolgreich bearbeitet\n");
+				continue;
+			}
 		}
 	}
 	

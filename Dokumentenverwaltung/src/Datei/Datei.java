@@ -7,7 +7,6 @@ import java.nio.file.attribute.FileTime;
 import java.nio.file.attribute.UserPrincipal;
 import java.text.DateFormat;
 import java.util.HashSet;
-import Datum.Datum;
 import Nutzer.Nutzer;
 import Tag.Tag;
 import Tag.TagsContainer;
@@ -62,9 +61,10 @@ public class Datei implements Serializable{
 	
 	public void printTagsForInfo() {
 		System.out.print("Tags: \t\t\t");
-		if(tags != null) {
+		if(tags == null || tags.isEmpty())System.out.print("noch keine");
+		else{
 			for(Tag t:tags) System.out.print(t.getKey() + "\t\t");
-		}else System.out.print("noch keine");
+		} 
 	}
 	
 	public void printKommentarForInfo() {

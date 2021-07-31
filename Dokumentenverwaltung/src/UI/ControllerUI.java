@@ -156,7 +156,7 @@ public class ControllerUI implements Serializable{
 			String tmpSuche = "";
 			Scanner ss = new Scanner(System.in);
 			System.out.print("Bitte einen Dateinamen, Tag, Kommentar oder Dateiformat eingeben: ");    /// ????? tag unten
-			tmpSuche = ss.nextLine();
+			tmpSuche = ss.next();
 			serviceLocator.getDateienContainer().sucheDatei(tmpSuche);
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();

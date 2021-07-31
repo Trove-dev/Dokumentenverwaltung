@@ -29,9 +29,10 @@ public class TagUI {
 			checkAddTag(input, dok);
 		}else if(input.compareTo("del") == 0) {
 			anzeigeTagsCloud();
+			if(tci.getTagsListe().isEmpty()) return;
 			input = eingabeTag(dok);
 			checkDelTag(dok, input);
-			anzeigeTagsCloud();
+			anzeigeTagsCloud(); 
 		}
 		else if(input.compareTo("unlink") == 0){
 			dok.printTagsVonDatei();
@@ -55,11 +56,11 @@ public class TagUI {
 		}else tci.printTagsListe();		
 	}
 	
-	public String eingabeTag(Datei dok) {
+	public String eingabeTag(Datei dok){
 		String input = "";
-		sc = new Scanner(input);
+		sc = new Scanner(System.in);
 		System.out.print("\nGeben Sie bitte ein Tag ein: ");
-		input = SichereEingabe.liesCharacters();
+		input = sc.next();
 		return input;
 	}
 	

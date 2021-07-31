@@ -9,7 +9,7 @@ import Nutzer.Rechte;
 
 public class SichereEingabe {
 	
-	static char [] symboleUserName_NameVoll = {'!', '§', '%', '&', '/', '(', ')', '=', '?', '`', '#', '*', '+', '-', '<', '>', '|', '{', '}', '[', ']', '@'};
+	static char [] symboleUserName_NameVoll = {'!', '§', '%', '&', '/', '=', '?', '`', '#', '*', '+', '-', '<', '>', '|', '{', '}', '[', ']', '@', '.'};
 	static char [] symboleUserName = {'(', ')', '´', '-', '|', '\'', ' '};
 	
 	public static boolean checkUebereinstimmung(String checkedString, char[]array) {
@@ -30,20 +30,25 @@ public class SichereEingabe {
 		Scanner input = new Scanner(System.in);
 		boolean erfolg = false;
 		while(erfolg != true) {
-			inputName = input.nextLine();
+			inputName = input.next();
+			if(inputName.compareTo("exit") == 0) {
+				System.out.println("Sie verlassen das Programm");
+				input.close();
+				System.exit(0);
+			}
 			if(nc.sucheNutzer(inputName) != null) {
-				System.out.print("Dieser Username ist belegt. Geben Sie anderen Name ein: ");
+				System.err.print("Dieser Username ist belegt. Geben Sie anderen Name ein: ");
 				continue;
 			}
 			
 			if(!checkUebereinstimmung(inputName, symboleUserName_NameVoll) 
 					|| !checkUebereinstimmung(inputName, symboleUserName)) {
-				System.out.print("Username enthält falsche Symbole. Geben Sie den nochmal: ");
+				System.err.print("Username enthält falsche Symbole. Geben Sie den nochmal: ");
 				continue;
 			}
 			
 			if(inputName.length() < 4) {
-				System.out.println("Username muss mindestens 4 Symbole enthalten");
+				System.err.println("Username muss mindestens 4 Symbole enthalten");
 				continue;
 			}				
 			erfolg = true;
@@ -60,7 +65,7 @@ public class SichereEingabe {
 		Rechte r = null;		
 		while(r == null) {
 			while(!input.hasNextInt()) {
-				System.out.println("Der falsche Befehl. Geben Sie bitte die Zahl: ");
+				System.err.println("Der falsche Befehl. Geben Sie bitte die Zahl: ");
 				input.next();
 			}
 			inputRechte = input.nextInt();
@@ -76,7 +81,7 @@ public class SichereEingabe {
 					break;
 				}
 				default: {
-					System.out.println("Der falsche Befehl. Wählen Sie bitte das Recht aus: ");
+					System.err.println("Der falsche Befehl. Wählen Sie bitte das Recht aus: ");
 					continue;
 				}
 			}
@@ -84,40 +89,46 @@ public class SichereEingabe {
 		return r;
 	}
 	 
-	public static String checkVollstaendigenName() {  
-		Scanner input = new Scanner(System.in);
+	public static String checkVollstaendigenName() {  		
 		System.out.print("Ihr vollständiger Name: ");
 		boolean erfolg = false;
 		String inputnameVollstandig = "";		
 		while(erfolg != true) {
-			inputnameVollstandig = input.nextLine();			
+			inputnameVollstandig = SichereEingabe.liesCharacters();			
 			if(!SichereEingabe.checkUebereinstimmung(inputnameVollstandig, symboleUserName_NameVoll)){
-				System.out.print("Geben Sie bitte Ihren richtigen Namen ein: ");	
+				System.err.print("Geben Sie bitte Ihren richtigen Namen ein: ");	
 				continue;
 			}
 			if(inputnameVollstandig.length() <2) {
-				System.out.print("Geben Sie bitte Ihren richtigen Namen ein: ");	
+				System.err.print("Geben Sie bitte Ihren richtigen Namen ein: ");	
 				continue;
 			}
 			erfolg = true;
 		}	
 		return inputnameVollstandig;
 	}
-	
+	 
 	public static String liesCharacters(){
-		Scanner input = new Scanner(System.in);
-		String eingabe = input.nextLine();
-		Scanner test = new Scanner(eingabe);
-		test.useLocale(Locale.US);
-		if(test.hasNextInt()) {
+		String eingabe = "";
+		while(true) {
+			Scanner input = new Scanner(System.in);
+			eingabe = input.nextLine();
+			Scanner test = new Scanner(eingabe);		
+			if(test.hasNextInt()) {
+				EingabeException("String", "int");
+				continue;
+			}
+			if(test.hasNextDouble()) {
+			    EingabeException("String", "double");
+			    continue;
+			}
 			test.close();
-	//		throw new EingabeException("String", "int");
-		}
-		if(test.hasNextDouble()) {
-			test.close();
-		//	throw new EingabeException("String", "double");
-		}
-		test.close();
+			break;
+		}		
 		return eingabe;
+	}
+	
+	public static void EingabeException(String erwartet, String eingegeben) {
+		System.err.println("Fehlerhafte Eingabe: Erwartet wurde "+erwartet+" und eingegeben wurde "+eingegeben+"!");
 	}
 }
