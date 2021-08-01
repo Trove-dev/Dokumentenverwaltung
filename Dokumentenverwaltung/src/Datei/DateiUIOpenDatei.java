@@ -59,6 +59,7 @@ public class DateiUIOpenDatei {
 				try {
 					if (Desktop.isDesktopSupported()) {
 						Desktop.getDesktop().open(new File(dok.getDateiPfad()));
+						dok.setHaeufigkeitVonOeffnung(dok.getHaeufigkeitVonOeffnung() + 1);
 					}
 				}
 				catch (IOException ioe) {

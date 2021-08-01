@@ -41,6 +41,7 @@ public class TagUI {
 					dok.printTagsVonDatei();
 		}
 		else if(input.compareTo("exit") == 0) {
+			HilfUI.promtEnterKey();
 			return;
 		}else {
 			System.out.println("Unbekannter Befehl");			

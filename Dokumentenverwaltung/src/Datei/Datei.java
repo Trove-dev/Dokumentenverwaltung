@@ -12,7 +12,7 @@ import Tag.Tag;
 import Tag.TagsContainer;
 import Tag.TagsContainerInterface;
 
-public class Datei implements Serializable{
+public class Datei implements Serializable, Comparable<Datei>{
 
 	private static final long serialVersionUID = 1L;
 	private String name;
@@ -222,6 +222,12 @@ public class Datei implements Serializable{
 	
 	public void setTags(HashSet <Tag> tags) {
 		this.tags = tags;
+	}
+
+	@Override
+	public int compareTo(Datei dok) {
+		
+		return dok.getHaeufigkeitVonOeffnung() - getHaeufigkeitVonOeffnung();
 	}
 	
 }

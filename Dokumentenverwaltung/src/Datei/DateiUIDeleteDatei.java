@@ -26,7 +26,12 @@ public void deleteDatei(Nutzer user) {
 		System.out.println("Nur Nutzer mit dem Recht admin darf Dateien löschen");
 		HilfUI.promtEnterKey();
 		HilfUI.printBefehleControllerUIClear();
-	}else {
+	}else if(dci.getAlleDateien() == null) {
+		System.out.println("Es gibt nichts zu löschen");
+		HilfUI.promtEnterKey();
+		return;
+	}
+	else {
 		Scanner s = new Scanner(System.in);
 		dci.zeigeAlleDateienDetails();
 		System.out.print("Welche Datei möchten Sie löschen?: ");
