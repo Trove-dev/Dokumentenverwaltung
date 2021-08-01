@@ -1,17 +1,22 @@
 package hilf;
 
-import java.io.InputStream;
-import java.util.Locale;
 import java.util.Scanner;
-
 import Nutzer.NutzerContainerInterface;
 import Nutzer.Rechte;
-
+/**
+ * Unterstützungsklasse, welche an kritischen Punkten eine sichere Eingabe garantiert
+ */
 public class SichereEingabe {
-	
 	static char [] symboleUserName_NameVoll = {'!', '§', '%', '&', '/', '=', '?', '`', '#', '*', '+', '-', '<', '>', '|', '{', '}', '[', ']', '@', '.'};
 	static char [] symboleUserName = {'(', ')', '´', '-', '|', '\'', ' '};
 	
+	/**
+	 * Überprüfung, ob nicht erlaubte Zeichen benutzt wurden
+	 * 
+	 * @param checkedString
+	 * @param array
+	 * @return false, wenn ein nicht erlaubtes Zeichen verwendet wurde
+	 */
 	public static boolean checkUebereinstimmung(String checkedString, char[]array) {
 		for(char s:array) {
 			if(checkedString.indexOf(Character.toString(s))!=-1) return false;
@@ -19,8 +24,14 @@ public class SichereEingabe {
 		return true;
 	}
 	
+	/**
+	 * Menü Überprüfung des Usernamens
+	 * Schleife wird nur mit einen erfolgreichen Namen beendet oder mit dem Befehl "exit"
+	 * 
+	 * @param nc NutzerContainer ist benötigt für eine Überprüfung, ob der Nutzer bereits existiert
+	 * @return liefert einen Namen zurück, der vom System zugelassen ist
+	 */
 	public static String checkName(NutzerContainerInterface nc) {
-		
 		System.out.println("Username muss sich aus mindestens 4 Symbole ohne Leerzeichen setzen und muss nicht enthalten :");
 		
 		for(char a:symboleUserName_NameVoll) System.out.print(a + " ");
@@ -55,7 +66,12 @@ public class SichereEingabe {
 		}
 		return inputName;
 	}
-		
+	
+	/**
+	 * Menü zum Festlegen der Rechte
+	 * 
+	 * @return Rechte werden zurückgeliefert
+	 */
 	public static Rechte checkRechte() {
 		Scanner input = new Scanner(System.in);
 		System.out.println("Wählen Sie das Recht aus: ");
@@ -65,7 +81,7 @@ public class SichereEingabe {
 		Rechte r = null;		
 		while(r == null) {
 			while(!input.hasNextInt()) {
-				System.err.println("Der falsche Befehl. Geben Sie bitte die Zahl: ");
+				System.err.println("Ungültige Eingabe! Geben Sie bitte eine Zahl ein: ");
 				input.next();
 			}
 			inputRechte = input.nextInt();
@@ -81,14 +97,20 @@ public class SichereEingabe {
 					break;
 				}
 				default: {
-					System.err.println("Der falsche Befehl. Wählen Sie bitte das Recht aus: ");
+					System.err.println("Ungültige Eingabe! Wählen Sie bitte das Recht aus: ");
 					continue;
 				}
 			}
 		}
 		return r;
 	}
-	 
+	
+	/**
+	 * Überprüfung des vollständigen Namens
+	 * Schleife wird nur mit der Eingabe eines zugelassenen Namens abgebrochen
+	 * 
+	 * @return der vollständige Name, welcher auch vom System zugelassen ist
+	 */
 	public static String checkVollstaendigenName() {  		
 		System.out.print("Ihr vollständiger Name: ");
 		boolean erfolg = false;
@@ -108,6 +130,11 @@ public class SichereEingabe {
 		return inputnameVollstandig;
 	}
 	 
+	/**
+	 * Überprüfung der Eingabe von String auf falsche Datentypen
+	 * 
+	 * @return es wird nur String zurückgegeben 
+	 */
 	public static String liesCharacters(){
 		String eingabe = "";
 		while(true) {

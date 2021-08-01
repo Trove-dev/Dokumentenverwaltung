@@ -2,21 +2,32 @@ package Tag;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import Datei.DateienContainerInterface;
 import UI.HilfUI;
 import hilf.SichereEingabe;
 
+/**
+ * Klasse, welche das Suchen nach Tags verwaltet
+ */
 public class TagUISearchTag {
 	
 	TagsContainerInterface tci;
 	DateienContainerInterface dci;
 
+	/**
+	 * Konstruktor
+	 * @param tci
+	 * @param dci
+	 */
 	public TagUISearchTag(TagsContainerInterface tci, DateienContainerInterface dci) {
 		this.tci = tci;
 		this.dci = dci;
 	}
 	
+	/**
+	 * Vorbereiten der Suche nach einem Tag
+	 * Hier werden Tags in eine ArrayList gespeichert, um eine Suche nach mehreren Tags zu ermöglichen
+	 */
 	public void searchtag() {
 		ArrayList<String> tagsNames = new ArrayList<>();
 		boolean added = true;
@@ -40,6 +51,14 @@ public class TagUISearchTag {
 		}
 	}
 	
+	/**
+	 * Hier startet dann die Suche nach den Tags, oder es können auch noch mehr Tags zur Suche hinzugefügt werden
+	 * 
+	 * @param tagsNames Liste der Tags, nach den gesucht werden soll
+	 * @param tmpSuche 
+	 * @param added Wenn weitere Tags hinzugefügt werden sollen wird added = true
+	 * @return
+	 */
 	private boolean eingebeCommand(ArrayList<String> tagsNames, String tmpSuche, boolean added) {
 		while(true) {
 			HilfUI.printBefehleSucheNachTags();

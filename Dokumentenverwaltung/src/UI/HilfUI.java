@@ -5,10 +5,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
+/**
+ * Klasse, welche als Zentraler Speicher für die möglichen Befehle genutzt wird
+ */
 public class HilfUI {
 	
 	private static String OS = null;
 	
+	/**
+	 * Leeren des Bildschirms
+	 */
 	public static void clearScreen() {
 		for(int i=1; i<100; i++) {
 			System.out.println();
@@ -34,7 +40,7 @@ public class HilfUI {
 	public static void printBefehleDateiAnzeigeUIClear() {
 		clearScreen();
 		System.out.println("\nlistall\t\t- listet alle gespeicherten Dateien auf");
-		System.out.println("search\t- sucht nach einer Datei");   ///System.out.println("search\t\t- sucht nach einer Datei mittels Name, Tag oder Format", Kommentar);
+		System.out.println("search\t\t- sucht nach einer Datei");
 		System.out.println("searchtag\t- sucht nach einem Tag");
 		System.out.println("open \t\t- öffnet eine Datei");
 		System.out.println("worktags\t- arbeitet mit Tags für eine Datei");
@@ -103,12 +109,16 @@ public class HilfUI {
 	
 	public static void printBefehlePapierkorb() {
 		System.out.println("\n--------------Arbeit mit Papierkorb-------------");
-		System.out.println("restore\t- Datei wiederherstellen");
+		System.out.println("restore\t\t- Datei wiederherstellen");
 		System.out.println("delall\t\t- gesamten Papierkorb löschen");
 		System.out.println("back\t\t- zurück ins Hauptmenü");
+		System.out.println("exit\t\t- beendet den Papierkorb");
 		System.out.println("-------------------------------------------------");
 	}
 	
+	/**
+	 * Warte, bis User Enter gedrückt hat
+	 */
 	public static void promtEnterKey() {
 		System.out.println("\"Enter\" um weiterzugehen...");
 		Scanner s = new Scanner(System.in);
@@ -128,9 +138,23 @@ public class HilfUI {
 	public static boolean isMac() {
 		return getOsName().startsWith("Mac");
 	}
+	
+	/**
+	 * Konvertierung FileTime zu Konsole Ausgabe
+	 * @param fileTime
+	 */
 	public static void printFileTime(FileTime fileTime) {
 	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy\thh:mm:ss");
 	    System.out.print(dateFormat.format(fileTime.toMillis()) + "\t");
+	}
+	/**
+	 * Konvertierung FileTime zu String
+	 * @param fileTime
+	 * @return Datum ohne Stunden, Minuten, Sekunden
+	 */
+	public static String fileTime(FileTime fileTime) {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	    return(dateFormat.format(fileTime.toMillis()) + "\t");
 	}
 	
 }

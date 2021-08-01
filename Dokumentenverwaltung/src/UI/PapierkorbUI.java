@@ -1,23 +1,32 @@
-package Papierkorb;
+package UI;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import Datei.Datei;
-import Datei.DateienContainer;
 import Datei.DateienContainerInterface;
-import UI.HilfUI;
+import Papierkorb.Papierkorb;
 
+/**
+ * Klasse, welche die Oberfläche von dem Papierkorb verwaltet
+ *
+ */
 public class PapierkorbUI {
 	
 	Papierkorb pk;
 	DateienContainerInterface dci;
 	
+	/**
+	 * Kontruktor, legt den Papierkorb und das link DateienContainerInterface fest
+	 * @param pk
+	 * @param dci
+	 */
 	public PapierkorbUI(Papierkorb pk, DateienContainerInterface dci) {
 		this.pk = pk;
 		this.dci = dci;
 	}
 	
+	/**
+	 * Menüoberfläche des Papierkorbes mit den Befehlen
+	 */
 	public void startBin() {
 		while (true) {
 			Scanner s = new Scanner(System.in);
@@ -38,8 +47,10 @@ public class PapierkorbUI {
 		}
 	}
 	
-	
-	public void startRestore() {
+	/**
+	 * Vorbereiten zum Wiederherstellen von einer Datei
+	 */
+	private void startRestore() {
 		boolean erfolg = false;
 		pk.papierkorbAnzeigen();
 		while (erfolg == false) {
@@ -72,8 +83,11 @@ public class PapierkorbUI {
 		HilfUI.printBefehleControllerUIClear();
 	}
 	
-	
-	public void startDelAll() {
+	/**
+	 * Vorbereiten zum Löschen des gesamten Papierkorbes
+	 * erneute Sicherheitsabfrage vor der Ausführung
+	 */
+	private void startDelAll() {
 		Scanner s = new Scanner (System.in);
 		if (pk.istLeer() == false) {
 			while (true) { 
