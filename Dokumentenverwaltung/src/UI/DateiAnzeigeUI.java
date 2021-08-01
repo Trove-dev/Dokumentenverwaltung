@@ -2,11 +2,16 @@ package UI;
 
 import java.util.Scanner;
 
-import Verarbeitung.ServiceLocator;
-
+/**
+ * Klasse, für das Menü zur Verwaltung von Dokumenten
+ */
 public class DateiAnzeigeUI {
 	private String befehl = "";
 	
+	/**
+	 * Anzeige des Menüs
+	 * Festlegen des Befehls
+	 */
 	public void DateiAnzeigeUIAnzeige() {
 		
 		HilfUI.printBefehleDateiAnzeigeUIClear();
@@ -66,6 +71,7 @@ public class DateiAnzeigeUI {
 	        } 
 	    }
 	}
+	
 	public String getBefehl() {
 		return befehl;
 	}

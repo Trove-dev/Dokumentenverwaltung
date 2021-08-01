@@ -5,19 +5,31 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Iterator;
 import java.util.Scanner;
-
 import UI.HilfUI;
 
+/**
+ * Klasse, welche das Öffnen von Dateien verwaltet
+ */
 public class DateiUIOpenDatei {
 
 	DateienContainerInterface dci;
-
+	
+	/**
+	 * Kontruktor, legt das DateienContainerInterface fest
+	 * @param dci
+	 */
 	public DateiUIOpenDatei(DateienContainerInterface dci) {
 		this.dci = dci;
 	}
 	
+	/**
+	 * Vorbereitung zum Öffnen der Datei
+	 * Öffnen der Datei wird nur forgesetzt, wenn die Datei auch im System hinterlegt ist (checkFile)
+	 * Ansonsten wird die Datei zu dem System hinzugefügt und dann geöffnet
+	 * 
+	 * @throws IOException
+	 */
 	public void startOpeningDatei() throws IOException {
 		Scanner sc = new Scanner(System.in);
 		dci.zeigeAlleDateienDetails();
@@ -43,6 +55,8 @@ public class DateiUIOpenDatei {
 				if(dci.hochladeDatei(pathGet, dateiName) == true) {
 					System.out.println("Die Datei ist nun im System");
 					openDatei(dci.checkFile(dateiName), dateiName);
+					HilfUI.promtEnterKey();
+					HilfUI.printBefehleControllerUIClear();
 				}
 				else {
 					System.out.println("Die Daten konnten nicht gespeichert werden");
@@ -53,6 +67,12 @@ public class DateiUIOpenDatei {
 		}		
 	}
 	
+	/**
+	 * Öffnen einer Datei
+	 * 
+	 * @param dok gespeichertes Dateiobjekt
+	 * @param dateiName Name der Datei
+	 */
 	public void openDatei(Datei dok, String dateiName) {
 		try {
 			if (dok.getName().equals(dateiName)) {	

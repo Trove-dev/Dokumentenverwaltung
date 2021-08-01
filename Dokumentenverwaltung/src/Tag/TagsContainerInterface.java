@@ -1,7 +1,6 @@
 package Tag;
 
 import java.util.TreeSet;
-
 import Datei.Datei;
 
 public interface TagsContainerInterface {

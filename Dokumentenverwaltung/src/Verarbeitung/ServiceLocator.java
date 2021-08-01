@@ -11,9 +11,11 @@ import Tag.TagsContainerInterface;
 import db.PersistenzDB;
 import db.PersistenzIF;
 
+/**
+ * Klasse zur Lokalisierung der Container und Persistenz
+ */
 public class ServiceLocator implements Serializable{
 	
-
 	private static final long serialVersionUID = 1L;
 	private static ServiceLocator uniqueInstance = null;
 	
@@ -23,6 +25,9 @@ public class ServiceLocator implements Serializable{
 	private NutzerContainerInterface nc;
 	private PersistenzIF p;
 	
+	/**
+	 * Konstuktor
+	 */
 	public ServiceLocator() {
 		
 		dc = DateienContainer.getInstance();
@@ -32,6 +37,9 @@ public class ServiceLocator implements Serializable{
 		p = PersistenzDB.getInstance();
 	}
 	
+	/**
+	 * Singleton
+	 */
 	public static ServiceLocator getInstance() {
 		if (uniqueInstance == null) uniqueInstance = new ServiceLocator();
 		return uniqueInstance;
@@ -52,10 +60,24 @@ public class ServiceLocator implements Serializable{
 	public NutzerContainerInterface getNutzerContainer() {
 		return nc;
 	}
+	
+	/**
+	 * Speicherung aller Containerklassen
+	 * 
+	 * @param dateiname Name der Datei, welche am Ende auf dem PC gespeichert wird
+	 * @param sl Daten, die gespeichert werden
+	 */
 	public void speicherAlleContainer(String dateiname, ServiceLocator sl) {
 		p.speicher(dateiname, sl);
 	}
 	
+	/**
+	 * Auslesen aus der gespeicherten Datei
+	 * 
+	 * @param dateiname Name der Datei, die ausgelesen werden soll
+	 * 
+	 * @return den ausgelesenen ServiceLocator mit den gespeicherten Daten
+	 */
 	public ServiceLocator ladeAlleContainer(String dateiname) {
 		ServiceLocator sl = p.lade(dateiname);
 		return sl;
