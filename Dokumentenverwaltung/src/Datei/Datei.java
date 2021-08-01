@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import Tag.Tag;
 import Tag.TagsContainerInterface;
+
 /**
  * Klasse, welche Dateiobjekte anlegt
  */
-public class Datei implements Serializable{
+public class Datei implements Serializable, Comparable<Datei>{
 	
+
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String ersteller;
@@ -20,6 +22,7 @@ public class Datei implements Serializable{
 	private String datumVonletzterAenderung;
 	private String format;
 	private long groesse;
+	private int haeufigkeitVonOeffnung;
 	TagsContainerInterface tci;
 
 	/**
@@ -45,6 +48,7 @@ public class Datei implements Serializable{
 		this.datumVonletzterAenderung = tmpLastModiefiedTime;
 		this.format = extension;
 		this.groesse = size;	
+		this.haeufigkeitVonOeffnung = 0;
 	}
 	
 	/**
@@ -61,6 +65,7 @@ public class Datei implements Serializable{
 		printVerknuepfungForInfo();
 		System.out.println("Datum letzter Änderung:\t" + datumVonletzterAenderung);
 		System.out.println("Format:\t\t\t" + format);
+		System.out.println("Häufigkeit von Öffnung " + haeufigkeitVonOeffnung );
 		System.out.println("Größe der Datei:\t" + groesse + " Bytes");
 		System.out.println("----------------------");
 	}
@@ -269,5 +274,22 @@ public class Datei implements Serializable{
 	public void setTags(HashSet <Tag> tags) {
 		this.tags = tags;
 	}
+
+	@Override
+	public int compareTo(Datei dok) {
+		
+		return dok.getHaeufigkeitVonOeffnung() - getHaeufigkeitVonOeffnung();
+	}
+
+	public int getHaeufigkeitVonOeffnung() {
+		return haeufigkeitVonOeffnung;
+	}
+
+	public void setHaeufigkeitVonOeffnung(int haeufigkeitVonOeffnung) {
+		this.haeufigkeitVonOeffnung = haeufigkeitVonOeffnung;
+	}
+	
+
+	
 	
 }

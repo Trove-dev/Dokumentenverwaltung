@@ -29,6 +29,11 @@ public class TagUISearchTag {
 	 * Hier werden Tags in eine ArrayList gespeichert, um eine Suche nach mehreren Tags zu ermöglichen
 	 */
 	public void searchtag() {
+		if(tci.getTagsListe().isEmpty()) {
+			System.out.println("Es gibt keine Tags");
+			HilfUI.promtEnterKey();
+			return;
+		}
 		ArrayList<String> tagsNames = new ArrayList<>();
 		boolean added = true;
 		while(added == true) {
@@ -39,6 +44,7 @@ public class TagUISearchTag {
 			tmpSuche = sc.next();
 			if(tmpSuche.compareTo("exit") == 0) {
 				tagsNames = null;
+				HilfUI.promtEnterKey();
 				break; 
 			}
 			if(tci.sucheTag(tmpSuche) != null) {

@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileOwnerAttributeView;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Scanner;
 import Tag.Tag;
 import UI.HilfUI;
 
@@ -180,7 +182,7 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 	 */
 	@Override
 	public void sucheDateiTags(ArrayList<String> tagsNames) {                
-		ArrayList <Datei> tmp = new ArrayList<>();		
+		ArrayList<Datei> tmp = new ArrayList<>();		
 		for (Datei d:dateienListe) {
 			boolean[]gefunden = new boolean[tagsNames.size()];
 			boolean isTrue = true;
@@ -208,6 +210,7 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 			String tags = "";
 			for(String t:tagsNames) tags = tags + t + "  ";
 			System.out.println("\nDiese Dateien wurden gefunden mit Tag(s): " + tags +"\n");
+			Collections.sort(tmp);
 			for(Datei dat:tmp) {
 				dat.anzeigeDateiDetail();
 			}
@@ -273,6 +276,7 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		}
 		ArrayList <Datei> results = dublikatEntfernen(tmp);
 		if (results.isEmpty() == false) {		//Ausgabe
+			Collections.sort(results);
 			for (Datei x:results) {
 				x.anzeigeDateiDetail();
 			}

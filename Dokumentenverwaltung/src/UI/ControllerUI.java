@@ -57,7 +57,7 @@ public class ControllerUI implements Serializable{
 		NutzerUI nui = new NutzerUI(nc, nutzerListe);
 		user = nui.startAnmelden();
 		saveall();
-	
+		
 		HilfUI.printBefehleControllerUI();
 	    String input = "";
 	    Scanner sc = new Scanner(System.in);
@@ -151,7 +151,6 @@ public class ControllerUI implements Serializable{
 					DateiUIWorkBind duiWorkbind = new DateiUIWorkBind(serviceLocator.getDateienContainer());
 					duiWorkbind.workbindName(einleseFenster.getName());
 				}
-				saveall();
 				HilfUI.promtEnterKey();
 				HilfUI.printBefehleControllerUIClear();
 				return;
@@ -188,7 +187,6 @@ public class ControllerUI implements Serializable{
 		else if (anzeigeFenster.getBefehl() == "delete") {  
 			DateiUIDeleteDatei duiDelete = new DateiUIDeleteDatei(serviceLocator.getDateienContainer(), serviceLocator.getPapierkorb());
 			duiDelete.deleteDatei(user);
-			saveall();
 		}
 		else if (anzeigeFenster.getBefehl().compareTo("search") == 0) {
 			String tmpSuche = "";
@@ -206,30 +204,24 @@ public class ControllerUI implements Serializable{
 		else if(anzeigeFenster.getBefehl() == "open") {
 			DateiUIOpenDatei duiOpen = new DateiUIOpenDatei(serviceLocator.getDateienContainer());
 			duiOpen.startOpeningDatei();
-			saveall();
 		}
 		else if(anzeigeFenster.getBefehl() == "worktags") {
 			DateiUIWorktags duiWorktag = new DateiUIWorktags(serviceLocator.getDateienContainer(), serviceLocator.getTagsContainer());
-			duiWorktag.worktags();
-			saveall();
-			
+			duiWorktag.worktags();			
 		}
 		else if(anzeigeFenster.getBefehl() == "workkomm") {
 			DateiUIWorkkomm duiWorkkomm = new DateiUIWorkkomm(serviceLocator.getDateienContainer());
 			duiWorkkomm.workkomm();
-			saveall();
 		}
 		else if(anzeigeFenster.getBefehl() == "workbind") {
 			DateiUIWorkBind duiWorkbind = new DateiUIWorkBind(serviceLocator.getDateienContainer());
 			duiWorkbind.workbind();
-			saveall();
 			HilfUI.promtEnterKey();
 			HilfUI.printBefehleControllerUIClear();
 		}
 		else if(anzeigeFenster.getBefehl() == "bin") {
 			PapierkorbUI puiRestore = new PapierkorbUI(serviceLocator.getPapierkorb(), serviceLocator.getDateienContainer());
 			puiRestore.startBin();
-			saveall();
 		}
 	}
 }
