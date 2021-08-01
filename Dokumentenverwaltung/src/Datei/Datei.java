@@ -1,22 +1,19 @@
 package Datei;
 
 import java.io.Serializable;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.FileTime;
-import java.nio.file.attribute.UserPrincipal;
-import java.text.DateFormat;
 import java.util.HashSet;
-import Nutzer.Nutzer;
 import Tag.Tag;
-import Tag.TagsContainer;
 import Tag.TagsContainerInterface;
 
+/**
+ * Klasse, welche Dateiobjekte anlegt
+ */
 public class Datei implements Serializable, Comparable<Datei>{
+	
 
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private String ersteller;                // ?? nötig ?
+	private String ersteller;
 	private String erstellungsDatum;
 	private String dateiPfad;
 	private String kommentar;
@@ -24,10 +21,21 @@ public class Datei implements Serializable, Comparable<Datei>{
 	private HashSet<Datei> verknuepfung;
 	private String datumVonletzterAenderung;
 	private String format;
-	private int haeufigkeitVonOeffnung;		// nicht möglich?
 	private long groesse;
+	private int haeufigkeitVonOeffnung;
 	TagsContainerInterface tci;
 
+	/**
+	 * Kontruktor für das Anlegen neuer Objekte vom Typ Datei
+	 * 
+	 * @param name
+	 * @param tmpOwner
+	 * @param tmpCreationTime
+	 * @param tmpLastModiefiedTime
+	 * @param extension
+	 * @param size
+	 * @param tmpfile
+	 */
 	public Datei(String name, String tmpOwner, String tmpCreationTime, String tmpLastModiefiedTime,
 			String extension, long size, String tmpfile) {
 		this.name = name;
@@ -39,10 +47,13 @@ public class Datei implements Serializable, Comparable<Datei>{
 		this.verknuepfung = null;
 		this.datumVonletzterAenderung = tmpLastModiefiedTime;
 		this.format = extension;
-		this.haeufigkeitVonOeffnung = 0;	// nicht möglich?
 		this.groesse = size;	
+		this.haeufigkeitVonOeffnung = 0;
 	}
 	
+	/**
+	 * Gibt die gespeicherten Informationen einer Datei in der Konsole aus
+	 */
 	public void anzeigeDateiDetail() {
 		//System.out.println(this);				//debug
 		System.out.println("Name der Datei:\t\t" + name);
@@ -54,37 +65,60 @@ public class Datei implements Serializable, Comparable<Datei>{
 		printVerknuepfungForInfo();
 		System.out.println("Datum letzter Änderung:\t" + datumVonletzterAenderung);
 		System.out.println("Format:\t\t\t" + format);
-		System.out.println("Häufigkeit von Öffnung:\t" + haeufigkeitVonOeffnung);
+		System.out.println("Häufigkeit von Öffnung " + haeufigkeitVonOeffnung );
 		System.out.println("Größe der Datei:\t" + groesse + " Bytes");
 		System.out.println("----------------------");
 	}
 	
+	/**
+	 * Gibt die gespeicherten Tags einer Datei in der Konsole aus
+	 */
 	public void printTagsForInfo() {
 		System.out.print("Tags: \t\t\t");
-		if(tags == null || tags.isEmpty())System.out.print("noch keine");
+		if(tags == null || tags.isEmpty()) {
+			System.out.print("noch keine");
+		}
 		else{
 			for(Tag t:tags) System.out.print(t.getKey() + "\t\t");
 		} 
 	}
 	
+	/**
+	 * Gibt den gespeicherten Kommentar einer Datei in der Konsole aus
+	 */
 	public void printKommentarForInfo() {
 		String komm = "";
-		if(kommentar != "" && kommentar != null) komm = kommentar;
-		else komm = "noch keine";
+		if(kommentar != "" && kommentar != null) {
+			komm = kommentar;
+		}
+		else {
+			komm = "noch keine";
+		}
 		System.out.println("Kommentar: \t\t" + komm);
 		
 	}
 	
+	/**
+	 * Gibt die gespeicherten Verknüpfungen einer Datei in der Konsole aus
+	 */
 	public void printVerknuepfungForInfo() {
 		String bindDok = "";
 		if(verknuepfung != null && !verknuepfung.isEmpty()) {
 			for(Datei d:verknuepfung) {
 				bindDok = bindDok + d.name + "; ";
 			}
-		}else bindDok = "noch keine";
+		}
+		else {
+			bindDok = "noch keine";
+		}
 		System.out.println("\nVerknüpfung: \t\t" + bindDok);
 	}
 
+	/**
+	 * Checkt ob das aktuelle Dateiobjekt bereits mit der Datei dok verknüpft ist
+	 * @param dok
+	 * @return
+	 */
 	public boolean searchBinds(Datei dok) {
 		if(verknuepfung != null) {
 			if(verknuepfung.contains(dok))
@@ -93,9 +127,68 @@ public class Datei implements Serializable, Comparable<Datei>{
 		return false;
 	}
 	
+	/**
+	 * Gibt die Tags einer Datei in der Konsole aus
+	 */
+	public void printTagsVonDatei() {
+		if(tags == null) System.out.println("\nEs gibt keine Tags für diese Datei\n");
+		else{
+			System.out.println("\nDie Datei enthält diese Tag(s) :");
+			int i = 0;
+			for(Tag tag:tags) {
+				System.out.print(tag.getKey() + "\t\t");
+				if(i%5 == 0) System.out.print("\n");
+			}
+		}
+	}
+	
+	/**
+	 * Fügt dem aktuellen Dateiobjekt einen neuen Tag hinzu
+	 * wenn noch keine Tags vorhanden sind, wird ein HashSet erzeugt
+	 * @param tag
+	 */
 	public void addiereTag(Tag tag) {
-		if(this.tags == null) this.tags = new HashSet<Tag>();
+		if(this.tags == null) {
+			this.tags = new HashSet<Tag>();
+		}
 		this.tags.add(tag);
+	}
+	
+
+	/**
+	 * Gibt die Verlinkungen einer Datei in der Konsole aus
+	 */
+	public void printVerlinkungen() {
+		String message = "";
+		if(verknuepfung != null) {
+			for(Datei a:verknuepfung) {
+				message = message + a.getDateiPfad() + "/n";
+			}
+		}else message = "noch keine/n";
+		System.out.println("Die verlinkte Dateien: " + message);
+	}
+	
+	/**
+	 * Verlinkung von Datei wird hergestellt
+	 * @param dok
+	 */
+	public void bindDokument(Datei dok) {
+		if(verknuepfung == null) {
+			verknuepfung = new HashSet<>();
+		}
+		verknuepfung.add(dok);
+		if(dok.verknuepfung == null) {
+			dok.verknuepfung = new HashSet<Datei>();
+		}
+		dok.verknuepfung.add(this);
+	}
+	/**
+	 * Verlinkung wird entfernt
+	 * @param dok
+	 */
+	public void unlinkDokument(Datei dok) {
+		verknuepfung.remove(dok);
+		dok.verknuepfung.remove(this);
 	}
 	
 	public void loescheTag(Tag delTag) {
@@ -146,40 +239,6 @@ public class Datei implements Serializable, Comparable<Datei>{
 		return tags;
 	}
 	
-	public void printTagsVonDatei() {
-		if(tags == null) System.out.println("\nEs gibt keine Tags für diese Datei\n");
-		else{
-			System.out.println("\nDie Datei enthält diese Tag(s) :");
-			int i = 0;
-			for(Tag tag:tags) {
-				System.out.print(tag.getKey() + "\t\t");
-				if(i%5 == 0) System.out.print("\n");
-			}
-		}
-	}
-
-	public void printVerlinkungen() {
-		String message = "";
-		if(verknuepfung != null) {
-			for(Datei a:verknuepfung) {
-				message = message + a.getDateiPfad() + "/n";
-			}
-		}else message = "noch keine/n";
-		System.out.println("Die verlinkte Dateien: " + message);
-	}
-	
-	public void bindDokument(Datei dok) {
-		if(verknuepfung == null) verknuepfung = new HashSet<>();
-		verknuepfung.add(dok);
-		if(dok.verknuepfung == null) dok.verknuepfung = new HashSet<Datei>();
-		dok.verknuepfung.add(this);
-	}
-	
-	public void unlinkDokument(Datei dok) {
-		verknuepfung.remove(dok);
-		dok.verknuepfung.remove(this);
-	}
-	
 	public HashSet<Datei> getVerknuepfung() {
 		return verknuepfung;
 	}
@@ -204,14 +263,6 @@ public class Datei implements Serializable, Comparable<Datei>{
 		this.format = format;
 	}
 
-	public int getHaeufigkeitVonOeffnung() {
-		return haeufigkeitVonOeffnung;
-	}
-
-	public void setHaeufigkeitVonOeffnung(int haeufigkeitVonOeffnung) {
-		this.haeufigkeitVonOeffnung = haeufigkeitVonOeffnung;
-	}
-
 	public long getGroesse() {
 		return groesse;
 	}
@@ -229,5 +280,16 @@ public class Datei implements Serializable, Comparable<Datei>{
 		
 		return dok.getHaeufigkeitVonOeffnung() - getHaeufigkeitVonOeffnung();
 	}
+
+	public int getHaeufigkeitVonOeffnung() {
+		return haeufigkeitVonOeffnung;
+	}
+
+	public void setHaeufigkeitVonOeffnung(int haeufigkeitVonOeffnung) {
+		this.haeufigkeitVonOeffnung = haeufigkeitVonOeffnung;
+	}
+	
+
+	
 	
 }

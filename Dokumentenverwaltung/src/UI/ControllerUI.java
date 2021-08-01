@@ -7,7 +7,6 @@ import java.util.Scanner;
 import Nutzer.Nutzer;
 import java.io.Serializable;
 import Nutzer.NutzerContainerInterface;
-import Papierkorb.PapierkorbUI;
 import Tag.TagUISearchTag;
 import Datei.DateiUIDeleteDatei;
 import Datei.DateiUIOpenDatei;
@@ -15,21 +14,42 @@ import Datei.DateiUIWorkBind;
 import Datei.DateiUIWorkkomm;
 import Datei.DateiUIWorktags;
 
+/**
+ * Klasse, welche als Verbindung zu allen ContainerKlassen dient
+ */
 public class ControllerUI implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private ServiceLocator serviceLocator;
 	Nutzer user;
 
+	/**
+	 * Main-Methode: Hier beginnt das System
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		new ControllerUI();
 	}
 	
+	/**
+	 * init von serviceLocator
+	 * wechsel in start() Methode
+	 * 
+	 * @throws IOException
+	 */
 	public ControllerUI() throws IOException {
 		serviceLocator = ServiceLocator.getInstance();
 		start();
 	}
-		
+	
+	/**
+	 * Starten des Anmeldeprozesses
+	 * Danach Zugriff aufs Hauptmenü mit Schleife
+	 * 
+	 * @throws IOException
+	 */
 	private void start() throws IOException {	
 		loadall();
 		NutzerContainerInterface nc = serviceLocator.getNutzerContainer();
@@ -78,12 +98,18 @@ public class ControllerUI implements Serializable{
 	    }
     }
 	
+	/**
+	 * Starten Speichern aller Daten
+	 */
 	private void saveall() {		
 		String dateiName = "containers.dat";
 		serviceLocator.speicherAlleContainer(dateiName, serviceLocator);
 		System.out.println("Alle Daten wurden in der Datei " + dateiName + " gespeichert!\n");
 	}
 
+	/**
+	 * Starten Laden aller Daten
+	 */
 	private void loadall() {
 		String dateiName = "containers.dat";
 		if(serviceLocator.ladeAlleContainer(dateiName) != null)
@@ -91,6 +117,11 @@ public class ControllerUI implements Serializable{
 			System.out.println("Alle Daten wurden aus der Datei " + dateiName + " ausgelesen!\n");
 	}
 	
+	/**
+	 * Öffnen des Menüs zum Hochladen von Dokumenten
+	 * Hochladen der Datei
+	 * 		Abfrage für Tags, Kommentare und Verlinkung
+	 */
 	private void neueDatei() {
 		DateiEinlesenlUI einleseFenster = new DateiEinlesenlUI();
 		try {
@@ -98,7 +129,7 @@ public class ControllerUI implements Serializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (einleseFenster.getPath() != null && einleseFenster.getName() != null) {
+		if (einleseFenster.getPath() != null) {
 			if (serviceLocator.getDateienContainer().hochladeDatei(einleseFenster.getPath(), einleseFenster.getName()) == true) {
 				String tmpEingabe = "";
 				Scanner s = new Scanner(System.in);
@@ -130,6 +161,13 @@ public class ControllerUI implements Serializable{
 		HilfUI.printBefehleControllerUIClear();
 	}
 	
+	/**
+	 * Öffnen des Menüs zur Verwaltung von Dokumenten
+	 * Auslesen des Befehls, welcher in DateiAnzeige festgelegt wird
+	 * Danach ausführen des Befehls
+	 * 
+	 * @throws IOException
+	 */
 	private void dateiAnzeige() throws IOException {
 		DateiAnzeigeUI anzeigeFenster = new DateiAnzeigeUI();
 		anzeigeFenster.DateiAnzeigeUIAnzeige();

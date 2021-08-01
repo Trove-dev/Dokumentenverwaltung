@@ -3,16 +3,27 @@ package Datei;
 
 import java.util.Scanner;
 import UI.HilfUI;
-import hilf.SichereEingabe;
 
+/**
+ * Klasse, welche das Binden von Dateien verwaltet
+ */
 public class DateiUIWorkBind {
 	DateienContainerInterface dci;
 	Datei dokument;
 
+	/**
+	 * Kontruktor, legt das DateienContainerInterface fest
+	 * @param dci
+	 */
 	public DateiUIWorkBind(DateienContainerInterface dci) {
 		this.dci = dci;
 	}
 
+	/**
+	 * Menü zum Verlinken von Dateien
+	 * Die Variable dokument wird festgelegt
+	 * Schleife, welche mit exit abgebrochen wird
+	 */
 	public void workbind() {
 
 		if (dci.getAlleDateien().size() < 2) {
@@ -45,6 +56,14 @@ public class DateiUIWorkBind {
 			}
 		}
 	}
+	
+	/**
+	 * Vorbereitung zum Binden einer Datei
+	 * Weitere Schleife, in der nun die zu verlinkende Datei in dok gespeichert wird
+	 * 
+	 * @param dokument Dateiobkjekt, an welches eine Datei engebunden werden soll
+	 * @return wird nur true, wenn das Verlinken der Dateien erfolgreich war
+	 */
 	private boolean bindCommand(Datei dokument) {
 		boolean isContinue = false;
 		while(true) {
@@ -54,7 +73,7 @@ public class DateiUIWorkBind {
 				break;
 			}
 			if (dokument == dok) {
-				System.err.println("Eine Datei kann nicht an sich angebunden sein");
+				System.err.println("Eine Datei kann nicht an sich selbst angebunden sein");
 				continue;
 			}
 			if (dokument.getVerknuepfung() != null) {
@@ -74,6 +93,14 @@ public class DateiUIWorkBind {
 		return isContinue;
 	}
 	
+	/**
+	 * Verlinkung der Datei
+	 * 
+	 * @param dokument Dateiobkjekt, an welches eine Datei engebunden werden soll
+	 * @param dok Dateiobkjekt, welches an dokument angebunden wird
+	 * 
+	 * @return wird true, wenn dateien erfolgreich verlinkt sind
+	 */
 	private boolean tryBinding(Datei dokument, Datei dok) {
 		try {
 				dokument.bindDokument(dok);
@@ -87,6 +114,14 @@ public class DateiUIWorkBind {
 			}
 		return false;
 	}
+	
+	/**
+	 * 
+	 * 
+	 * @param dokument
+	 * 
+	 * @return
+	 */
 	private boolean unlinkCommand(Datei dokument) {
 		boolean isContinue = false;
 		while(true) {
@@ -123,6 +158,11 @@ public class DateiUIWorkBind {
 		return isContinue;
 	}
 	
+	/**
+	 * Auswahl der Datei zur Verlinkung
+	 * 
+	 * @return Dateiobjekt ist nun gefunden und wird zurückgeliefert
+	 */
 	private Datei checkDateien() {
 		Scanner input = new Scanner(System.in);
 		Datei dok = null;
@@ -142,24 +182,12 @@ public class DateiUIWorkBind {
 		}
 		return dok;
 	}
-	
-	private Datei checkDateien(String name) {
-		Datei dok = null;
-		while (true) {
-			String dateiName = name;
-			if (dateiName.compareTo("exit") == 0)
-				break;
-			dok = dci.checkFile(dateiName);
-			if (dok != null)
-				break;
-			else {
-				System.out.println("Ein falscher Name. Geben Sie den nochmal bitte\n");
-				continue;
-			}
-		}
-		return dok;
-	}
 
+	/**
+	 * Ausgabe der Verlinkungen der Datei in der Konsole
+	 * 
+	 * @param dok Dateiobjekt, welches auf Verlinkungen überprüft wird
+	 */
 	private void printDateiVerlinkund(Datei dok) {
 		System.out.println("--------------------------------------------");
 		System.out.print("Für die Datei " + dok.getName() + " gilt :");
@@ -168,13 +196,22 @@ public class DateiUIWorkBind {
 
 	}
 
+	/**
+	 * Menü zum Verlinken einer Datei nach dem Hochladen
+	 * Dieses Menü wird nur nach dem Hochladen einer Datei ausgeführt (ansonsten wird "workbind()" geladen), da eine extra Abfrage nach
+	 * dem Namen der Datei, mit welcher eine andere verknüpt werden soll, nicht nötig ist.
+	 * Die Variable dokument wird festgelegt
+	 * Schleife, welche mit exit abgebrochen wird
+	 * 
+	 * @param name Name der Datei, mit der eine weitere Datei verlinkt werden soll
+	 */
 	public void workbindName(String name) {
 		if (dci.getAlleDateien().size() < 2) {
 			System.err.println("Für die Arbeit mit Verlinkungen müssen mindestens 2 Dateien vorhanden sein");
 			return;
 		}
 		dci.zeigeAlleDateienDetails();
-		dokument = checkDateien(name);
+		dokument = dci.checkFile(name);
 		if (dokument == null) {
 			return;
 		}

@@ -2,11 +2,14 @@ package UI;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import Nutzer.Nutzer;
 import Nutzer.NutzerContainerInterface;
 import Nutzer.Rechte;
 import hilf.SichereEingabe;
+
+/**
+ * Klasse, welche die Oberfläche von Nutzern verwaltet
+ */
 public class NutzerUI {
 	
 	NutzerContainerInterface nc;
@@ -15,14 +18,25 @@ public class NutzerUI {
     Nutzer user;
     boolean angemeldet;
     
+    /**
+     * Konstrukor
+     * @param nc
+     * @param nutzerListe
+     */
 	public NutzerUI(NutzerContainerInterface nc, ArrayList<Nutzer> nutzerListe) {
 		this.nc = nc;
 		this.nutzerListe = nutzerListe;
 		sc = new Scanner(System.in);
 	}
 
+	/**
+	 * Start des Anmeldens
+	 * Wenn keine Nutzer: neuen Nutzer anlegen
+	 * Anonsten: Verwaltung von Nutzern
+	 * 
+	 * @return Nutzer, welcher nun angemeldet ist
+	 */
 	public Nutzer startAnmelden() {
-		
 		if(nutzerListe.isEmpty()) {			
 			System.out.println("Es gibt noch keine Nutzer. Registrieren Sie sich bitte. "
 					+ "Oder exit für das Ende des Programms. ");
@@ -37,6 +51,9 @@ public class NutzerUI {
 		return user;
 	}
 	
+	/**
+	 * Neuen Nutzer erzeugen mittels sicherer Eingabe
+	 */
 	private void erzeugeNutzer(){
 		String name = SichereEingabe.checkName(nc);
 		Rechte recht = SichereEingabe.checkRechte();
@@ -48,6 +65,9 @@ public class NutzerUI {
 		}else System.out.println("Sie sind nicht registriert");
 	}
 	
+	/**
+	 * Menü für die Verwaltung von Nutzern
+	 */
 	public void ausfuereBefehle(Nutzer user) {
 		HilfUI.printBefehleNutzerUI();
 		Scanner sca = new Scanner(System.in);
@@ -85,6 +105,11 @@ public class NutzerUI {
 			ausfuereBefehle(user);
 		}
 	}
+	
+	/**
+	 * Löschen von Nutzer
+	 * wird anhand von Username Eingabe erledigt
+	 */
 	private void loescheNutzer() {
 		nc.printNutzerList();
 		System.out.println("Name den zu löschenden Nutzer: ");
@@ -100,6 +125,12 @@ public class NutzerUI {
 		}
 	}
 	
+	/**
+	 * Bearbeiten von Nutzer
+	 * wird anhand von Username Eingabe erledigt
+	 * Es kann Username, Recht, und Vollname geändert werden
+	 * Schleife wird durch "end" beendet
+	 */
 	private void bearbeiteNutzer() {
 		System.out.print("Geben Sie einen Namen ein: ");
 		String userName = sc.next();
@@ -153,6 +184,12 @@ public class NutzerUI {
 		}
 	}
 	
+	/**
+	 * Anmeldung von Nutzer
+	 * 
+	 * @param name Welcher Nutzer soll angemeldet werden
+	 * @return wenn erfolgreich, wird true zurückgeliefert
+	 */
 	public boolean anmeldeNutzer(String name) {
 		user = nc.sucheNutzer(name);
 		return user != null;

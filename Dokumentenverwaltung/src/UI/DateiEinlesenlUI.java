@@ -6,15 +6,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * Klasse für das Menü zum Einlesen von Dateien
+ */
 public class DateiEinlesenlUI {
 	private Path file;
 	private String name;
 	
-	
+	/**
+	 * Menü zum Einlesen von Dateien
+	 * Schleife wird durchs Hochladen oder durch "back" beendet
+	 * 
+	 * @throws IOException
+	 */
 	public void DateiEinlesenUI() throws IOException {
 		HilfUI.printBefehleDateiEinlesenUIClear();
 	    
@@ -38,7 +44,7 @@ public class DateiEinlesenlUI {
 	        	HilfUI.printBefehleControllerUIClear();
 	            break;
 	        }
-	        else if (eingabe.startsWith("info") ) {
+	        else if (eingabe.startsWith("info") ) {			// Anzeige von Informationen zu einem Dokument
 	        	if (HilfUI.isWindows() == true) {
 	        		Path pathGet = Paths.get(Paths.get(aktPfad.getCanonicalPath()) + "\\" + eingabe.substring(5));
 	        		info(pathGet, eingabe.substring(5));
@@ -50,9 +56,8 @@ public class DateiEinlesenlUI {
 	        	else {
 	        		System.out.println("Betriebssystem wird nicht unterstützt!");
 	        	}
-				
 	        }
-	        else if (eingabe.startsWith("save") ) {
+	        else if (eingabe.startsWith("save") ) {		// Hochladen eines Dokumentes
 	        	System.out.println("Aufruf von save mit dem Parameter " + eingabe);
 	        	try {
 	        		if (HilfUI.isWindows() == true) {
@@ -78,7 +83,6 @@ public class DateiEinlesenlUI {
 	        	catch(IOException e) {
 	        		System.out.println("Datei konnte nicht geladen werden! (Stellen Sie sicher, dass Sie den gesamten Namen inkl. Dateierweiterung eingegeben haben)\n");
 	        	}
-	        	
 	        }
 	        else if (eingabe.startsWith("help")) {
 	        	HilfUI.printBefehleDateiEinlesenUIClear();
@@ -89,42 +93,61 @@ public class DateiEinlesenlUI {
 	    }
 	}
 	
-	public File cd(String eingabe, File aktPfad) throws IOException {
+	/**
+	 * Navigieren zu Ordnern
+	 * 
+	 * @param eingabe Zielordner, zu dem navigiert werden soll
+	 * @param pfadAlt aktueller Pfad
+	 * 
+	 * @return 	es wird der neue Pfad zurückgegeben, wenn dieser vorhanden ist
+	 * 			ansonsten wird der aktuelle Pfad wieder zurückgegeben
+	 * 
+	 * @throws IOException
+	 */
+	public File cd(String eingabe, File pfadAlt) throws IOException {
         System.out.println("Aufruf von cd mit dem Parameter " + eingabe);
         if(eingabe.equals("..")){
-            File erg = new File(aktPfad.getCanonicalFile().getParent());
+            File erg = new File(pfadAlt.getCanonicalFile().getParent());
             return erg;
         }
         else {
         	if (HilfUI.isWindows()) {
-        		File erg = new File(aktPfad.getCanonicalPath() + "\\" + eingabe);
+        		File erg = new File(pfadAlt.getCanonicalPath() + "\\" + eingabe);
         		if(erg.exists() && erg.isDirectory()){
                     return erg;
                 }
                 else {
                 	System.out.println("Verzeichnis existiert nicht!");
-                	return aktPfad;
+                	return pfadAlt;
                 }
         	}
         	else if (HilfUI.isMac()) {
-        		File erg = new File(aktPfad.getCanonicalPath() + "/" + eingabe);
+        		File erg = new File(pfadAlt.getCanonicalPath() + "/" + eingabe);
         		if(erg.exists() && erg.isDirectory()){
                     return erg;
                 }
                 else {
                 	System.out.println("Verzeichnis existiert nicht!");
-                	return aktPfad;
+                	return pfadAlt;
                 }
         	}
         }
-		return aktPfad;
+		return pfadAlt;
     }
 	
-	public void dir(File aktPfad) throws IOException {
+	/**
+	 * Auflistung aller Dateien in dem aktuellen Ordner
+	 * wird mittels BasicFileAttributes erreicht
+	 * 
+	 * @param pfad aktueller Pfad, wessen Inhalt aufgelistet werden soll
+	 * 
+	 * @throws IOException
+	 */
+	public void dir(File pfad) throws IOException {
         
 		System.out.println("Aufruf von dir");
         
-        for (final File file : aktPfad.listFiles()) {
+        for (final File file : pfad.listFiles()) {
         	Path fileNew = file.toPath();
         	BasicFileAttributes attr = Files.readAttributes(fileNew, BasicFileAttributes.class);
         	if (file.isDirectory()) {
@@ -140,6 +163,12 @@ public class DateiEinlesenlUI {
         }
 	}
 	
+	/**
+	 * Auflistung der Informationen einer Datei
+	 * 
+	 * @param file Pfad zu der Datei
+	 * @param eingabe Name der Datei
+	 */
 	public void info(Path file, String eingabe) {
 		System.out.println("Aufruf von info mit dem Parameter " + eingabe);
 		try {
@@ -169,11 +198,6 @@ public class DateiEinlesenlUI {
 			System.out.println("Datei konnte nicht geladen werden! (Stellen Sie sicher, dass Sie den gesamten Namen inkl. Dateierweiterung eingegeben haben)\nFehlercode: " + e);
 		}
 	}
-	
-	//public static void save(Path file, String name) {
-	//	System.out.println("Aufruf von save mit dem Parameter " + name);
-	//	ServiceLocator.getInstance().getDateienContainer().hochladeDatei(file, name);
-	//}
 	
 	public Path getPath() {
 		return file;

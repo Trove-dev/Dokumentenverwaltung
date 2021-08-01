@@ -1,27 +1,33 @@
 package Datei;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileOwnerAttributeView;
-import java.nio.file.spi.FileTypeDetector;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 import Tag.Tag;
-import Tag.TagsContainerInterface;
-import UI.TagUI;
+import UI.HilfUI;
 
+/**
+ * Der DateinenContainer dient zur Verwaltung von Dateien
+ * z.B. Hochladen oder Entfernen von Dateien
+ * Die Dateien werden in einer ArrayList<Datei> abgespeichert
+ * 
+ */
 public class DateienContainer implements DateienContainerInterface, Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private static DateienContainer uniqueInstance = null;
 	private ArrayList<Datei> dateienListe = new ArrayList<>();
 	
+	/**
+	 * Konstruktor und Singleton
+	 */
 	private DateienContainer() {
 	}
 	public static DateienContainer getInstance() {
@@ -31,6 +37,19 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		return uniqueInstance;
 	}
 	
+	/**
+	 * Methode zum hochladen von neuen Dateien
+	 * Dabei wird ein neues Objekt vom Typ Datei erzeugt und in die ArrayList dateinenListe hinzugefügt
+	 * Eception, um Abstürze bei korrupten/nicht vorhandenen Dateien zu verhindern
+	 * 
+	 * BasicFileAttributes:		liest die Metadaten von Daten aus
+	 * FileOwnerAttributeView:	kann den Ersteller von einer Datei auslesen
+	 * 
+	 * @param file der Dateipfad zu der Datei
+	 * @param name Name der zu speicherden Datei
+	 * 
+	 * @return Erfolgreich oder Fehlgeschlagen
+	 */
 	public boolean hochladeDatei(Path file, String name) {
 		try {
 			BasicFileAttributes a = Files.readAttributes(file, BasicFileAttributes.class);
@@ -47,8 +66,8 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 				}
 				else {
 					String tmpOwner = b.getOwner().toString();
-					String tmpCreationTime = a.creationTime().toString();
-					String tmpLastModiefiedTime = a.lastModifiedTime().toString();
+					String tmpCreationTime = HilfUI.fileTime(a.creationTime());
+					String tmpLastModiefiedTime = HilfUI.fileTime(a.lastModifiedTime());
 					String tmpfile = file.toString();
 					Datei tmp = new Datei(name, tmpOwner, tmpCreationTime, tmpLastModiefiedTime, extension ,a.size(), tmpfile);
 					dateienListe.add(tmp);
@@ -60,12 +79,20 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 				return false;
 			}
 		}
-		catch(IOException e) {
-			System.out.println("\nDatei konnte nicht geladen werden! (Nicht vorhanden oder korrupt)");
+		catch(Exception e) {
+			System.out.println("\nDatei konnte nicht geladen werden! (Nicht vorhanden oder korrupt)\n Fehlercode: " + e);
 			return false;
 		}
 	}
 	
+	/**
+	 * Lädt ein schon vorhandenes Objekt vom Typ Datei hoch und fügt es zur ArrayList hinzu
+	 * Wird verwendet, um ein wiederherstellen aus dem Papierkorb zu ermöglichen
+	 * 
+	 * @param datei Datei, welches wieder in die dateienListe hinzugefügt werden soll
+	 * 
+	 * @return Erfolgreich oder Fehlgeschlagen
+	 */
 	public boolean hochladeObjekt(Datei datei) {
 		try {
 			if (dublikatFinden(Paths.get(datei.getDateiPfad())) == true) {
@@ -87,12 +114,9 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		}
 	}
 	
-	public void zeigeAlleDateien() {
-		for(Datei a:dateienListe) {
-			System.out.println(a);
-		}
-	}
-	
+	/**
+	 * Ausgabe aller Dateien in der Konsole
+	 */
 	public void zeigeAlleDateienDetails() {
 		for(Datei a:dateienListe) {
 			a.anzeigeDateiDetail();
@@ -100,6 +124,11 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		System.out.println();
 	}
 	
+	/**
+	 * Gibt die Liste mit allen Dateiobjekten aus
+	 * 
+	 * @return Liste mit allesn Dateiobjekten wird zurückgegeben
+	 */
 	public ArrayList<Datei> getAlleDateien(){
 		if (dateienListe.isEmpty() == true) {
 			return null;
@@ -109,6 +138,14 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		}
 	}
 	
+	/**
+	 * Dient beim Hochladen zum Untersuchen, ob die Datei bereits im System gespeichert wurde
+	 * dabei werden die Dateipfade verglichen
+	 * 
+	 * @param file Eingabedateipfad
+	 * 
+	 * @return handelt sich bei file um ein Dublikat?
+	 */
 	private boolean dublikatFinden(Path file) {
 		for (Datei a:dateienListe) {
 			if (a.getDateiPfad().equals(file.toString())) {
@@ -118,8 +155,15 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		return false;
 	}
 	
-	
-	private ArrayList<Datei> dublikatEntfernen(ArrayList<Datei> inputList) {	//Dublikate entfernen
+	/**
+	 * Dublikate werden entfernt. Es werden alle Elemente a in die results ArrayList geschrieben, 
+	 * wenn diese nicht dort bereits vorhanden sind
+	 * 
+	 * @param inputList ausgefüllte Liste mit möglichen Dublikaten
+	 * 
+	 * @return Liste, aus der die Dubliakte entfernt wurden
+	 */
+	private ArrayList<Datei> dublikatEntfernen(ArrayList<Datei> inputList) {
 		ArrayList <Datei> results = new ArrayList<>();
 		for (Datei a : inputList) {
 			if (!results.contains(a)) {
@@ -129,6 +173,13 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		return results;
 	}
 	
+	/**
+	 * Suchfunktion, welche es ermöglicht nach Dateien zu suchen, welche gemeinsame Tags enthalten
+	 * Es können mehrere Tags angegeben werden
+	 * 
+	 * @param tagsNames Liste mit den Tags, nach welchen gesucht werden soll
+	 * 
+	 */
 	@Override
 	public void sucheDateiTags(ArrayList<String> tagsNames) {                
 		ArrayList<Datei> tmp = new ArrayList<>();		
@@ -151,9 +202,10 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 					break;
 				}
 			}
-			if(isTrue) tmp.add(d);
+			if(isTrue) {
+				tmp.add(d);
+			}
 		}
-		
 		if(!tmp.isEmpty()) {
 			String tags = "";
 			for(String t:tagsNames) tags = tags + t + "  ";
@@ -162,9 +214,17 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 			for(Datei dat:tmp) {
 				dat.anzeigeDateiDetail();
 			}
-		}else System.out.println("Es wurde keine Dateien gefunden\n");
+		}
+		else System.out.println("Es wurde keine Dateien gefunden\n");
 	}
 	
+	/**
+	 * Überprüfen nach einer Datei mit spezifierten Namen
+	 * 
+	 * @param name Name, nach dem gesucht werden soll
+	 * 
+	 * @return Dateiobjekt, welches zu dem Namen name gepasst hat
+	 */
 	public Datei checkFile(String name) {
 		for (Datei a:dateienListe) {
 			if(a.getName().compareTo(name) == 0) {
@@ -173,6 +233,13 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 		}
 		return null;
 	}
+	
+	/**
+	 * Suchfunktion, welche nach Namen, Tags, Dateityp, verlinketen Dateien und Kommentaren sucht
+	 * Dann wird die neue ArrayList von Dublikaten befreit und ausgegeben
+	 * 
+	 * @param suchWort Wort, nach dem gesucht werden soll
+	 */
 	public void sucheDatei(String suchWort) {
 		ArrayList <Datei> tmp = new ArrayList<>();
 		for (Datei a:dateienListe) {				//Suche nach Namen
@@ -180,10 +247,10 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 				tmp.add(a);
 			}
 		}
-		for (Datei b:dateienListe) {
+		for (Datei b:dateienListe) {	//Suche nach Tag
 			if(b.getTags() != null) {
 				for (Tag t:b.getTags()) {
-					if (t.getKey().contains(suchWort)) {	//Suche nach Tag
+					if (t.getKey().contains(suchWort)) {
 						tmp.add(b);
 					}
 				}
@@ -203,7 +270,7 @@ public class DateienContainer implements DateienContainerInterface, Serializable
 					}
 			}
 		}
-		for(Datei f:dateienListe) {
+		for(Datei f:dateienListe) {			//Suche nach Kommentaren
 			if(f.getKommentar() != null && f.getKommentar().contains(suchWort))
 				tmp.add(f);
 		}
