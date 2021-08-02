@@ -44,7 +44,7 @@ public DateiUIDeleteDatei(DateienContainerInterface dci, Papierkorb p) {
 		}else {
 			Scanner s = new Scanner(System.in);
 			dci.zeigeAlleDateienDetails();
-			while (true) {
+			while (true && erfolg == false) {
 				System.out.print("Welche Datei möchten Sie löschen? (exit zum beenden): ");
 				String dateiName = s.nextLine();
 				if (dateiName.equals("exit")) {
@@ -55,16 +55,15 @@ public DateiUIDeleteDatei(DateienContainerInterface dci, Papierkorb p) {
 				}
 				else {
 					Iterator<Datei> it = dci.getAlleDateien().iterator();
-					while (it.hasNext()) {
+					while (it.hasNext() && erfolg == false) {
 						Datei datei = it.next();
 						if (datei.getName().equals(dateiName)) {
 							p.hochladeDateiPapierkorb(datei);
 							it.remove();
-							erfolg = true;
 							System.out.println("\nDatei mit dem Namen: " + dateiName + " wurde erfolgreich entfernt!");
 							HilfUI.promtEnterKey();
 							HilfUI.printBefehleControllerUIClear();
-							break;
+							erfolg = true;
 						}
 					}
 					if (erfolg == false) {
